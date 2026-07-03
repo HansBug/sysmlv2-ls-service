@@ -18,13 +18,13 @@ importers:
         specifier: ~1.2.0
         version: 1.2.0
       syside-base:
-        specifier: file:upstream/sysml-2ls/packages/syside-base
+        specifier: workspace:*
         version: link:upstream/sysml-2ls/packages/syside-base
       syside-languageserver:
-        specifier: file:upstream/sysml-2ls/packages/syside-languageserver
-        version: file:upstream/sysml-2ls/packages/syside-languageserver
+        specifier: workspace:*
+        version: link:upstream/sysml-2ls/packages/syside-languageserver
       syside-protocol:
-        specifier: file:upstream/sysml-2ls/packages/syside-protocol
+        specifier: workspace:*
         version: link:upstream/sysml-2ls/packages/syside-protocol
       vscode-languageserver:
         specifier: ~8.0.2
@@ -2195,10 +2195,6 @@ packages:
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
-
-  syside-languageserver@file:upstream/sysml-2ls/packages/syside-languageserver:
-    resolution: {directory: upstream/sysml-2ls/packages/syside-languageserver, type: directory}
-    hasBin: true
 
   test-exclude@6.0.0:
     resolution: {integrity: sha512-cAGWPIyOHU6zlmg88jwm7VRyXnMN7iV68OGAbYDk/Mh/xC/pzVPlQtY6ngoIH/5/tciuhGfvESU8GrHrcxD56w==}
@@ -4438,21 +4434,6 @@ snapshots:
       has-flag: 4.0.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
-
-  syside-languageserver@file:upstream/sysml-2ls/packages/syside-languageserver:
-    dependencies:
-      chevrotain: 9.1.0
-      commander: 10.0.1
-      langium: 1.2.0
-      node-fetch: 3.3.2
-      performance-now: 2.1.0
-      string-width: 6.1.0
-      syside-base: link:upstream/sysml-2ls/packages/syside-base
-      syside-protocol: link:upstream/sysml-2ls/packages/syside-protocol
-      ts-mixer: 6.0.4
-      vscode-languageserver: 8.0.2
-      vscode-languageserver-textdocument: 1.0.13
-      vscode-uri: 3.0.7
 
   test-exclude@6.0.0:
     dependencies:
