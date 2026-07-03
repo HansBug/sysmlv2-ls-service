@@ -7,6 +7,7 @@ import {
   validateRequestSchema
 } from "./contracts.js";
 import { validateSysML } from "./sysml-validator.js";
+import { makeDocumentUriKey } from "./uri.js";
 
 export interface AppOptions {
   logger?: boolean;
@@ -23,6 +24,23 @@ function getErrorStatusCode(error: unknown): number {
     return error.statusCode;
   }
   return 500;
+}
+
+function rejectDuplicateDocumentUris(payload: ReturnType<typeof validateRequestSchema.parse>): void {
+  const seenUris = new Set<string>();
+  payload.files.forEach((file, index) => {
+    const documentUri = makeDocumentUriKey(file, index);
+    if (seenUris.has(documentUri)) {
+      throw new ZodError([
+        {
+          code: "custom",
+          path: ["files", index, "uri"],
+          message: `Duplicate canonical file URI: ${documentUri}`
+        }
+      ]);
+    }
+    seenUris.add(documentUri);
+  });
 }
 
 export async function buildApp(options: AppOptions = {}): Promise<FastifyInstance> {
@@ -82,6 +100,7 @@ export async function buildApp(options: AppOptions = {}): Promise<FastifyInstanc
 
   app.post("/v1/validate", async (request) => {
     const payload = validateRequestSchema.parse(request.body);
+    rejectDuplicateDocumentUris(payload);
     return validateSysML(payload);
   });
 

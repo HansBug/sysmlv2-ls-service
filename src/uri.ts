@@ -15,3 +15,7 @@ export function makeDocumentUri(file: SysMLFileInput, index: number): VscodeUri 
   const language = inferLanguage(file);
   return URI.parse(`memory:///workspace/input-${index}.${language}`);
 }
+
+export function makeDocumentUriKey(file: SysMLFileInput, index: number): string {
+  return makeDocumentUri(file, index).toString();
+}

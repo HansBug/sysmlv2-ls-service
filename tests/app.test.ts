@@ -48,6 +48,22 @@ describe("HTTP API", () => {
     expect(response.json()).toMatchObject({ error: "bad_request" });
   });
 
+  it("rejects canonically duplicate file URIs", async () => {
+    const response = await app.inject({
+      method: "POST",
+      url: "/v1/validate",
+      payload: {
+        files: [
+          { uri: "memory:///same.sysml", text: "package A {}" },
+          { uri: "memory:/same.sysml", text: "package B {}" }
+        ]
+      }
+    });
+
+    expect(response.statusCode).toBe(400);
+    expect(response.json()).toMatchObject({ error: "bad_request" });
+  });
+
   it("rejects malformed request bodies", async () => {
     const response = await app.inject({
       method: "POST",
