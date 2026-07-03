@@ -22,7 +22,7 @@
     "ci": "pnpm run typecheck && pnpm run lint && pnpm run test && pnpm run build && pnpm run smoke:start"
   },
   "dependencies": {
-    "@fastify/cors": "^10.0.1",
+    "@fastify/cors": "^11.2.0",
     "fastify": "^5.2.0",
     "langium": "~1.2.0",
     "syside-base": "workspace:*",
