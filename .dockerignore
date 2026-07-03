@@ -1,0 +1,10 @@
+.git/
+.github/
+node_modules/
+dist/
+coverage/
+tmp/
+*.log
+upstream/sysml-2ls/node_modules/
+upstream/sysml-2ls/packages/**/node_modules/
+upstream/sysml-2ls/packages/**/coverage/

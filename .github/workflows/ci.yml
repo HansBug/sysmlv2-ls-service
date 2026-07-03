@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
+
+      - name: Install root dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build upstream sysml-2ls
+        run: pnpm run build:upstream
+
+      - name: Run checks
+        run: pnpm run ci
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build Docker image
+        run: docker build -t sysmlv2-ls-service:ci .
+
+      - name: Smoke test Docker image
+        run: |
+          set -euo pipefail
+          docker run -d --rm --name sysmlv2-ls-service-ci -p 3000:3000 sysmlv2-ls-service:ci
+          cleanup() {
+            docker stop sysmlv2-ls-service-ci >/dev/null 2>&1 || true
+          }
+          trap cleanup EXIT
+          for i in $(seq 1 30); do
+            if curl --noproxy '*' -fsS http://127.0.0.1:3000/healthz; then
+              break
+            fi
+            if [ "$i" = 30 ]; then
+              docker logs sysmlv2-ls-service-ci
+              exit 1
+            fi
+            sleep 1
+          done
+          curl --noproxy '*' -fsS -X POST http://127.0.0.1:3000/v1/validate \
+            -H 'content-type: application/json' \
+            --data '{"files":[{"uri":"memory:///demo.sysml","text":"package Demo { part def Vehicle; }"}]}' \
+            | tee /tmp/validate.json
+          grep -q '"ok":true' /tmp/validate.json

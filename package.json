@@ -1,0 +1,51 @@
+{
+  "name": "sysmlv2-ls-service",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Docker-ready SysML v2 validation microservice built on the sysml-2ls language server core.",
+  "type": "module",
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build:upstream": "pnpm --dir upstream/sysml-2ls/packages/syside-languageserver run grammar:generate && pnpm --filter syside-base --filter syside-protocol --filter syside-languageserver run build",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/src/server.js",
+    "dev": "tsx watch src/server.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "smoke:start": "node scripts/smoke-start.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "ci": "pnpm run typecheck && pnpm run lint && pnpm run test && pnpm run build && pnpm run smoke:start"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.1",
+    "fastify": "^5.2.0",
+    "langium": "~1.2.0",
+    "syside-base": "file:upstream/sysml-2ls/packages/syside-base",
+    "syside-languageserver": "file:upstream/sysml-2ls/packages/syside-languageserver",
+    "syside-protocol": "file:upstream/sysml-2ls/packages/syside-protocol",
+    "vscode-languageserver": "~8.0.2",
+    "vscode-uri": "3.0.7",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@jest/expect-utils": "^29.4.3",
+    "@jest/globals": "^29.4.3",
+    "@types/node": "^20.19.0",
+    "concurrently": "^8.0.1",
+    "esbuild": "^0.17.10",
+    "eslint": "^9.17.0",
+    "expect": "^29.4.3",
+    "jest-matcher-utils": "^29.4.3",
+    "jest-snapshot": "^29.5.0",
+    "shx": "^0.3.4",
+    "tsx": "^4.19.2",
+    "typescript": "5.1.3",
+    "typescript-eslint": "^8.18.2",
+    "vitest": "^2.1.8"
+  }
+}

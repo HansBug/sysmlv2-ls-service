@@ -1,0 +1,3 @@
+[submodule "upstream/sysml-2ls"]
+	path = upstream/sysml-2ls
+	url = https://github.com/sensmetry/sysml-2ls

@@ -1,0 +1,15 @@
+packages:
+  - "."
+  - "upstream/sysml-2ls/packages/syside-base"
+  - "upstream/sysml-2ls/packages/syside-languageclient"
+  - "upstream/sysml-2ls/packages/syside-protocol"
+  - "upstream/sysml-2ls/packages/syside-languageserver"
+
+onlyBuiltDependencies:
+  - "@swc/core"
+  - esbuild
+  - keytar
+allowBuilds:
+  '@swc/core': true
+  esbuild: true
+  keytar: true
