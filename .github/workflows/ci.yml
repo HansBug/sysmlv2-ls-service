@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20.19
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -68,6 +68,10 @@ jobs:
             --data '{"files":[{"uri":"memory:///demo.sysml","text":"package Demo { part def Vehicle; }"}]}' \
             | tee /tmp/validate.json
           grep -q '"ok":true' /tmp/validate.json
+          curl --noproxy '*' -fsS http://127.0.0.1:3000/v1/version \
+            | tee /tmp/version.json
+          grep -q '"version":"0.9.1"' /tmp/version.json
+          grep -q '"repository":"https://github.com/sensmetry/sysml-2ls"' /tmp/version.json
           curl --noproxy '*' -fsS -X POST http://127.0.0.1:3000/v1/validate \
             -H 'content-type: application/json' \
             --data '{"files":[{"uri":"memory:///bad.sysml","text":"package Demo { part def }"}],"validationChecks":"none"}' \

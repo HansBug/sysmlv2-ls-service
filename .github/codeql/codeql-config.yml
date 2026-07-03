@@ -1,0 +1,12 @@
+name: sysmlv2-ls-service-codeql
+
+paths:
+  - src
+  - scripts
+  - tests
+  - examples
+
+paths-ignore:
+  - upstream/**
+  - dist/**
+  - node_modules/**

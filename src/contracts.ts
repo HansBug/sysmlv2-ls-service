@@ -107,6 +107,27 @@ export interface HealthResponse {
   version: string;
 }
 
+export interface VersionResponse {
+  service: {
+    name: string;
+    version: string;
+    revision: string;
+    sourceRepository: string;
+  };
+  upstream: {
+    sysml2ls: {
+      version: string;
+      revision: string;
+      packageName: string;
+      repository: string;
+    };
+  };
+  build: {
+    date: string;
+    nodeVersion: string;
+  };
+}
+
 export interface CapabilitiesResponse {
   languages: Array<{
     id: "sysml" | "kerml";

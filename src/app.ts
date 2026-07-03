@@ -4,10 +4,12 @@ import { ZodError } from "zod";
 import {
   type CapabilitiesResponse,
   type HealthResponse,
+  type VersionResponse,
   validateRequestSchema
 } from "./contracts.js";
 import { validateSysML } from "./sysml-validator.js";
 import { makeDocumentUriKey } from "./uri.js";
+import { getVersionInfo } from "./version.js";
 
 export interface AppOptions {
   logger?: boolean;
@@ -71,7 +73,12 @@ export async function buildApp(options: AppOptions = {}): Promise<FastifyInstanc
       app.log.warn(error);
     }
 
-    const message = error instanceof Error ? error.message : "Unknown error";
+    const message =
+      statusCode >= 500
+        ? "Internal server error."
+        : error instanceof Error
+          ? error.message
+          : "Unknown error";
     reply.status(statusCode).send({
       error:
         statusCode === 413
@@ -83,11 +90,14 @@ export async function buildApp(options: AppOptions = {}): Promise<FastifyInstanc
     });
   });
 
-  app.get("/healthz", async (): Promise<HealthResponse> => ({
-    ok: true,
-    service: "sysmlv2-ls-service",
-    version: "0.1.0"
-  }));
+  app.get("/healthz", async (): Promise<HealthResponse> => {
+    const version = getVersionInfo();
+    return {
+      ok: true,
+      service: version.service.name,
+      version: version.service.version
+    };
+  });
 
   app.get("/v1/capabilities", async (): Promise<CapabilitiesResponse> => ({
     languages: [
@@ -97,6 +107,8 @@ export async function buildApp(options: AppOptions = {}): Promise<FastifyInstanc
     validationChecks: ["all", "none"],
     standardLibrary: ["none"]
   }));
+
+  app.get("/v1/version", async (): Promise<VersionResponse> => getVersionInfo());
 
   app.post("/v1/validate", async (request) => {
     const payload = validateRequestSchema.parse(request.body);

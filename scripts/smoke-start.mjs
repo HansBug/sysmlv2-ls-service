@@ -44,6 +44,18 @@ try {
   if (body.ok !== true || body.service !== "sysmlv2-ls-service") {
     throw new Error(`unexpected health response: ${JSON.stringify(body)}`);
   }
+
+  const versionResponse = await fetch(`http://127.0.0.1:${port}/v1/version`);
+  if (!versionResponse.ok) {
+    throw new Error(`version endpoint failed with ${versionResponse.status}\n${output}`);
+  }
+  const versionBody = await versionResponse.json();
+  if (
+    versionBody.service?.name !== "sysmlv2-ls-service" ||
+    versionBody.upstream?.sysml2ls?.packageName !== "syside-languageserver"
+  ) {
+    throw new Error(`unexpected version response: ${JSON.stringify(versionBody)}`);
+  }
 } finally {
   await stop();
 }

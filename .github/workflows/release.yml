@@ -1,0 +1,136 @@
+name: Release Docker Image
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      push_image:
+        description: "Push images to configured registries"
+        required: true
+        type: boolean
+        default: false
+      publish_dockerhub:
+        description: "Also publish to Docker Hub"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  GHCR_IMAGE: ghcr.io/hansbug/sysmlv2-ls-service
+  DOCKERHUB_IMAGE: docker.io/${{ vars.DOCKERHUB_NAMESPACE }}/sysmlv2-ls-service
+  UPSTREAM_REPOSITORY: https://github.com/sensmetry/sysml-2ls
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Compute version metadata
+        id: version
+        run: |
+          echo "service_version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+          echo "service_revision=${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+          echo "upstream_version=$(node -p "require('./upstream/sysml-2ls/packages/syside-languageserver/package.json').version")" >> "$GITHUB_OUTPUT"
+          echo "upstream_revision=$(git -C upstream/sysml-2ls rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "build_date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_OUTPUT"
+          echo "source_repository=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" >> "$GITHUB_OUTPUT"
+
+      - name: Validate release tag
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        run: |
+          expected="v${{ steps.version.outputs.service_version }}"
+          if [ "$GITHUB_REF_NAME" != "$expected" ]; then
+            echo "Release tag $GITHUB_REF_NAME does not match package version $expected" >&2
+            exit 1
+          fi
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Login to GHCR
+        if: ${{ github.event_name == 'push' || inputs.push_image }}
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate Docker Hub configuration
+        if: ${{ (github.event_name == 'push' && vars.PUBLISH_DOCKERHUB_ON_TAG == 'true') || inputs.publish_dockerhub }}
+        env:
+          DOCKERHUB_NAMESPACE: ${{ vars.DOCKERHUB_NAMESPACE }}
+          DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          test -n "$DOCKERHUB_NAMESPACE"
+          test -n "$DOCKERHUB_USERNAME"
+          test -n "$DOCKERHUB_TOKEN"
+
+      - name: Login to Docker Hub
+        if: ${{ (github.event_name == 'push' && vars.PUBLISH_DOCKERHUB_ON_TAG == 'true') || inputs.publish_dockerhub }}
+        uses: docker/login-action@v4
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: GHCR metadata
+        id: ghcr-meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ${{ env.GHCR_IMAGE }}
+          tags: |
+            type=ref,event=tag
+            type=sha,prefix=sha-
+            type=raw,value=latest,enable=${{ startsWith(github.ref, 'refs/tags/v') }}
+
+      - name: Build and optionally push GHCR image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: ${{ github.event_name == 'push' || inputs.push_image }}
+          tags: ${{ steps.ghcr-meta.outputs.tags }}
+          build-args: |
+            SERVICE_VERSION=${{ steps.version.outputs.service_version }}
+            SERVICE_REVISION=${{ steps.version.outputs.service_revision }}
+            SOURCE_REPOSITORY=${{ steps.version.outputs.source_repository }}
+            UPSTREAM_SYSML_2LS_VERSION=${{ steps.version.outputs.upstream_version }}
+            UPSTREAM_SYSML_2LS_REVISION=${{ steps.version.outputs.upstream_revision }}
+            UPSTREAM_SYSML_2LS_REPOSITORY=${{ env.UPSTREAM_REPOSITORY }}
+            BUILD_DATE=${{ steps.version.outputs.build_date }}
+
+      - name: Docker Hub metadata
+        if: ${{ (github.event_name == 'push' && vars.PUBLISH_DOCKERHUB_ON_TAG == 'true') || inputs.publish_dockerhub }}
+        id: dockerhub-meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ${{ env.DOCKERHUB_IMAGE }}
+          tags: |
+            type=ref,event=tag
+            type=sha,prefix=sha-
+            type=raw,value=latest,enable=${{ startsWith(github.ref, 'refs/tags/v') }}
+
+      - name: Build and push Docker Hub image
+        if: ${{ (github.event_name == 'push' && vars.PUBLISH_DOCKERHUB_ON_TAG == 'true') || inputs.publish_dockerhub }}
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.dockerhub-meta.outputs.tags }}
+          build-args: |
+            SERVICE_VERSION=${{ steps.version.outputs.service_version }}
+            SERVICE_REVISION=${{ steps.version.outputs.service_revision }}
+            SOURCE_REPOSITORY=${{ steps.version.outputs.source_repository }}
+            UPSTREAM_SYSML_2LS_VERSION=${{ steps.version.outputs.upstream_version }}
+            UPSTREAM_SYSML_2LS_REVISION=${{ steps.version.outputs.upstream_revision }}
+            UPSTREAM_SYSML_2LS_REPOSITORY=${{ env.UPSTREAM_REPOSITORY }}
+            BUILD_DATE=${{ steps.version.outputs.build_date }}
