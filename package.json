@@ -42,7 +42,7 @@
     "eslint": "^10.6.0",
     "expect": "^29.4.3",
     "jest-matcher-utils": "^29.4.3",
-    "jest-snapshot": "^29.5.0",
+    "jest-snapshot": "^30.4.1",
     "shx": "^0.3.4",
     "tsx": "^4.23.0",
     "typescript": "5.1.3",
