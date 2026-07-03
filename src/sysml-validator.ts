@@ -14,13 +14,13 @@ import type {
 import { normalizeDiagnostic } from "./diagnostics.js";
 import { inferLanguage, makeDocumentUri } from "./uri.js";
 
-function makeConfig(_request: ValidateRequest): Partial<SysMLConfig> {
+function makeConfig(): Partial<SysMLConfig> {
   return {
     standardLibrary: false,
     skipWorkspaceInit: true,
     logStatistics: false,
     defaultBuildOptions: {
-      standalone: true,
+      standalone: false,
       standardLibrary: "none",
       validationChecks: "all",
       ignoreMetamodelErrors: false
@@ -30,7 +30,7 @@ function makeConfig(_request: ValidateRequest): Partial<SysMLConfig> {
 
 export async function validateSysML(request: ValidateRequest): Promise<ValidateResponse> {
   const start = performance.now();
-  const services = createSysMLServices(SysMLNodeFileSystem, makeConfig(request));
+  const services = createSysMLServices(SysMLNodeFileSystem, makeConfig());
   const factory = services.shared.workspace.LangiumDocumentFactory;
   const documents: Array<LangiumDocument<ast.Namespace>> = request.files.map((file, index) => {
     const uri = makeDocumentUri(file, index);
@@ -38,7 +38,7 @@ export async function validateSysML(request: ValidateRequest): Promise<ValidateR
   });
 
   const buildOptions = {
-    standalone: true,
+    standalone: request.files.length === 1,
     validationChecks: request.validationChecks,
     standardLibrary: request.standardLibrary
   } as const;
@@ -47,8 +47,9 @@ export async function validateSysML(request: ValidateRequest): Promise<ValidateR
 
   const summaries: FileValidationSummary[] = [];
   const diagnostics = documents.flatMap((document, index) => {
-    const language = inferLanguage(request.files[index]);
-    const uri = document.uri.toString();
+    const file = request.files[index];
+    const language = inferLanguage(file);
+    const uri = file.uri ?? document.uri.toString();
     const parserErrors = document.parseResult.parserErrors.length;
     const lexerErrors = document.parseResult.lexerErrors.length;
     const normalized = (document.diagnostics ?? []).map((diagnostic) =>
@@ -63,9 +64,13 @@ export async function validateSysML(request: ValidateRequest): Promise<ValidateR
     });
     return normalized;
   });
+  const hasParseOrLexErrors = summaries.some(
+    (summary) => summary.parserErrors > 0 || summary.lexerErrors > 0
+  );
+  const hasErrorDiagnostics = diagnostics.some((diagnostic) => diagnostic.severity === "error");
 
   return {
-    ok: diagnostics.every((diagnostic) => diagnostic.severity !== "error"),
+    ok: !hasParseOrLexErrors && !hasErrorDiagnostics,
     diagnostics,
     files: summaries,
     meta: {

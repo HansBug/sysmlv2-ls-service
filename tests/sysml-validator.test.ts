@@ -39,6 +39,58 @@ describe("validateSysML", () => {
     });
   });
 
+  it("marks syntax failures as not ok when validation checks are disabled", async () => {
+    const result = await validateSysML({
+      files: [
+        {
+          uri: "memory:///bad.sysml",
+          text: "garbage!!!"
+        }
+      ],
+      standardLibrary: "none",
+      validationChecks: "none"
+    });
+
+    expect(result.ok).toBe(false);
+    expect(result.files[0]?.parserErrors).toBeGreaterThan(0);
+  });
+
+  it("preserves caller URIs in file summaries and diagnostics", async () => {
+    const result = await validateSysML({
+      files: [
+        {
+          uri: "memory:///bad.sysml",
+          text: "package Demo { part def }"
+        }
+      ],
+      standardLibrary: "none",
+      validationChecks: "all"
+    });
+
+    expect(result.files[0]?.uri).toBe("memory:///bad.sysml");
+    expect(result.diagnostics[0]?.uri).toBe("memory:///bad.sysml");
+  });
+
+  it("resolves references across files in one request", async () => {
+    const result = await validateSysML({
+      files: [
+        {
+          uri: "memory:///lib.sysml",
+          text: "package Lib { part def Base; }"
+        },
+        {
+          uri: "memory:///use.sysml",
+          text: "package Use { public import Lib::*; part base : Base; }"
+        }
+      ],
+      standardLibrary: "none",
+      validationChecks: "all"
+    });
+
+    expect(result.ok).toBe(true);
+    expect(result.diagnostics).toEqual([]);
+  });
+
   it("accepts a simple KerML package", async () => {
     const result = await validateSysML({
       files: [

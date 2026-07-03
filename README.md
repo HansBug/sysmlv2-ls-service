@@ -26,6 +26,10 @@ Planned API:
 This service performs syntax/linking/semantic validation available through
 `sysml-2ls`. It is not, by itself, a formal model checker.
 
+Files in one validation request are built as a single request-local workspace, so
+imports between submitted files can resolve. Requests are isolated from each
+other.
+
 ## Repository Layout
 
 ```text
@@ -109,6 +113,16 @@ curl -fsS http://localhost:3000/healthz
   "validationChecks": "all"
 }
 ```
+
+Limits:
+
+- Maximum files per request: 64
+- Maximum text per file: 512 KiB
+- Maximum total text per request: 1 MiB
+- Duplicate `uri`/`path` values are rejected
+
+`validationChecks: "none"` skips semantic checks only. Lexer and parser failures
+still return `ok: false`.
 
 Response:
 

@@ -32,6 +32,22 @@ describe("HTTP API", () => {
     expect(response.json()).toMatchObject({ ok: true, diagnostics: [] });
   });
 
+  it("rejects duplicate file URIs", async () => {
+    const response = await app.inject({
+      method: "POST",
+      url: "/v1/validate",
+      payload: {
+        files: [
+          { uri: "memory:///same.sysml", text: "package A {}" },
+          { uri: "memory:///same.sysml", text: "package B {}" }
+        ]
+      }
+    });
+
+    expect(response.statusCode).toBe(400);
+    expect(response.json()).toMatchObject({ error: "bad_request" });
+  });
+
   it("rejects malformed request bodies", async () => {
     const response = await app.inject({
       method: "POST",
@@ -41,5 +57,29 @@ describe("HTTP API", () => {
 
     expect(response.statusCode).toBe(400);
     expect(response.json()).toMatchObject({ error: "bad_request" });
+  });
+
+  it("maps invalid JSON to a client error", async () => {
+    const response = await app.inject({
+      method: "POST",
+      url: "/v1/validate",
+      headers: { "content-type": "application/json" },
+      payload: "not-json"
+    });
+
+    expect(response.statusCode).toBe(400);
+    expect(response.json()).toMatchObject({ error: "bad_request" });
+  });
+
+  it("maps oversized bodies to payload-too-large", async () => {
+    const response = await app.inject({
+      method: "POST",
+      url: "/v1/validate",
+      headers: { "content-type": "application/json" },
+      payload: JSON.stringify({ files: [{ text: "x".repeat(6 * 1024 * 1024) }] })
+    });
+
+    expect(response.statusCode).toBe(413);
+    expect(response.json()).toMatchObject({ error: "payload_too_large" });
   });
 });

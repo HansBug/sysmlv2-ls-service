@@ -68,3 +68,8 @@ jobs:
             --data '{"files":[{"uri":"memory:///demo.sysml","text":"package Demo { part def Vehicle; }"}]}' \
             | tee /tmp/validate.json
           grep -q '"ok":true' /tmp/validate.json
+          curl --noproxy '*' -fsS -X POST http://127.0.0.1:3000/v1/validate \
+            -H 'content-type: application/json' \
+            --data '{"files":[{"uri":"memory:///bad.sysml","text":"package Demo { part def }"}],"validationChecks":"none"}' \
+            | tee /tmp/invalid.json
+          grep -q '"ok":false' /tmp/invalid.json

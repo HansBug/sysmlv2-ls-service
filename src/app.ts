@@ -12,6 +12,19 @@ export interface AppOptions {
   logger?: boolean;
 }
 
+function getErrorStatusCode(error: unknown): number {
+  if (
+    typeof error === "object" &&
+    error !== null &&
+    "statusCode" in error &&
+    typeof error.statusCode === "number" &&
+    error.statusCode >= 400
+  ) {
+    return error.statusCode;
+  }
+  return 500;
+}
+
 export async function buildApp(options: AppOptions = {}): Promise<FastifyInstance> {
   const app = Fastify({
     logger: options.logger ?? true,
@@ -23,6 +36,8 @@ export async function buildApp(options: AppOptions = {}): Promise<FastifyInstanc
   });
 
   app.setErrorHandler((error, _request, reply) => {
+    const statusCode = getErrorStatusCode(error);
+
     if (error instanceof ZodError) {
       reply.status(400).send({
         error: "bad_request",
@@ -31,10 +46,21 @@ export async function buildApp(options: AppOptions = {}): Promise<FastifyInstanc
       });
       return;
     }
-    app.log.error(error);
+
+    if (statusCode >= 500) {
+      app.log.error(error);
+    } else {
+      app.log.warn(error);
+    }
+
     const message = error instanceof Error ? error.message : "Unknown error";
-    reply.status(500).send({
-      error: "internal_error",
+    reply.status(statusCode).send({
+      error:
+        statusCode === 413
+          ? "payload_too_large"
+          : statusCode < 500
+            ? "bad_request"
+            : "internal_error",
       message
     });
   });
