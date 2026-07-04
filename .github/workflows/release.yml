@@ -28,7 +28,6 @@ permissions:
 
 env:
   GHCR_IMAGE: ghcr.io/hansbug/sysmlv2-ls-service
-  DOCKERHUB_IMAGE: docker.io/${{ vars.DOCKERHUB_NAMESPACE }}/sysmlv2-ls-service
   UPSTREAM_REPOSITORY: https://github.com/sensmetry/sysml-2ls
 
 jobs:
@@ -90,6 +89,7 @@ jobs:
         if: ${{ (github.event_name == 'push' && vars.PUBLISH_DOCKERHUB_ON_TAG == 'true') || inputs.publish_dockerhub || inputs.check_dockerhub_login }}
         uses: docker/login-action@v4
         with:
+          registry: docker.io
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -123,7 +123,7 @@ jobs:
         id: dockerhub-meta
         uses: docker/metadata-action@v6
         with:
-          images: ${{ env.DOCKERHUB_IMAGE }}
+          images: docker.io/${{ vars.DOCKERHUB_NAMESPACE }}/sysmlv2-ls-service
           tags: |
             type=ref,event=tag
             type=sha,prefix=sha-
