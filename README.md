@@ -383,6 +383,7 @@ Triggers:
 | Trigger | GHCR behavior | Docker Hub behavior |
 | --- | --- | --- |
 | `workflow_dispatch` with defaults | Build only, no push | Skipped |
+| `workflow_dispatch` with `check_dockerhub_login=true` | Build only, no push | Login smoke only, no push |
 | `workflow_dispatch` with `push_image=true` | Build and push GHCR | Skipped unless `publish_dockerhub=true` |
 | `push` tag matching `v*` | Build and push GHCR | Push only when `PUBLISH_DOCKERHUB_ON_TAG=true` |
 
@@ -412,7 +413,17 @@ Manual dry-run command after the workflow is on GitHub:
 ```bash
 gh workflow run release.yml --ref main \
   -f push_image=false \
-  -f publish_dockerhub=false
+  -f publish_dockerhub=false \
+  -f check_dockerhub_login=false
+```
+
+Docker Hub secret/variable smoke, without pushing any image:
+
+```bash
+gh workflow run release.yml --ref main \
+  -f push_image=false \
+  -f publish_dockerhub=false \
+  -f check_dockerhub_login=true
 ```
 
 Real GHCR release:
