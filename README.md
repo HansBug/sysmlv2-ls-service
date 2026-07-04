@@ -88,6 +88,21 @@ curl -sS -X POST http://localhost:3000/v1/validate \
 
 ## Docker
 
+Use a published image:
+
+```bash
+docker run --rm -p 3000:3000 ghcr.io/hansbug/sysmlv2-ls-service:0.1.0
+```
+
+or from Docker Hub:
+
+```bash
+docker run --rm -p 3000:3000 hansbug/sysmlv2-ls-service:0.1.0
+```
+
+The release also publishes `v0.1.0`, `latest`, and `sha-<commit>` tags to both
+registries.
+
 Build:
 
 ```bash
@@ -114,6 +129,9 @@ dependencies before copying runtime files.
 
 `GET /v1/version` reports the service revision, upstream `sysml-2ls` revision,
 build date, and runtime Node.js version.
+
+The service version is stored in the repository root `VERSION` file and mirrored
+in `package.json`. Release tags must match `v$(cat VERSION)`.
 
 ```json
 {
@@ -143,7 +161,7 @@ image labels:
 
 ```bash
 docker build -t sysmlv2-ls-service:local \
-  --build-arg SERVICE_VERSION=0.1.0 \
+  --build-arg SERVICE_VERSION="$(cat VERSION)" \
   --build-arg SERVICE_REVISION="$(git rev-parse HEAD)" \
   --build-arg SOURCE_REPOSITORY=https://github.com/HansBug/sysmlv2-ls-service \
   --build-arg UPSTREAM_SYSML_2LS_VERSION="$(node -p 'require("./upstream/sysml-2ls/packages/syside-languageserver/package.json").version')" \
@@ -159,16 +177,17 @@ Relevant image labels:
 | --- | --- |
 | `org.opencontainers.image.source` | Current service repository URL |
 | `org.opencontainers.image.revision` | Current service commit SHA |
-| `org.opencontainers.image.version` | Current service package version |
+| `org.opencontainers.image.version` | Current service version from `VERSION` |
 | `org.opencontainers.image.created` | UTC build timestamp |
 | `io.hansbug.sysmlv2-ls-service.upstream.sysml-2ls.version` | Upstream language-server package version |
 | `io.hansbug.sysmlv2-ls-service.upstream.sysml-2ls.revision` | Pinned upstream submodule commit |
 | `io.hansbug.sysmlv2-ls-service.upstream.sysml-2ls.repository` | Upstream repository URL |
 
-If build args are omitted, `/v1/version` falls back to `package.json` metadata
-inside the runtime image where possible. Unknown placeholder values are treated
-as unset for the API response. OCI labels are only fully populated when the
-corresponding build args are supplied, as the release workflow does.
+If build args are omitted, `/v1/version` falls back to the runtime image's
+`VERSION` file, then `package.json` metadata where possible. Unknown placeholder
+values are treated as unset for the API response. OCI labels are only fully
+populated when the corresponding build args are supplied, as the release
+workflow does.
 
 ## Validation Request
 
@@ -392,12 +411,13 @@ Triggers:
 | --- | --- | --- |
 | `workflow_dispatch` with defaults | Build only, no push | Skipped |
 | `workflow_dispatch` with `check_dockerhub_login=true` | Build only, no push | Login smoke only, no push |
-| `workflow_dispatch` with `push_image=true` | Build and push GHCR | Skipped unless `publish_dockerhub=true` |
+| `workflow_dispatch` with `push_image=true` | Build and push GHCR | Push only when `publish_dockerhub=true` |
 | `push` tag matching `v*` | Build and push GHCR | Push only when `PUBLISH_DOCKERHUB_ON_TAG=true` |
 
-On tag pushes, the workflow fails early unless the tag equals
-`v${package.json.version}`. This prevents publishing an image tagged `v0.2.0`
-while `/v1/version` reports `0.1.0`.
+On tag pushes, the workflow fails early unless the Git tag equals
+`v$(cat VERSION)`. The image is published with both `v0.1.0` and `0.1.0` tags,
+which prevents publishing an image tagged `v0.2.0` while `/v1/version` reports
+`0.1.0`.
 
 Image names:
 
@@ -441,8 +461,8 @@ git tag v0.1.0
 git push origin v0.1.0
 ```
 
-Real Docker Hub release can be done either with manual
-`publish_dockerhub=true` or by setting `PUBLISH_DOCKERHUB_ON_TAG=true` before
+Real Docker Hub release can be done either with manual `push_image=true` plus
+`publish_dockerhub=true`, or by setting `PUBLISH_DOCKERHUB_ON_TAG=true` before
 pushing a `v*` tag.
 
 Release workflow references:

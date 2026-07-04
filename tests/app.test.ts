@@ -1,7 +1,10 @@
+import { readFileSync } from "node:fs";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { FastifyInstance } from "fastify";
 import { buildApp } from "../src/app.js";
 import { getVersionInfo } from "../src/version.js";
+
+const serviceVersion = readFileSync(new URL("../VERSION", import.meta.url), "utf8").trim();
 
 describe("HTTP API", () => {
   let app: FastifyInstance;
@@ -33,7 +36,7 @@ describe("HTTP API", () => {
     expect(response.json()).toMatchObject({
       service: {
         name: "sysmlv2-ls-service",
-        version: "0.1.0",
+        version: serviceVersion,
         sourceRepository: "https://github.com/HansBug/sysmlv2-ls-service"
       },
       upstream: {
@@ -83,7 +86,7 @@ describe("HTTP API", () => {
 
     try {
       expect(getVersionInfo()).toMatchObject({
-        service: { version: "0.1.0" },
+        service: { version: serviceVersion },
         upstream: { sysml2ls: { version: "0.9.1" } },
         build: { date: "unknown" }
       });

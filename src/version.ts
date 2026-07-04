@@ -1,4 +1,5 @@
 import { createRequire } from "node:module";
+import { readFileSync } from "node:fs";
 import type { VersionResponse } from "./contracts.js";
 
 const require = createRequire(import.meta.url);
@@ -14,10 +15,22 @@ function readPackageInfo(paths: string[]): PackageInfo {
     try {
       return require(path) as PackageInfo;
     } catch {
-      // Try the next candidate. Source tests run from src/, runtime runs from dist/src/.
+      // Try the next candidate. Source runs use ../, built runtime falls back to ../../.
     }
   }
   return {};
+}
+
+function readVersionFile(paths: string[]): string | undefined {
+  for (const path of paths) {
+    try {
+      const version = readFileSync(new URL(path, import.meta.url), "utf8").trim();
+      if (version) return version;
+    } catch {
+      // Try the next candidate. Source runs use ../, built runtime falls back to ../../.
+    }
+  }
+  return undefined;
 }
 
 function repositoryUrl(repository: PackageInfo["repository"], fallback: string): string {
@@ -30,17 +43,18 @@ function envOverride(name: string): string | undefined {
   return value && value !== "unknown" ? value : undefined;
 }
 
-const servicePackage = readPackageInfo(["../../package.json", "../package.json"]);
+const servicePackage = readPackageInfo(["../package.json", "../../package.json"]);
+const serviceVersionFile = readVersionFile(["../VERSION", "../../VERSION"]);
 const upstreamPackage = readPackageInfo([
-  "../../upstream/sysml-2ls/packages/syside-languageserver/package.json",
-  "../upstream/sysml-2ls/packages/syside-languageserver/package.json"
+  "../upstream/sysml-2ls/packages/syside-languageserver/package.json",
+  "../../upstream/sysml-2ls/packages/syside-languageserver/package.json"
 ]);
 
 export function getVersionInfo(): VersionResponse {
   return {
     service: {
       name: servicePackage.name ?? "sysmlv2-ls-service",
-      version: envOverride("SERVICE_VERSION") ?? servicePackage.version ?? "0.0.0",
+      version: envOverride("SERVICE_VERSION") ?? serviceVersionFile ?? servicePackage.version ?? "0.0.0",
       revision: envOverride("SERVICE_REVISION") ?? "unknown",
       sourceRepository:
         envOverride("SOURCE_REPOSITORY") ??

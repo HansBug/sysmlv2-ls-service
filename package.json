@@ -19,7 +19,8 @@
     "smoke:start": "node scripts/smoke-start.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "audit": "pnpm audit --audit-level moderate",
-    "ci": "pnpm run typecheck && pnpm run lint && pnpm run test && pnpm run build && pnpm run smoke:start"
+    "version:check": "node scripts/check-version.mjs",
+    "ci": "pnpm run version:check && pnpm run typecheck && pnpm run lint && pnpm run test && pnpm run build && pnpm run smoke:start"
   },
   "dependencies": {
     "@fastify/cors": "^11.2.0",

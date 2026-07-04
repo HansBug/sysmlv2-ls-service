@@ -45,6 +45,7 @@ LABEL io.hansbug.sysmlv2-ls-service.upstream.sysml-2ls.revision=$UPSTREAM_SYSML_
 LABEL io.hansbug.sysmlv2-ls-service.upstream.sysml-2ls.repository=$UPSTREAM_SYSML_2LS_REPOSITORY
 
 COPY --from=build --chown=node:node /app/package.json ./package.json
+COPY --from=build --chown=node:node /app/VERSION ./VERSION
 COPY --from=build --chown=node:node /app/dist ./dist
 COPY --from=build --chown=node:node /app/node_modules ./node_modules
 COPY --from=build --chown=node:node /app/upstream/sysml-2ls/packages/syside-base ./upstream/sysml-2ls/packages/syside-base

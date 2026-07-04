@@ -48,7 +48,8 @@ jobs:
       - name: Compute version metadata
         id: version
         run: |
-          echo "service_version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+          node scripts/check-version.mjs
+          echo "service_version=$(tr -d '[:space:]' < VERSION)" >> "$GITHUB_OUTPUT"
           echo "service_revision=${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
           echo "upstream_version=$(node -p "require('./upstream/sysml-2ls/packages/syside-languageserver/package.json').version")" >> "$GITHUB_OUTPUT"
           echo "upstream_revision=$(git -C upstream/sysml-2ls rev-parse HEAD)" >> "$GITHUB_OUTPUT"
