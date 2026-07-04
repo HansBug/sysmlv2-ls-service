@@ -94,6 +94,8 @@ def _scan(root, follow_symlinks):
                         continue
                     if resolved.is_file():
                         files.append((entry_path, resolved))
+                    else:
+                        continue
                     continue
                 if entry.is_dir(follow_symlinks=False):
                     scan_dir(entry_path)
