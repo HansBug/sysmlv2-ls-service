@@ -64,8 +64,8 @@ importers:
         specifier: ^29.4.3
         version: 29.7.0
       jest-matcher-utils:
-        specifier: ^29.4.3
-        version: 29.7.0
+        specifier: ^30.4.1
+        version: 30.4.1
       jest-snapshot:
         specifier: ^30.4.1
         version: 30.4.1
