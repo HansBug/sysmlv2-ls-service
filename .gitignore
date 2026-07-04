@@ -1,5 +1,6 @@
 node_modules/
 dist/
+build/
 coverage/
 tmp/
 *.log
@@ -8,3 +9,9 @@ tmp/
 !.env.example
 .codex-subagent/
 .review-artifacts/
+__pycache__/
+.pytest_cache/
+.coverage
+*.pyc
+*.egg-info/
+coverage*.xml

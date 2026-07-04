@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61,<68", "wheel<0.42"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sysmlv2slclient"
+dynamic = ["version"]
+description = "Python client for sysmlv2-ls-service."
+readme = "README.md"
+requires-python = ">=3.7"
+authors = [{ name = "HansBug" }]
+dependencies = []
+
+[project.optional-dependencies]
+test = [
+  "pytest>=7.4,<7.5",
+  "coverage[toml]>=6.5,<7.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = { attr = "sysmlv2slclient._version.__version__" }
+
+[tool.setuptools.package-data]
+sysmlv2slclient = ["py.typed"]
+
+[tool.coverage.run]
+branch = true
+source = ["sysmlv2slclient"]
+
+[tool.coverage.report]
+fail_under = 100
+show_missing = true

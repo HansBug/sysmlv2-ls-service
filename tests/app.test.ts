@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { FastifyInstance } from "fastify";
 import { buildApp } from "../src/app.js";
+import { DEFAULT_SERVICE_LIMITS, type ServiceLimits } from "../src/limits.js";
 import { getVersionInfo } from "../src/version.js";
 
 const serviceVersion = readFileSync(new URL("../VERSION", import.meta.url), "utf8").trim();
@@ -14,6 +15,32 @@ const upstreamVersion = JSON.parse(
     "utf8"
   )
 ).version;
+
+function limits(overrides: Partial<ServiceLimits> = {}): ServiceLimits {
+  return {
+    validate: {
+      ...DEFAULT_SERVICE_LIMITS.validate,
+      ...overrides.validate
+    },
+    http: {
+      ...DEFAULT_SERVICE_LIMITS.http,
+      ...overrides.http
+    }
+  };
+}
+
+function successfulValidation() {
+  return {
+    ok: true,
+    diagnostics: [],
+    files: [],
+    meta: {
+      standardLibrary: "none" as const,
+      validationChecks: "all" as const,
+      elapsedMs: 0
+    }
+  };
+}
 
 describe("HTTP API", () => {
   let app: FastifyInstance;
@@ -136,8 +163,47 @@ describe("HTTP API", () => {
         { id: "kerml", extensions: [".kerml"] }
       ],
       validationChecks: ["all", "none"],
-      standardLibrary: ["none"]
+      standardLibrary: ["none"],
+      limits: DEFAULT_SERVICE_LIMITS
     });
+  });
+
+  it("exposes injected effective limits in capabilities", async () => {
+    const limitedApp = await buildApp({
+      logger: false,
+      limits: limits({
+        validate: {
+          maxFiles: 2,
+          maxFileTextBytes: null,
+          maxTotalTextBytes: 4096,
+          validationTimeoutMs: null
+        },
+        http: {
+          bodyLimitBytes: null
+        }
+      })
+    });
+
+    try {
+      const response = await limitedApp.inject({ method: "GET", url: "/v1/capabilities" });
+
+      expect(response.statusCode).toBe(200);
+      expect(response.json()).toMatchObject({
+        limits: {
+          validate: {
+            maxFiles: 2,
+            maxFileTextBytes: null,
+            maxTotalTextBytes: 4096,
+            validationTimeoutMs: null
+          },
+          http: {
+            bodyLimitBytes: null
+          }
+        }
+      });
+    } finally {
+      await limitedApp.close();
+    }
   });
 
   it("validates a request body and returns diagnostics", async () => {
@@ -156,7 +222,7 @@ describe("HTTP API", () => {
   it("returns a service error when validation exceeds the request timeout", async () => {
     const timeoutApp = await buildApp({
       logger: false,
-      validationTimeoutMs: 5,
+      limits: limits({ validate: { ...DEFAULT_SERVICE_LIMITS.validate, validationTimeoutMs: 5 } }),
       validate: () => new Promise(() => undefined)
     });
 
@@ -176,6 +242,107 @@ describe("HTTP API", () => {
       });
     } finally {
       await timeoutApp.close();
+    }
+  });
+
+  it("skips the validation timeout wrapper when the timeout limit is disabled", async () => {
+    const timeoutApp = await buildApp({
+      logger: false,
+      limits: limits({
+        validate: { ...DEFAULT_SERVICE_LIMITS.validate, validationTimeoutMs: null }
+      }),
+      validate: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 10));
+        return successfulValidation();
+      }
+    });
+
+    try {
+      const response = await timeoutApp.inject({
+        method: "POST",
+        url: "/v1/validate",
+        payload: {
+          files: [{ uri: "memory:///slow.sysml", text: "package Slow {}" }]
+        }
+      });
+
+      expect(response.statusCode).toBe(200);
+      expect(response.json()).toMatchObject({ ok: true });
+    } finally {
+      await timeoutApp.close();
+    }
+  });
+
+  it("uses dynamic file count limits from the request schema", async () => {
+    const limitedApp = await buildApp({
+      logger: false,
+      limits: limits({ validate: { ...DEFAULT_SERVICE_LIMITS.validate, maxFiles: 1 } }),
+      validate: async () => successfulValidation()
+    });
+
+    try {
+      const response = await limitedApp.inject({
+        method: "POST",
+        url: "/v1/validate",
+        payload: {
+          files: [
+            { uri: "memory:///one.sysml", text: "package One {}" },
+            { uri: "memory:///two.sysml", text: "package Two {}" }
+          ]
+        }
+      });
+
+      expect(response.statusCode).toBe(400);
+      expect(response.json()).toMatchObject({ error: "bad_request" });
+    } finally {
+      await limitedApp.close();
+    }
+  });
+
+  it("skips disabled service-owned text and body limits", async () => {
+    const unboundedApp = await buildApp({
+      logger: false,
+      limits: limits({
+        validate: {
+          maxFiles: null,
+          maxFileTextBytes: null,
+          maxTotalTextBytes: null,
+          validationTimeoutMs: null
+        },
+        http: { bodyLimitBytes: null }
+      }),
+      validate: async () => successfulValidation()
+    });
+
+    try {
+      const response = await unboundedApp.inject({
+        method: "POST",
+        url: "/v1/validate",
+        headers: { "content-type": "application/json" },
+        payload: JSON.stringify({
+          files: [{ uri: "memory:///large.sysml", text: "x".repeat(6 * 1024 * 1024) }]
+        })
+      });
+
+      expect(response.statusCode).toBe(200);
+      expect(response.json()).toMatchObject({ ok: true });
+    } finally {
+      await unboundedApp.close();
+    }
+  });
+
+  it("fails app construction for invalid limit environment variables", async () => {
+    const previous = process.env.VALIDATE_MAX_FILES;
+    process.env.VALIDATE_MAX_FILES = "invalid";
+
+    try {
+      await expect(buildApp({ logger: false })).rejects.toThrow("VALIDATE_MAX_FILES");
+    } finally {
+      if (previous === undefined) {
+        delete process.env.VALIDATE_MAX_FILES;
+      } else {
+        process.env.VALIDATE_MAX_FILES = previous;
+      }
     }
   });
 

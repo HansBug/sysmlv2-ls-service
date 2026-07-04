@@ -7,20 +7,23 @@ import {
   type ValidateRequest,
   type ValidateResponse,
   type VersionResponse,
-  validateRequestSchema
+  makeValidateRequestSchema
 } from "./contracts.js";
+import {
+  fastifyBodyLimit,
+  resolveServiceLimits,
+  type ServiceLimits
+} from "./limits.js";
 import { validateSysML } from "./sysml-validator.js";
 import { makeDocumentUriKey } from "./uri.js";
 import { getVersionInfo } from "./version.js";
-
-const DEFAULT_VALIDATION_TIMEOUT_MS = 30_000;
 
 type ValidateFunction = (request: ValidateRequest) => Promise<ValidateResponse>;
 
 export interface AppOptions {
   logger?: boolean;
   validate?: ValidateFunction;
-  validationTimeoutMs?: number;
+  limits?: ServiceLimits;
 }
 
 class HttpError extends Error {
@@ -53,17 +56,6 @@ function getErrorResponseCode(error: unknown, statusCode: number): string {
   return statusCode < 500 ? "bad_request" : "internal_error";
 }
 
-function getValidationTimeoutMs(options: AppOptions): number {
-  if (options.validationTimeoutMs !== undefined) return options.validationTimeoutMs;
-
-  const raw = process.env.VALIDATION_TIMEOUT_MS;
-  if (raw === undefined) return DEFAULT_VALIDATION_TIMEOUT_MS;
-
-  const parsed = Number(raw);
-  if (!Number.isFinite(parsed) || parsed <= 0) return DEFAULT_VALIDATION_TIMEOUT_MS;
-  return Math.floor(parsed);
-}
-
 function withValidationTimeout<T>(operation: Promise<T>, timeoutMs: number): Promise<T> {
   let timeout: ReturnType<typeof setTimeout> | undefined;
   const timeoutPromise = new Promise<never>((_resolve, reject) => {
@@ -83,7 +75,7 @@ function withValidationTimeout<T>(operation: Promise<T>, timeoutMs: number): Pro
   });
 }
 
-function rejectDuplicateDocumentUris(payload: ReturnType<typeof validateRequestSchema.parse>): void {
+function rejectDuplicateDocumentUris(payload: ValidateRequest): void {
   const seenUris = new Set<string>();
   payload.files.forEach((file, index) => {
     const documentUri = makeDocumentUriKey(file, index);
@@ -101,9 +93,12 @@ function rejectDuplicateDocumentUris(payload: ReturnType<typeof validateRequestS
 }
 
 export async function buildApp(options: AppOptions = {}): Promise<FastifyInstance> {
+  const limits = options.limits ?? resolveServiceLimits();
+  const validateRequestSchema = makeValidateRequestSchema(limits);
+
   const app = Fastify({
     logger: options.logger ?? true,
-    bodyLimit: 5 * 1024 * 1024
+    bodyLimit: fastifyBodyLimit(limits)
   });
 
   await app.register(cors, {
@@ -158,7 +153,8 @@ export async function buildApp(options: AppOptions = {}): Promise<FastifyInstanc
       { id: "kerml", extensions: [".kerml"] }
     ],
     validationChecks: ["all", "none"],
-    standardLibrary: ["none"]
+    standardLibrary: ["none"],
+    limits
   }));
 
   app.get("/v1/version", async (): Promise<VersionResponse> => getVersionInfo());
@@ -166,10 +162,10 @@ export async function buildApp(options: AppOptions = {}): Promise<FastifyInstanc
   app.post("/v1/validate", async (request) => {
     const payload = validateRequestSchema.parse(request.body);
     rejectDuplicateDocumentUris(payload);
-    return withValidationTimeout(
-      (options.validate ?? validateSysML)(payload),
-      getValidationTimeoutMs(options)
-    );
+    const operation = (options.validate ?? validateSysML)(payload);
+    return limits.validate.validationTimeoutMs === null
+      ? operation
+      : withValidationTimeout(operation, limits.validate.validationTimeoutMs);
   });
 
   return app;

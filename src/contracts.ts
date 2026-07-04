@@ -1,7 +1,10 @@
 import { z } from "zod";
-
-export const MAX_FILE_TEXT_BYTES = 512 * 1024;
-export const MAX_TOTAL_TEXT_BYTES = 1024 * 1024;
+import {
+  DEFAULT_SERVICE_LIMITS,
+  type HttpLimits,
+  type ServiceLimits,
+  type ValidateLimits
+} from "./limits.js";
 
 export const sysmlFileSchema = z.object({
   uri: z.string().min(1).optional(),
@@ -10,53 +13,68 @@ export const sysmlFileSchema = z.object({
   text: z.string()
 });
 
-export const validateRequestSchema = z.object({
-  files: z.array(sysmlFileSchema).min(1).max(64),
-  standardLibrary: z.enum(["none"]).default("none"),
-  validationChecks: z.enum(["all", "none"]).default("all")
-}).superRefine((request, context) => {
-  const seenUris = new Set<string>();
-  let totalBytes = 0;
+export function makeValidateRequestSchema(limits: ServiceLimits) {
+  const filesSchema =
+    limits.validate.maxFiles === null
+      ? z.array(sysmlFileSchema).min(1)
+      : z.array(sysmlFileSchema).min(1).max(limits.validate.maxFiles);
 
-  request.files.forEach((file, index) => {
-    const fileBytes = Buffer.byteLength(file.text, "utf8");
-    totalBytes += fileBytes;
+  return z.object({
+    files: filesSchema,
+    standardLibrary: z.enum(["none"]).default("none"),
+    validationChecks: z.enum(["all", "none"]).default("all")
+  }).superRefine((request, context) => {
+    const seenUris = new Set<string>();
+    let totalBytes = 0;
 
-    if (fileBytes > MAX_FILE_TEXT_BYTES) {
+    request.files.forEach((file, index) => {
+      const fileBytes = Buffer.byteLength(file.text, "utf8");
+      totalBytes += fileBytes;
+
+      if (
+        limits.validate.maxFileTextBytes !== null &&
+        fileBytes > limits.validate.maxFileTextBytes
+      ) {
+        context.addIssue({
+          code: z.ZodIssueCode.too_big,
+          type: "string",
+          maximum: limits.validate.maxFileTextBytes,
+          inclusive: true,
+          path: ["files", index, "text"],
+          message: `File text must be at most ${limits.validate.maxFileTextBytes} bytes.`
+        });
+      }
+
+      const explicitDocumentId = file.uri ?? file.path;
+      if (!explicitDocumentId) return;
+      if (seenUris.has(explicitDocumentId)) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["files", index, "uri"],
+          message: `Duplicate file URI/path: ${explicitDocumentId}`
+        });
+        return;
+      }
+      seenUris.add(explicitDocumentId);
+    });
+
+    if (
+      limits.validate.maxTotalTextBytes !== null &&
+      totalBytes > limits.validate.maxTotalTextBytes
+    ) {
       context.addIssue({
         code: z.ZodIssueCode.too_big,
-        type: "string",
-        maximum: MAX_FILE_TEXT_BYTES,
+        type: "array",
+        maximum: limits.validate.maxTotalTextBytes,
         inclusive: true,
-        path: ["files", index, "text"],
-        message: `File text must be at most ${MAX_FILE_TEXT_BYTES} bytes.`
+        path: ["files"],
+        message: `Total file text must be at most ${limits.validate.maxTotalTextBytes} bytes.`
       });
     }
-
-    const explicitDocumentId = file.uri ?? file.path;
-    if (!explicitDocumentId) return;
-    if (seenUris.has(explicitDocumentId)) {
-      context.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["files", index, "uri"],
-        message: `Duplicate file URI/path: ${explicitDocumentId}`
-      });
-      return;
-    }
-    seenUris.add(explicitDocumentId);
   });
+}
 
-  if (totalBytes > MAX_TOTAL_TEXT_BYTES) {
-    context.addIssue({
-      code: z.ZodIssueCode.too_big,
-      type: "array",
-      maximum: MAX_TOTAL_TEXT_BYTES,
-      inclusive: true,
-      path: ["files"],
-      message: `Total file text must be at most ${MAX_TOTAL_TEXT_BYTES} bytes.`
-    });
-  }
-});
+export const validateRequestSchema = makeValidateRequestSchema(DEFAULT_SERVICE_LIMITS);
 
 export type SysMLFileInput = z.infer<typeof sysmlFileSchema>;
 export type ValidateRequest = z.infer<typeof validateRequestSchema>;
@@ -135,4 +153,8 @@ export interface CapabilitiesResponse {
   }>;
   validationChecks: Array<"all" | "none">;
   standardLibrary: Array<"none">;
+  limits: {
+    validate: ValidateLimits;
+    http: HttpLimits;
+  };
 }
