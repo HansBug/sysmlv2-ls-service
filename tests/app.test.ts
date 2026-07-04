@@ -5,6 +5,15 @@ import { buildApp } from "../src/app.js";
 import { getVersionInfo } from "../src/version.js";
 
 const serviceVersion = readFileSync(new URL("../VERSION", import.meta.url), "utf8").trim();
+const upstreamVersion = JSON.parse(
+  readFileSync(
+    new URL(
+      "../upstream/sysml-2ls/packages/syside-languageserver/package.json",
+      import.meta.url
+    ),
+    "utf8"
+  )
+).version;
 
 describe("HTTP API", () => {
   let app: FastifyInstance;
@@ -41,7 +50,7 @@ describe("HTTP API", () => {
       },
       upstream: {
         sysml2ls: {
-          version: "0.9.1",
+          version: upstreamVersion,
           packageName: "syside-languageserver",
           repository: "https://github.com/sensmetry/sysml-2ls"
         }
@@ -87,7 +96,7 @@ describe("HTTP API", () => {
     try {
       expect(getVersionInfo()).toMatchObject({
         service: { version: serviceVersion },
-        upstream: { sysml2ls: { version: "0.9.1" } },
+        upstream: { sysml2ls: { version: upstreamVersion } },
         build: { date: "unknown" }
       });
     } finally {
