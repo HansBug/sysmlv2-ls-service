@@ -69,6 +69,13 @@ def _inside(root, resolved):
         return False
 
 
+def _append_file_if_regular(files, display_path, resolved_path):
+    if resolved_path.is_file():
+        files.append((display_path, resolved_path))
+        return True
+    return False
+
+
 def _scan(root, follow_symlinks):
     files = []
     visited = set()
@@ -92,10 +99,7 @@ def _scan(root, follow_symlinks):
                     if resolved.is_dir():
                         scan_dir(resolved)
                         continue
-                    if resolved.is_file():
-                        files.append((entry_path, resolved))
-                    else:
-                        continue
+                    _append_file_if_regular(files, entry_path, resolved)
                     continue
                 if entry.is_dir(follow_symlinks=False):
                     scan_dir(entry_path)
@@ -103,7 +107,7 @@ def _scan(root, follow_symlinks):
                     resolved = entry_path.resolve(strict=True)
                     if not _inside(root, resolved):
                         raise SysMLDirectoryError("File escapes root: %s" % entry_path)
-                    files.append((entry_path, resolved))
+                    _append_file_if_regular(files, entry_path, resolved)
 
         visited.remove(identity)
 

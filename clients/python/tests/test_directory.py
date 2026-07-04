@@ -5,7 +5,13 @@ import pytest
 
 from sysmlv2slclient import SysMLDirectoryError, SysMLV2LSClient
 import sysmlv2slclient.directory as directory
-from sysmlv2slclient.directory import _glob_to_regex, _matcher, _memory_uri, collect_directory_files
+from sysmlv2slclient.directory import (
+    _append_file_if_regular,
+    _glob_to_regex,
+    _matcher,
+    _memory_uri,
+    collect_directory_files,
+)
 
 from test_client import FakeOpener, capabilities_body, validate_body
 
@@ -172,3 +178,14 @@ def test_private_helpers_cover_edge_cases():
     with pytest.raises(SysMLDirectoryError):
         _memory_uri(type("Root", (), {"name": "r"})(), "../a.sysml", True)
     assert os.path.sep
+
+
+def test_append_file_if_regular_helper():
+    files = []
+    regular = type("Regular", (), {"is_file": lambda self: True})()
+    special = type("Special", (), {"is_file": lambda self: False})()
+
+    assert _append_file_if_regular(files, "display", regular) is True
+    assert files == [("display", regular)]
+    assert _append_file_if_regular(files, "ignored", special) is False
+    assert files == [("display", regular)]
