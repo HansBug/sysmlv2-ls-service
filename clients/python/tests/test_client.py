@@ -221,6 +221,18 @@ def test_option_validation_and_file_validation():
         client.validate_text("x", language="bad")
 
 
+def test_validate_accepts_iterable_file_inputs():
+    opener = FakeOpener([validate_body()])
+    client = SysMLV2LSClient("http://example.test", opener=opener, limits=None)
+
+    def file_inputs():
+        yield {"text": "package Demo {}", "uri": "memory:///demo.sysml"}
+
+    assert client.validate(file_inputs()).ok is True
+    posted = json.loads(opener.requests[0].data.decode("utf-8"))
+    assert posted["files"] == [{"text": "package Demo {}", "uri": "memory:///demo.sysml"}]
+
+
 def test_http_errors_and_response_errors():
     http_json = urllib.error.HTTPError(
         "http://example.test",

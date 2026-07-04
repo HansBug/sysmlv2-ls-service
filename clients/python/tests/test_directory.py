@@ -1,10 +1,11 @@
 import os
+from pathlib import Path
 
 import pytest
 
 from sysmlv2slclient import SysMLDirectoryError, SysMLV2LSClient
 import sysmlv2slclient.directory as directory
-from sysmlv2slclient.directory import _glob_to_regex, _memory_uri, collect_directory_files
+from sysmlv2slclient.directory import _glob_to_regex, _matcher, _memory_uri, collect_directory_files
 
 from test_client import FakeOpener, capabilities_body, validate_body
 
@@ -159,6 +160,7 @@ def test_symlink_directory_loop(tmp_path):
 def test_private_helpers_cover_edge_cases():
     assert _glob_to_regex("**/*.sysml").match("a.sysml")
     assert _glob_to_regex("a?.sysml").match("ab.sysml")
+    assert not _matcher((), ())(Path("a.sysml"))
     assert directory._inside("relative", "/absolute") is False
     assert _memory_uri(type("Root", (), {"name": ""})(), "a.sysml", False) == (
         "memory:///workspace/a.sysml"

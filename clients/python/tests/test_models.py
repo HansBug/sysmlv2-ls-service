@@ -148,6 +148,21 @@ def test_validate_result_helpers_and_errors():
     assert ok_result.raise_for_diagnostics() is None
 
 
+def test_validate_result_empty_collections_roundtrip():
+    empty_data = validate_dict()
+    empty_data["ok"] = True
+    empty_data["diagnostics"] = []
+    empty_data["files"] = []
+    result = ValidateResult.from_dict(empty_data)
+
+    assert result.errors == []
+    assert result.warnings == []
+    assert result.diagnostics_by_file() == {}
+    assert result.raise_for_diagnostics() is None
+    assert result.to_dict()["diagnostics"] == []
+    assert result.to_dict()["files"] == []
+
+
 def test_individual_response_models_roundtrip():
     assert HealthResponse.from_dict({"ok": True, "service": "svc", "version": "1"}).to_dict() == {
         "ok": True,
@@ -166,6 +181,9 @@ def test_capabilities_limits_roundtrip_and_shape_errors():
     capabilities = CapabilitiesResponse.from_dict(capabilities_dict(disabled=True))
     assert capabilities.limits.validate.max_files is None
     assert capabilities.to_dict()["limits"]["http"]["bodyLimitBytes"] is None
+    empty_capabilities = capabilities_dict()
+    empty_capabilities["languages"] = []
+    assert CapabilitiesResponse.from_dict(empty_capabilities).to_dict()["languages"] == []
     explicit = ServiceLimits(
         validate=ValidateLimits(1, 2, 3, 4),
         http=HttpLimits(5),
