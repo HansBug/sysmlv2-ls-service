@@ -141,6 +141,32 @@ describe("HTTP API", () => {
     expect(response.json()).toMatchObject({ ok: true, diagnostics: [] });
   });
 
+  it("returns a service error when validation exceeds the request timeout", async () => {
+    const timeoutApp = await buildApp({
+      logger: false,
+      validationTimeoutMs: 5,
+      validate: () => new Promise(() => undefined)
+    });
+
+    try {
+      const response = await timeoutApp.inject({
+        method: "POST",
+        url: "/v1/validate",
+        payload: {
+          files: [{ uri: "memory:///slow.sysml", text: "package Slow {}" }]
+        }
+      });
+
+      expect(response.statusCode).toBe(503);
+      expect(response.json()).toMatchObject({
+        error: "validation_timeout",
+        message: "Validation exceeded 5 ms."
+      });
+    } finally {
+      await timeoutApp.close();
+    }
+  });
+
   it("rejects duplicate file URIs", async () => {
     const response = await app.inject({
       method: "POST",

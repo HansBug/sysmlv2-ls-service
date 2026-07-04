@@ -45,8 +45,27 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Compute version metadata
+        id: version
+        run: |
+          echo "service_version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+          echo "service_revision=${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+          echo "upstream_version=$(node -p "require('./upstream/sysml-2ls/packages/syside-languageserver/package.json').version")" >> "$GITHUB_OUTPUT"
+          echo "upstream_revision=$(git -C upstream/sysml-2ls rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "build_date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_OUTPUT"
+          echo "source_repository=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" >> "$GITHUB_OUTPUT"
+
       - name: Build Docker image
-        run: docker build -t sysmlv2-ls-service:ci .
+        run: |
+          docker build -t sysmlv2-ls-service:ci \
+            --build-arg SERVICE_VERSION="${{ steps.version.outputs.service_version }}" \
+            --build-arg SERVICE_REVISION="${{ steps.version.outputs.service_revision }}" \
+            --build-arg SOURCE_REPOSITORY="${{ steps.version.outputs.source_repository }}" \
+            --build-arg UPSTREAM_SYSML_2LS_VERSION="${{ steps.version.outputs.upstream_version }}" \
+            --build-arg UPSTREAM_SYSML_2LS_REVISION="${{ steps.version.outputs.upstream_revision }}" \
+            --build-arg UPSTREAM_SYSML_2LS_REPOSITORY=https://github.com/sensmetry/sysml-2ls \
+            --build-arg BUILD_DATE="${{ steps.version.outputs.build_date }}" \
+            .
 
       - name: Smoke test Docker image
         run: |
@@ -73,8 +92,16 @@ jobs:
           grep -q '"ok":true' /tmp/validate.json
           curl --noproxy '*' -fsS http://127.0.0.1:3000/v1/version \
             | tee /tmp/version.json
-          grep -q '"version":"0.9.1"' /tmp/version.json
-          grep -q '"repository":"https://github.com/sensmetry/sysml-2ls"' /tmp/version.json
+          node -e '
+            const fs = require("node:fs");
+            const version = JSON.parse(fs.readFileSync("/tmp/version.json", "utf8"));
+            if (version.service.version !== "${{ steps.version.outputs.service_version }}") process.exit(1);
+            if (version.service.revision !== "${{ steps.version.outputs.service_revision }}") process.exit(1);
+            if (version.upstream.sysml2ls.version !== "${{ steps.version.outputs.upstream_version }}") process.exit(1);
+            if (version.upstream.sysml2ls.revision !== "${{ steps.version.outputs.upstream_revision }}") process.exit(1);
+            if (version.upstream.sysml2ls.repository !== "https://github.com/sensmetry/sysml-2ls") process.exit(1);
+            if (!version.build.nodeVersion.startsWith("v24.")) process.exit(1);
+          '
           curl --noproxy '*' -fsS -X POST http://127.0.0.1:3000/v1/validate \
             -H 'content-type: application/json' \
             --data '{"files":[{"uri":"memory:///bad.sysml","text":"package Demo { part def }"}],"validationChecks":"none"}' \

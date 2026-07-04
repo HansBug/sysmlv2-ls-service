@@ -190,7 +190,13 @@ Limits:
 - Maximum files per request: 64
 - Maximum text per file: 512 KiB
 - Maximum total text per request: 1 MiB
+- Default validation wall-clock timeout: 30 seconds
 - Duplicate `uri`/`path` values are rejected after URI canonicalization
+
+Set `VALIDATION_TIMEOUT_MS` to change the validation timeout for local or
+container deployments. The timeout is a service guard for long-running upstream
+validation work; timed-out requests return HTTP `503` rather than SysML
+diagnostics.
 
 `validationChecks: "none"` skips semantic checks only. Lexer and parser failures
 still return `ok: false`.
@@ -329,6 +335,7 @@ HTTP request validation errors are returned as service errors (`400`, `413`,
 | Metadata/packages | `validateMetadata*`, `validatePackageElementFilter*`, `validateLibraryPackageNotStandard` | error | Metadata feature/body/metaclass or package filter rules failed. | Metadata feature typed by an abstract metaclass. |
 | Service request validation | HTTP `400` with `bad_request` | n/a | JSON schema, duplicate URI, unsupported option, or text limit validation failed. | Empty `files`, duplicate `uri`, unsupported `standardLibrary`. |
 | Payload size | HTTP `413` with `payload_too_large` | n/a | Request body exceeded Fastify body limit. | JSON body above 5 MiB. |
+| Validation timeout | HTTP `503` with `validation_timeout` | n/a | Upstream parsing/validation did not complete within `VALIDATION_TIMEOUT_MS`. | Very large or adversarial input that keeps validation running past the timeout. |
 | Internal failure | HTTP `500` with `internal_error` | n/a | Unexpected service-side exception. | Bug or unsupported upstream failure mode. |
 
 ### Common Diagnostic Examples

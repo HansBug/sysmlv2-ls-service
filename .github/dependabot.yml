@@ -17,9 +17,11 @@ updates:
           - "eslint"
           - "typescript-eslint"
     ignore:
-      # TypeScript major upgrades are handled as deliberate migrations because
-      # the current pinned upstream/tooling stack is validated on TypeScript 5.
+      # TypeScript upgrades are handled as deliberate migrations because the
+      # current pinned upstream/tooling stack is validated on TypeScript 5.1.x.
       - dependency-name: "typescript"
+      # Keep Node typings aligned with the package's Node 20.19+ API floor.
+      - dependency-name: "@types/node"
         update-types:
           - "version-update:semver-major"
 
