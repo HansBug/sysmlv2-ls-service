@@ -186,21 +186,35 @@ class ValidateResult:
 
     @classmethod
     def from_dict(cls, data):
+        diagnostics = []
+        for item in _list(data, "diagnostics"):
+            diagnostics.append(Diagnostic.from_dict(item))
+        files = []
+        for item in _list(data, "files"):
+            files.append(FileValidationSummary.from_dict(item))
         return cls(
             ok=_require(data, "ok"),
-            diagnostics=[Diagnostic.from_dict(item) for item in _list(data, "diagnostics")],
-            files=[FileValidationSummary.from_dict(item) for item in _list(data, "files")],
+            diagnostics=diagnostics,
+            files=files,
             meta=ValidateMeta.from_dict(_dict(data, "meta")),
             raw=dict(data),
         )
 
     @property
     def errors(self):
-        return [item for item in self.diagnostics if item.severity == "error"]
+        errors = []
+        for item in self.diagnostics:
+            if item.severity == "error":
+                errors.append(item)
+        return errors
 
     @property
     def warnings(self):
-        return [item for item in self.diagnostics if item.severity == "warning"]
+        warnings = []
+        for item in self.diagnostics:
+            if item.severity == "warning":
+                warnings.append(item)
+        return warnings
 
     def diagnostics_by_file(self):
         grouped = {}
@@ -214,10 +228,16 @@ class ValidateResult:
         return None
 
     def to_dict(self):
+        diagnostics = []
+        for item in self.diagnostics:
+            diagnostics.append(item.to_dict())
+        files = []
+        for item in self.files:
+            files.append(item.to_dict())
         return {
             "ok": self.ok,
-            "diagnostics": [item.to_dict() for item in self.diagnostics],
-            "files": [item.to_dict() for item in self.files],
+            "diagnostics": diagnostics,
+            "files": files,
             "meta": self.meta.to_dict(),
         }
 
@@ -324,8 +344,11 @@ class CapabilitiesResponse:
 
     @classmethod
     def from_dict(cls, data):
+        languages = []
+        for item in _list(data, "languages"):
+            languages.append(LanguageInfo.from_dict(item))
         return cls(
-            languages=[LanguageInfo.from_dict(item) for item in _list(data, "languages")],
+            languages=languages,
             validation_checks=_list(data, "validationChecks"),
             standard_library=_list(data, "standardLibrary"),
             limits=ServiceLimits.from_dict(_dict(data, "limits")),
@@ -333,8 +356,11 @@ class CapabilitiesResponse:
         )
 
     def to_dict(self):
+        languages = []
+        for item in self.languages:
+            languages.append(item.to_dict())
         return {
-            "languages": [item.to_dict() for item in self.languages],
+            "languages": languages,
             "validationChecks": list(self.validation_checks),
             "standardLibrary": list(self.standard_library),
             "limits": self.limits.to_dict(),

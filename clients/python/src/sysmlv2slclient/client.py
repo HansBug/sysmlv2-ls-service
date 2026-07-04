@@ -166,11 +166,16 @@ class SysMLV2LSClient(object):
 
     def validate(self, files, standard_library="none", validation_checks="all"):
         self._check_options(standard_library, validation_checks)
-        coerced = [self._coerce_file(file_item) for file_item in files]
+        coerced = []
+        for file_item in files:
+            coerced.append(self._coerce_file(file_item))
         if not coerced:
             raise ValueError("files must be non-empty")
+        request_files = []
+        for file_item in coerced:
+            request_files.append(file_item.to_dict())
         payload = {
-            "files": [file_item.to_dict() for file_item in coerced],
+            "files": request_files,
             "standardLibrary": standard_library,
             "validationChecks": validation_checks,
         }

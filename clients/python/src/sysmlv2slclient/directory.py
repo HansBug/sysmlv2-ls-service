@@ -51,7 +51,9 @@ def _matcher(rule, default):
     if callable(rule):
         return rule
     patterns = _as_sequence(rule, default)
-    compiled = [_glob_to_regex(pattern) for pattern in patterns]
+    compiled = []
+    for pattern in patterns:
+        compiled.append(_glob_to_regex(pattern))
 
     def matches(rel_path):
         rel = rel_path.as_posix()
@@ -89,7 +91,8 @@ def _scan(root, follow_symlinks):
                         raise SysMLDirectoryError("Symlink target escapes root: %s" % entry_path)
                     if resolved.is_dir():
                         scan_dir(resolved)
-                    elif resolved.is_file():
+                        continue
+                    if resolved.is_file():
                         files.append((entry_path, resolved))
                     continue
                 if entry.is_dir(follow_symlinks=False):

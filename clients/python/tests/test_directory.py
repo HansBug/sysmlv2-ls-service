@@ -111,6 +111,10 @@ def test_symlink_policy(tmp_path):
     write(target, "package Target {}")
     link = tmp_path / "link.sysml"
     link.symlink_to(target)
+    empty_dir = tmp_path / "empty-dir"
+    empty_dir.mkdir()
+    empty_dir_link = tmp_path / "empty-dir-link"
+    empty_dir_link.symlink_to(empty_dir, target_is_directory=True)
     assert [item.uri for item in collect_directory_files(tmp_path)] == ["memory:///target.sysml"]
     assert [item.uri for item in collect_directory_files(tmp_path, follow_symlinks=True)] == [
         "memory:///link.sysml",
