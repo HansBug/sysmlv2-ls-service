@@ -17,6 +17,8 @@ updates:
           - "eslint"
           - "typescript-eslint"
     ignore:
+      # TypeScript major upgrades are handled as deliberate migrations because
+      # the current pinned upstream/tooling stack is validated on TypeScript 5.
       - dependency-name: "typescript"
         update-types:
           - "version-update:semver-major"
@@ -33,6 +35,8 @@ updates:
       interval: "weekly"
     open-pull-requests-limit: 3
     ignore:
+      # Keep the published image on the current Node LTS major. Adopt the next
+      # LTS major deliberately after compatibility and upstream smoke testing.
       - dependency-name: "node"
         update-types:
           - "version-update:semver-major"

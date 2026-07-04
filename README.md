@@ -47,7 +47,7 @@ other.
 
 ## Prerequisites
 
-- Node.js 20.19 or newer
+- Node.js 20.19 or newer for local use; Node.js 24 LTS is recommended
 - pnpm
 - Git submodules initialized
 
@@ -58,8 +58,9 @@ pnpm install
 pnpm run build:upstream
 ```
 
-Use Node.js 20.19+ for both local development and CI. The Docker runtime uses
-the current Node.js 20 slim image.
+The package keeps a Node.js 20.19+ floor for local integration clients, while
+CI also runs on Node.js 24 LTS and the Docker runtime uses the current Node.js
+24 slim image. Node.js 20 is no longer used for published images.
 
 ## Local Development
 
@@ -132,7 +133,7 @@ build date, and runtime Node.js version.
   },
   "build": {
     "date": "unknown",
-    "nodeVersion": "v20.x.y"
+    "nodeVersion": "v24.x.y"
   }
 }
 ```
