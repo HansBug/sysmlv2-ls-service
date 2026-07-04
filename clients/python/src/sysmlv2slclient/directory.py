@@ -79,37 +79,55 @@ def _append_file_if_regular(files, display_path, resolved_path):
 def _scan(root, follow_symlinks):
     files = []
     visited = set()
+    active = set()
 
     def scan_dir(directory):
-        stat = os.stat(str(directory))
+        try:
+            stat = os.stat(str(directory))
+        except OSError as error:
+            raise SysMLDirectoryError("Cannot stat directory %s: %s" % (directory, error))
         identity = (stat.st_dev, stat.st_ino)
-        if identity in visited:
+        if identity in active:
             raise SysMLDirectoryError("Symlink loop detected: %s" % directory)
+        if identity in visited:
+            return
         visited.add(identity)
+        active.add(identity)
 
-        with os.scandir(str(directory)) as entries:
-            for entry in entries:
-                entry_path = Path(entry.path)
-                if entry.is_symlink():
-                    if not follow_symlinks:
+        try:
+            with os.scandir(str(directory)) as entries:
+                for entry in entries:
+                    entry_path = Path(entry.path)
+                    if entry.is_symlink():
+                        if not follow_symlinks:
+                            continue
+                        try:
+                            resolved = entry_path.resolve(strict=True)
+                        except OSError as error:
+                            raise SysMLDirectoryError(
+                                "Cannot resolve symlink %s: %s" % (entry_path, error)
+                            )
+                        if not _inside(root, resolved):
+                            raise SysMLDirectoryError("Symlink target escapes root: %s" % entry_path)
+                        if resolved.is_dir():
+                            scan_dir(resolved)
+                            continue
+                        _append_file_if_regular(files, entry_path, resolved)
                         continue
-                    resolved = entry_path.resolve(strict=True)
-                    if not _inside(root, resolved):
-                        raise SysMLDirectoryError("Symlink target escapes root: %s" % entry_path)
-                    if resolved.is_dir():
-                        scan_dir(resolved)
-                        continue
-                    _append_file_if_regular(files, entry_path, resolved)
-                    continue
-                if entry.is_dir(follow_symlinks=False):
-                    scan_dir(entry_path)
-                elif entry.is_file(follow_symlinks=False):
-                    resolved = entry_path.resolve(strict=True)
-                    if not _inside(root, resolved):
-                        raise SysMLDirectoryError("File escapes root: %s" % entry_path)
-                    _append_file_if_regular(files, entry_path, resolved)
-
-        visited.remove(identity)
+                    if entry.is_dir(follow_symlinks=False):
+                        scan_dir(entry_path)
+                    elif entry.is_file(follow_symlinks=False):
+                        try:
+                            resolved = entry_path.resolve(strict=True)
+                        except OSError as error:
+                            raise SysMLDirectoryError("Cannot resolve file %s: %s" % (entry_path, error))
+                        if not _inside(root, resolved):
+                            raise SysMLDirectoryError("File escapes root: %s" % entry_path)
+                        _append_file_if_regular(files, entry_path, resolved)
+        except OSError as error:
+            raise SysMLDirectoryError("Cannot scan directory %s: %s" % (directory, error))
+        finally:
+            active.remove(identity)
 
     scan_dir(root)
     return files
@@ -168,6 +186,7 @@ def collect_directory_files(
 
     files = []
     seen_uris = set()
+    seen_paths = set()
     for rel_posix, resolved_path in sorted(selected, key=lambda item: item[0]):
         try:
             text = resolved_path.read_text(encoding=encoding, errors=encoding_errors)
@@ -181,6 +200,10 @@ def collect_directory_files(
             seen_uris.add(uri)
             files.append(SysMLFile(uri=uri, text=text, language=language))
         else:
-            files.append(SysMLFile(path=str(resolved_path), text=text, language=language))
+            canonical_path = str(resolved_path)
+            if canonical_path in seen_paths:
+                continue
+            seen_paths.add(canonical_path)
+            files.append(SysMLFile(path=canonical_path, text=text, language=language))
 
     return files

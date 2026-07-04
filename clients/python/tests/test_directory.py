@@ -10,6 +10,7 @@ from sysmlv2slclient.directory import (
     _glob_to_regex,
     _matcher,
     _memory_uri,
+    _scan,
     collect_directory_files,
 )
 
@@ -133,6 +134,84 @@ def test_symlink_policy(tmp_path):
     outside_link.symlink_to(outside)
     with pytest.raises(SysMLDirectoryError):
         collect_directory_files(tmp_path, follow_symlinks=True)
+
+
+def test_internal_symlink_directory_is_deduplicated(tmp_path):
+    real_dir = tmp_path / "real"
+    write(real_dir / "a.sysml", "package A {}")
+    alias = tmp_path / "alias"
+    alias.symlink_to(real_dir, target_is_directory=True)
+
+    files = collect_directory_files(tmp_path, follow_symlinks=True)
+    assert [(item.uri, item.path) for item in files] == [("memory:///real/a.sysml", None)]
+
+    file_scheme_files = collect_directory_files(
+        tmp_path,
+        follow_symlinks=True,
+        uri_scheme="file",
+        relative_uris=False,
+    )
+    assert [(item.uri, item.path) for item in file_scheme_files] == [
+        (None, str((real_dir / "a.sysml").resolve()))
+    ]
+
+
+def test_file_scheme_deduplicates_file_symlink_paths(tmp_path):
+    target = tmp_path / "target.sysml"
+    write(target, "package Target {}")
+    link = tmp_path / "link.sysml"
+    link.symlink_to(target)
+
+    files = collect_directory_files(
+        tmp_path,
+        follow_symlinks=True,
+        uri_scheme="file",
+        relative_uris=False,
+    )
+
+    assert [item.path for item in files] == [str(target.resolve())]
+
+
+def test_broken_symlink_reports_directory_error(tmp_path):
+    write(tmp_path / "a.sysml", "package A {}")
+    broken = tmp_path / "broken.sysml"
+    broken.symlink_to(tmp_path / "missing.sysml")
+
+    with pytest.raises(SysMLDirectoryError):
+        collect_directory_files(tmp_path, follow_symlinks=True)
+
+
+def test_scan_wraps_os_errors(tmp_path, monkeypatch):
+    root = tmp_path.resolve()
+
+    def broken_stat(path):
+        raise OSError("stat failed")
+
+    monkeypatch.setattr(directory.os, "stat", broken_stat)
+    with pytest.raises(SysMLDirectoryError):
+        _scan(root, follow_symlinks=False)
+    monkeypatch.undo()
+
+    def broken_scandir(path):
+        raise OSError("scan failed")
+
+    monkeypatch.setattr(directory.os, "scandir", broken_scandir)
+    with pytest.raises(SysMLDirectoryError):
+        _scan(root, follow_symlinks=False)
+    monkeypatch.undo()
+
+    file_path = tmp_path / "a.sysml"
+    write(file_path, "package A {}")
+    original_resolve = directory.Path.resolve
+
+    def broken_file_resolve(self, strict=False):
+        if self.name == "a.sysml":
+            raise OSError("resolve failed")
+        return original_resolve(self, strict=strict)
+
+    monkeypatch.setattr(directory.Path, "resolve", broken_file_resolve)
+    with pytest.raises(SysMLDirectoryError):
+        _scan(root, follow_symlinks=False)
 
 
 def test_non_regular_entries_and_boundary_defense(tmp_path, monkeypatch):
