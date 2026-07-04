@@ -16,6 +16,10 @@ updates:
         patterns:
           - "eslint"
           - "typescript-eslint"
+    ignore:
+      - dependency-name: "typescript"
+        update-types:
+          - "version-update:semver-major"
 
   - package-ecosystem: "github-actions"
     directory: "/"
