@@ -18,6 +18,7 @@ Example::
 """
 
 import json
+import math
 import os
 import urllib.parse
 from pathlib import Path
@@ -86,8 +87,8 @@ def _validate_base_url(ctx, param, value):
 
 
 def _validate_timeout(ctx, param, value):
-    if value <= 0:
-        raise click.BadParameter("must be greater than 0")
+    if not math.isfinite(value) or value <= 0:
+        raise click.BadParameter("must be a finite number greater than 0")
     return value
 
 
@@ -203,6 +204,8 @@ def _emit_validation_result(ctx, result):
 def _read_text_file(path, encoding, encoding_errors):
     try:
         return Path(path).read_text(encoding=encoding, errors=encoding_errors)
+    except LookupError as error:
+        raise SysMLCLIError("Cannot decode %s: unknown encoding option: %s" % (path, error))
     except UnicodeDecodeError as error:
         raise SysMLCLIError("Cannot decode %s: %s" % (path, error))
     except OSError as error:

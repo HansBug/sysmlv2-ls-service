@@ -198,8 +198,18 @@ def test_global_parameter_validation_is_click_usage_error():
 
     bad_timeout = invoke(["--timeout", "0", "health"])
     assert bad_timeout.exit_code == 2
-    assert "must be greater than 0" in bad_timeout.output
+    assert "must be a finite number greater than 0" in bad_timeout.output
     assert "Traceback" not in bad_timeout.output
+
+    infinite_timeout = invoke(["--timeout", "inf", "health"])
+    assert infinite_timeout.exit_code == 2
+    assert "must be a finite number greater than 0" in infinite_timeout.output
+    assert "Traceback" not in infinite_timeout.output
+
+    nan_timeout = invoke(["--timeout", "nan", "health"])
+    assert nan_timeout.exit_code == 2
+    assert "must be a finite number greater than 0" in nan_timeout.output
+    assert "Traceback" not in nan_timeout.output
 
 
 def test_validate_text_sources_and_failure_exit(tmp_path):
@@ -243,6 +253,20 @@ def test_validate_text_file_read_errors(tmp_path, monkeypatch):
     decode_error = invoke(["validate", "text", "--file", str(bad)])
     assert decode_error.exit_code == 3
     assert "Cannot decode" in decode_error.output
+
+    lookup_error = invoke(
+        [
+            "validate",
+            "text",
+            "--file",
+            str(bad),
+            "--encoding-errors",
+            "does-not-exist",
+        ]
+    )
+    assert lookup_error.exit_code == 3
+    assert "unknown encoding option" in lookup_error.output
+    assert "Traceback" not in lookup_error.output
 
     source = tmp_path / "source.sysml"
     source.write_text("package Demo {}", encoding="utf-8")

@@ -251,6 +251,10 @@ def collect_directory_files(
     for rel_posix, resolved_path in sorted(selected, key=lambda item: item[0]):
         try:
             text = resolved_path.read_text(encoding=encoding, errors=encoding_errors)
+        except LookupError as error:
+            raise SysMLDirectoryError(
+                "Cannot decode %s: unknown encoding option: %s" % (rel_posix, error)
+            )
         except UnicodeDecodeError as error:
             raise SysMLDirectoryError("Cannot decode %s: %s" % (rel_posix, error))
 

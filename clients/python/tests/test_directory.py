@@ -109,6 +109,12 @@ def test_encoding_and_special_uri_characters(tmp_path):
     bad.write_bytes(b"\xff")
     with pytest.raises(SysMLDirectoryError):
         collect_directory_files(tmp_path, include="bad.sysml")
+    with pytest.raises(SysMLDirectoryError):
+        collect_directory_files(
+            tmp_path,
+            include="bad.sysml",
+            encoding_errors="does-not-exist",
+        )
     assert (
         collect_directory_files(tmp_path, include="bad.sysml", encoding_errors="ignore")[0].text
         == ""
