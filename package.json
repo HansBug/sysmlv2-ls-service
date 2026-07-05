@@ -16,12 +16,15 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
+    "format": "prettier --write \"src/**/*.{ts,js,mjs}\" \"tests/**/*.ts\" \"scripts/**/*.mjs\" \"*.{js,json}\" \"codecov.yml\" \"pnpm-workspace.yaml\" \".github/workflows/*.yml\"",
+    "format:check": "prettier --check \"src/**/*.{ts,js,mjs}\" \"tests/**/*.ts\" \"scripts/**/*.mjs\" \"*.{js,json}\" \"codecov.yml\" \"pnpm-workspace.yaml\" \".github/workflows/*.yml\"",
     "lint": "eslint .",
+    "docs:check": "node scripts/check-jsdoc.mjs",
     "smoke:start": "node scripts/smoke-start.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "audit": "pnpm audit --audit-level moderate",
     "version:check": "node scripts/check-version.mjs",
-    "ci": "pnpm run version:check && pnpm run typecheck && pnpm run lint && pnpm run test:coverage && pnpm run build && pnpm run smoke:start"
+    "ci": "pnpm run version:check && pnpm run format:check && pnpm run typecheck && pnpm run lint && pnpm run docs:check && pnpm run test:coverage && pnpm run build && pnpm run smoke:start"
   },
   "dependencies": {
     "@fastify/cors": "^11.2.0",
@@ -46,6 +49,7 @@
     "expect": "^30.4.1",
     "jest-matcher-utils": "^30.4.1",
     "jest-snapshot": "^30.4.1",
+    "prettier": "^3.6.2",
     "shx": "^0.4.0",
     "tsx": "^4.23.0",
     "typescript": "5.1.3",

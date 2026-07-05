@@ -1,3 +1,23 @@
+"""
+Directory discovery helpers for validation workspaces.
+
+This module turns a human-friendly directory root into deterministic
+:class:`SysMLFile` inputs while enforcing request-local root boundaries. It
+supports relative include/exclude patterns, memory URI generation, file path
+mode, encoding control, and guarded symlink traversal.
+
+The module contains:
+
+* :func:`collect_directory_files` - collect validated SDK file DTOs from a
+  directory root.
+
+Example::
+
+    >>> files = collect_directory_files(".", include=("**/*.sysml",))
+    >>> isinstance(files, list)
+    True
+"""
+
 import os
 import re
 from pathlib import Path
@@ -108,7 +128,9 @@ def _scan(root, follow_symlinks):
                                 "Cannot resolve symlink %s: %s" % (entry_path, error)
                             )
                         if not _inside(root, resolved):
-                            raise SysMLDirectoryError("Symlink target escapes root: %s" % entry_path)
+                            raise SysMLDirectoryError(
+                                "Symlink target escapes root: %s" % entry_path
+                            )
                         if resolved.is_dir():
                             scan_dir(resolved)
                             continue
@@ -120,7 +142,9 @@ def _scan(root, follow_symlinks):
                         try:
                             resolved = entry_path.resolve(strict=True)
                         except OSError as error:
-                            raise SysMLDirectoryError("Cannot resolve file %s: %s" % (entry_path, error))
+                            raise SysMLDirectoryError(
+                                "Cannot resolve file %s: %s" % (entry_path, error)
+                            )
                         if not _inside(root, resolved):
                             raise SysMLDirectoryError("File escapes root: %s" % entry_path)
                         _append_file_if_regular(files, entry_path, resolved)
@@ -155,6 +179,43 @@ def collect_directory_files(
     encoding_errors="strict",
     follow_symlinks=False,
 ):
+    """
+    Collect SysML/KerML files under a directory root.
+
+    :param path: Directory root to scan.
+    :type path: str | pathlib.Path
+    :param include: Relative glob pattern or patterns, defaults to
+        ``("**/*.sysml",)``.
+    :type include: tuple[str, ...] | callable, optional
+    :param exclude: Relative glob pattern or patterns to skip.
+    :type exclude: tuple[str, ...] | callable, optional
+    :param uri_scheme: ``"memory"`` for generated memory URIs or ``"file"``
+        for absolute file paths.
+    :type uri_scheme: str, optional
+    :param relative_uris: Whether generated memory URIs are relative to
+        ``path``.
+    :type relative_uris: bool, optional
+    :param language: Optional explicit language, ``"sysml"`` or ``"kerml"``.
+    :type language: str, optional
+    :param encoding: File text encoding.
+    :type encoding: str, optional
+    :param encoding_errors: File decoding error handler.
+    :type encoding_errors: str, optional
+    :param follow_symlinks: Whether symlinks inside the root may be followed.
+    :type follow_symlinks: bool, optional
+    :return: Sorted list of SDK file DTOs.
+    :rtype: list[SysMLFile]
+    :raises SysMLDirectoryError: If the root, patterns, symlinks, decoding, or
+        URI generation are invalid.
+    :raises ValueError: If ``language`` is not supported.
+
+    Example::
+
+        >>> files = collect_directory_files(".", include=("**/*.sysml",))
+        >>> isinstance(files, list)
+        True
+    """
+
     try:
         root = Path(path).resolve(strict=True)
     except OSError as error:

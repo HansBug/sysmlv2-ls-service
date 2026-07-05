@@ -173,7 +173,9 @@ def test_individual_response_models_roundtrip():
         "id": "sysml",
         "extensions": [".sysml"],
     }
-    assert FileValidationSummary.from_dict(validate_dict()["files"][0]).to_dict()["lexerErrors"] == 0
+    assert (
+        FileValidationSummary.from_dict(validate_dict()["files"][0]).to_dict()["lexerErrors"] == 0
+    )
     assert ValidateMeta.from_dict(validate_dict()["meta"]).to_dict()["elapsedMs"] == 1.5
 
 
@@ -190,7 +192,9 @@ def test_capabilities_limits_roundtrip_and_shape_errors():
     )
     assert explicit.to_dict()["validate"]["maxTotalTextBytes"] == 3
     with pytest.raises(SysMLResponseError):
-        CapabilitiesResponse.from_dict({"languages": [], "validationChecks": [], "standardLibrary": []})
+        CapabilitiesResponse.from_dict(
+            {"languages": [], "validationChecks": [], "standardLibrary": []}
+        )
     with pytest.raises(SysMLResponseError):
         CapabilitiesResponse.from_dict(
             {"languages": {}, "validationChecks": [], "standardLibrary": [], "limits": {}}

@@ -4,7 +4,7 @@ import { normalizeDiagnostic } from "../src/diagnostics.js";
 
 const range = {
   start: { line: 0, character: 0 },
-  end: { line: 0, character: 1 }
+  end: { line: 0, character: 1 },
 };
 
 describe("normalizeDiagnostic", () => {
@@ -16,15 +16,15 @@ describe("normalizeDiagnostic", () => {
           source: "custom",
           code: 7,
           message: "info",
-          range
+          range,
         } satisfies Diagnostic,
-        "memory:///info.sysml"
-      )
+        "memory:///info.sysml",
+      ),
     ).toMatchObject({
       severity: "information",
       source: "custom",
       code: 7,
-      uri: "memory:///info.sysml"
+      uri: "memory:///info.sysml",
     });
 
     expect(
@@ -32,14 +32,14 @@ describe("normalizeDiagnostic", () => {
         {
           severity: 4,
           message: "hint",
-          range
+          range,
         } satisfies Diagnostic,
         "memory:///hint.sysml",
-        "fallback"
-      )
+        "fallback",
+      ),
     ).toMatchObject({
       severity: "hint",
-      source: "fallback"
+      source: "fallback",
     });
   });
 
@@ -48,21 +48,21 @@ describe("normalizeDiagnostic", () => {
       normalizeDiagnostic(
         {
           message: "missing",
-          range
+          range,
         } satisfies Diagnostic,
-        "memory:///missing.sysml"
-      ).severity
+        "memory:///missing.sysml",
+      ).severity,
     ).toBe("error");
 
     expect(
       normalizeDiagnostic(
-        ({
+        {
           severity: 99,
           message: "unknown",
-          range
-        } as unknown as Diagnostic),
-        "memory:///unknown.sysml"
-      ).severity
+          range,
+        } as unknown as Diagnostic,
+        "memory:///unknown.sysml",
+      ).severity,
     ).toBe("error");
   });
 });

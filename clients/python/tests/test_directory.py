@@ -2,9 +2,10 @@ import os
 from pathlib import Path
 
 import pytest
+from test_client import FakeSession, capabilities_body, validate_body
 
-from sysmlv2slclient import SysMLDirectoryError, SysMLV2LSClient
 import sysmlv2slclient.directory as directory
+from sysmlv2slclient import SysMLDirectoryError, SysMLV2LSClient
 from sysmlv2slclient.directory import (
     _append_file_if_regular,
     _glob_to_regex,
@@ -13,8 +14,6 @@ from sysmlv2slclient.directory import (
     _scan,
     collect_directory_files,
 )
-
-from test_client import FakeOpener, capabilities_body, validate_body
 
 
 def write(path, text, encoding="utf-8"):
@@ -72,8 +71,8 @@ def test_file_scheme_and_validation_wrapper(tmp_path):
     files = collect_directory_files(tmp_path, uri_scheme="file", relative_uris=False)
     assert files[0].path == str((tmp_path / "a.sysml").resolve())
 
-    opener = FakeOpener([capabilities_body(1000), validate_body()])
-    result = SysMLV2LSClient("http://example.test", opener=opener).validate_directory(tmp_path)
+    session = FakeSession([capabilities_body(1000), validate_body()])
+    result = SysMLV2LSClient("http://example.test", session=session).validate_directory(tmp_path)
     assert result.ok is True
 
 
@@ -110,7 +109,10 @@ def test_encoding_and_special_uri_characters(tmp_path):
     bad.write_bytes(b"\xff")
     with pytest.raises(SysMLDirectoryError):
         collect_directory_files(tmp_path, include="bad.sysml")
-    assert collect_directory_files(tmp_path, include="bad.sysml", encoding_errors="ignore")[0].text == ""
+    assert (
+        collect_directory_files(tmp_path, include="bad.sysml", encoding_errors="ignore")[0].text
+        == ""
+    )
 
 
 def test_symlink_policy(tmp_path):
@@ -233,7 +235,9 @@ def test_non_regular_entries_and_boundary_defense(tmp_path, monkeypatch):
 def test_duplicate_generated_uri_defense(tmp_path, monkeypatch):
     write(tmp_path / "a.sysml", "package A {}")
     write(tmp_path / "b.sysml", "package B {}")
-    monkeypatch.setattr(directory, "_memory_uri", lambda root, rel, relative: "memory:///same.sysml")
+    monkeypatch.setattr(
+        directory, "_memory_uri", lambda root, rel, relative: "memory:///same.sysml"
+    )
     with pytest.raises(SysMLDirectoryError):
         collect_directory_files(tmp_path)
 

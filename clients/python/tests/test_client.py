@@ -1,9 +1,7 @@
-import io
 import json
-import socket
-import urllib.error
 
 import pytest
+import requests
 
 from sysmlv2slclient import (
     HttpLimits,
@@ -77,27 +75,37 @@ def version_body():
 
 
 class FakeResponse(object):
-    def __init__(self, payload):
+    def __init__(self, payload, status_code=200, reason="OK"):
         self.payload = payload
+        self.status_code = status_code
+        self.reason = reason
 
-    def read(self):
+    @property
+    def text(self):
         if isinstance(self.payload, bytes):
+            return self.payload.decode("utf-8", "replace")
+        if isinstance(self.payload, str):
             return self.payload
-        return json.dumps(self.payload).encode("utf-8")
+        return json.dumps(self.payload)
+
+    def json(self):
+        if isinstance(self.payload, (bytes, str)):
+            return json.loads(self.text)
+        return self.payload
 
 
-class FakeOpener(object):
+class FakeSession(object):
     def __init__(self, responses):
         self.responses = list(responses)
         self.requests = []
-        self.timeouts = []
 
-    def open(self, request, timeout=None):
-        self.requests.append(request)
-        self.timeouts.append(timeout)
+    def request(self, method, url, **kwargs):
+        self.requests.append({"method": method, "url": url, "kwargs": kwargs})
         response = self.responses.pop(0)
         if isinstance(response, BaseException):
             raise response
+        if isinstance(response, tuple):
+            return FakeResponse(response[0], status_code=response[1], reason=response[2])
         return FakeResponse(response)
 
 
@@ -109,82 +117,87 @@ def explicit_limits(limit_value=1000):
 
 
 def test_get_methods_and_headers():
-    opener = FakeOpener([
-        {"ok": True, "service": "svc", "version": "1"},
-        capabilities_body(),
-        version_body(),
-    ])
-    client = SysMLV2LSClient("http://example.test/", user_agent="UA", opener=opener)
+    session = FakeSession(
+        [
+            {"ok": True, "service": "svc", "version": "1"},
+            capabilities_body(),
+            version_body(),
+        ]
+    )
+    client = SysMLV2LSClient("http://example.test/", user_agent="UA", session=session)
 
     assert client.health().service == "svc"
     assert client.capabilities().limits.validate.max_files == 1000
     assert client.version().service.revision == "abc"
-    assert [request.get_method() for request in opener.requests] == ["GET", "GET", "GET"]
-    assert opener.requests[0].full_url == "http://example.test/healthz"
-    assert opener.requests[0].get_header("User-agent") == "UA"
-    assert opener.requests[0].get_header("Accept") == "application/json"
-    assert opener.timeouts == [30.0, 30.0, 30.0]
+    assert [request["method"] for request in session.requests] == ["GET", "GET", "GET"]
+    assert session.requests[0]["url"] == "http://example.test/healthz"
+    assert session.requests[0]["kwargs"]["headers"]["User-Agent"] == "UA"
+    assert session.requests[0]["kwargs"]["headers"]["Accept"] == "application/json"
+    assert [request["kwargs"]["timeout"] for request in session.requests] == [30.0, 30.0, 30.0]
 
 
 def test_validate_auto_fetches_and_caches_limits():
-    opener = FakeOpener([capabilities_body(1000), validate_body(), validate_body()])
-    client = SysMLV2LSClient("http://example.test", opener=opener)
+    session = FakeSession([capabilities_body(1000), validate_body(), validate_body()])
+    client = SysMLV2LSClient("http://example.test", session=session)
 
     assert client.validate_text("package Demo {}", uri="memory:///demo.sysml").ok is True
-    assert client.validate_files([SysMLFile("package Demo {}", uri="memory:///demo.sysml")]).ok is True
-    assert [request.get_method() for request in opener.requests] == ["GET", "POST", "POST"]
-    posted = json.loads(opener.requests[1].data.decode("utf-8"))
+    assert (
+        client.validate_files([SysMLFile("package Demo {}", uri="memory:///demo.sysml")]).ok
+        is True
+    )
+    assert [request["method"] for request in session.requests] == ["GET", "POST", "POST"]
+    posted = session.requests[1]["kwargs"]["json"]
     assert posted["files"][0]["uri"] == "memory:///demo.sysml"
-    assert opener.requests[1].get_header("Content-type") == "application/json"
+    assert session.requests[1]["kwargs"]["headers"]["Content-Type"] == "application/json"
 
 
 def test_capabilities_refreshes_auto_cache():
-    opener = FakeOpener([capabilities_body(1000), validate_body()])
-    client = SysMLV2LSClient("http://example.test", opener=opener)
+    session = FakeSession([capabilities_body(1000), validate_body()])
+    client = SysMLV2LSClient("http://example.test", session=session)
     client.capabilities()
     assert client.validate([{"text": "abc", "uri": "memory:///demo.sysml"}]).ok is True
-    assert [request.get_method() for request in opener.requests] == ["GET", "POST"]
+    assert [request["method"] for request in session.requests] == ["GET", "POST"]
 
 
 def test_explicit_limits_and_dict_limits_do_not_fetch_capabilities():
-    opener = FakeOpener([validate_body(), validate_body()])
-    client = SysMLV2LSClient("http://example.test", opener=opener, limits=explicit_limits())
+    session = FakeSession([validate_body(), validate_body()])
+    client = SysMLV2LSClient("http://example.test", session=session, limits=explicit_limits())
     assert client.validate([{"text": "abc", "uri": "memory:///demo.sysml"}]).ok is True
 
     dict_client = SysMLV2LSClient(
         "http://example.test",
-        opener=opener,
+        session=session,
         limits=capabilities_body()["limits"],
     )
     assert dict_client.validate([{"text": "abc", "uri": "memory:///demo.sysml"}]).ok is True
-    assert [request.get_method() for request in opener.requests] == ["POST", "POST"]
+    assert [request["method"] for request in session.requests] == ["POST", "POST"]
 
 
 def test_explicit_limits_survive_manual_capabilities_refresh():
-    opener = FakeOpener([capabilities_body(1), validate_body()])
-    client = SysMLV2LSClient("http://example.test", opener=opener, limits=explicit_limits(1000))
+    session = FakeSession([capabilities_body(1), validate_body()])
+    client = SysMLV2LSClient("http://example.test", session=session, limits=explicit_limits(1000))
     assert client.capabilities().limits.validate.max_files == 1
     assert client.validate([{"text": "abc", "uri": "memory:///demo.sysml"}]).ok is True
 
 
 def test_none_limits_and_disabled_enforcement_skip_preflight():
     huge = "x" * 10
-    opener = FakeOpener([validate_body(), validate_body()])
-    no_known_limits = SysMLV2LSClient("http://example.test", opener=opener, limits=None)
+    session = FakeSession([validate_body(), validate_body()])
+    no_known_limits = SysMLV2LSClient("http://example.test", session=session, limits=None)
     assert no_known_limits.validate([{"text": huge, "uri": "memory:///demo.sysml"}]).ok
 
     disabled = SysMLV2LSClient(
         "http://example.test",
-        opener=opener,
+        session=session,
         enforce_client_limits=False,
     )
     assert disabled.validate([{"text": huge, "uri": "memory:///demo.sysml"}]).ok
-    assert [request.get_method() for request in opener.requests] == ["POST", "POST"]
+    assert [request["method"] for request in session.requests] == ["POST", "POST"]
 
 
 def test_preflight_limit_failures():
     limits = ServiceLimits(ValidateLimits(1, 3, 5, 1), HttpLimits(500))
-    client = SysMLV2LSClient("http://example.test", opener=FakeOpener([]), limits=limits)
+    client = SysMLV2LSClient("http://example.test", session=FakeSession([]), limits=limits)
     with pytest.raises(SysMLValidationLimitError):
         client.validate([{"text": "a"}, {"text": "b"}])
     with pytest.raises(SysMLValidationLimitError):
@@ -192,7 +205,7 @@ def test_preflight_limit_failures():
 
     total_limited = SysMLV2LSClient(
         "http://example.test",
-        opener=FakeOpener([]),
+        session=FakeSession([]),
         limits=ServiceLimits(ValidateLimits(10, 100, 5, 1), HttpLimits(500)),
     )
     with pytest.raises(SysMLValidationLimitError):
@@ -200,7 +213,7 @@ def test_preflight_limit_failures():
 
     tiny_body = SysMLV2LSClient(
         "http://example.test",
-        opener=FakeOpener([]),
+        session=FakeSession([]),
         limits=ServiceLimits(ValidateLimits(10, 100, 100, 1), HttpLimits(10)),
     )
     with pytest.raises(SysMLValidationLimitError):
@@ -208,7 +221,7 @@ def test_preflight_limit_failures():
 
 
 def test_option_validation_and_file_validation():
-    client = SysMLV2LSClient("http://example.test", opener=FakeOpener([]), limits=None)
+    client = SysMLV2LSClient("http://example.test", session=FakeSession([]), limits=None)
     with pytest.raises(ValueError):
         client.validate([], standard_library="standard")
     with pytest.raises(ValueError):
@@ -222,60 +235,63 @@ def test_option_validation_and_file_validation():
 
 
 def test_validate_accepts_iterable_file_inputs():
-    opener = FakeOpener([validate_body()])
-    client = SysMLV2LSClient("http://example.test", opener=opener, limits=None)
+    session = FakeSession([validate_body()])
+    client = SysMLV2LSClient("http://example.test", session=session, limits=None)
 
     def file_inputs():
         yield {"text": "package Demo {}", "uri": "memory:///demo.sysml"}
 
     assert client.validate(file_inputs()).ok is True
-    posted = json.loads(opener.requests[0].data.decode("utf-8"))
+    posted = session.requests[0]["kwargs"]["json"]
     assert posted["files"] == [{"text": "package Demo {}", "uri": "memory:///demo.sysml"}]
 
 
 def test_http_errors_and_response_errors():
-    http_json = urllib.error.HTTPError(
+    client = SysMLV2LSClient(
         "http://example.test",
-        400,
-        "Bad Request",
-        {},
-        io.BytesIO(b'{"error":"bad_request","message":"bad","issues":[1]}'),
+        session=FakeSession(
+            [({"error": "bad_request", "message": "bad", "issues": [1]}, 400, "Bad Request")]
+        ),
+        limits=None,
     )
-    client = SysMLV2LSClient("http://example.test", opener=FakeOpener([http_json]), limits=None)
     with pytest.raises(SysMLServiceError) as captured:
         client.health()
     assert captured.value.error == "bad_request"
     assert captured.value.issues == [1]
 
-    http_text = urllib.error.HTTPError(
+    text_client = SysMLV2LSClient(
         "http://example.test",
-        500,
-        "Server Error",
-        {},
-        io.BytesIO(b"not-json"),
+        session=FakeSession([("not-json", 500, "Server Error")]),
+        limits=None,
     )
-    text_client = SysMLV2LSClient("http://example.test", opener=FakeOpener([http_text]), limits=None)
     with pytest.raises(SysMLServiceError) as text_error:
         text_client.health()
     assert text_error.value.raw == "not-json"
 
-    bad_json = SysMLV2LSClient("http://example.test", opener=FakeOpener([b"not-json"]), limits=None)
+    bad_json = SysMLV2LSClient(
+        "http://example.test", session=FakeSession(["not-json"]), limits=None
+    )
     with pytest.raises(SysMLResponseError):
         bad_json.health()
 
-    bad_shape = SysMLV2LSClient("http://example.test", opener=FakeOpener([{}]), limits=None)
+    bad_shape = SysMLV2LSClient("http://example.test", session=FakeSession([{}]), limits=None)
     with pytest.raises(SysMLResponseError):
         bad_shape.health()
 
 
 def test_connection_errors_and_capability_fetch_failures_do_not_cache_empty_limits():
-    opener = FakeOpener([urllib.error.URLError("no route"), socket.timeout("slow")])
-    client = SysMLV2LSClient("http://example.test", opener=opener)
+    session = FakeSession(
+        [
+            requests.exceptions.ConnectionError("no route"),
+            requests.exceptions.Timeout("slow"),
+        ]
+    )
+    client = SysMLV2LSClient("http://example.test", session=session)
     with pytest.raises(SysMLConnectionError):
         client.validate([{"text": "abc"}])
     with pytest.raises(SysMLConnectionError):
         client.validate([{"text": "abc"}])
-    assert [request.get_method() for request in opener.requests] == ["GET", "GET"]
+    assert [request["method"] for request in session.requests] == ["GET", "GET"]
 
 
 def test_base_url_validation_and_path_prefix():
@@ -285,7 +301,7 @@ def test_base_url_validation_and_path_prefix():
         SysMLV2LSClient("http://example.test?x=1")
     with pytest.raises(ValueError):
         SysMLV2LSClient("http://example.test#frag")
-    opener = FakeOpener([{"ok": True, "service": "svc", "version": "1"}])
-    client = SysMLV2LSClient("http://example.test/api", opener=opener, limits=None)
+    session = FakeSession([{"ok": True, "service": "svc", "version": "1"}])
+    client = SysMLV2LSClient("http://example.test/api", session=session, limits=None)
     client.health()
-    assert opener.requests[0].full_url == "http://example.test/api/healthz"
+    assert session.requests[0]["url"] == "http://example.test/api/healthz"

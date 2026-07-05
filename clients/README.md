@@ -6,7 +6,7 @@ This directory contains installable clients for `sysmlv2-ls-service`.
 
 | Client | Module | Service API | Runtime |
 | --- | --- | --- | --- |
-| Python | `sysmlv2slclient` | Current public v1 endpoints | Python >=3.7 |
+| Python | `sysmlv2slclient` / `sysmlv2sl` | Current public v1 endpoints | Python >=3.7 |
 
 ## Client Rules
 
@@ -16,5 +16,6 @@ Each client should:
 - document the supported service API version;
 - include its own tests;
 - enforce 100% package branch coverage by default;
+- provide documented format, lint, and public-docstring checks;
 - keep SDK examples separate from service smoke examples;
 - preserve service-owned DTO semantics without exposing Langium internals.

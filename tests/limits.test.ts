@@ -5,7 +5,7 @@ import {
   DEFAULT_MAX_FILE_TEXT_BYTES,
   DEFAULT_MAX_TOTAL_TEXT_BYTES,
   DEFAULT_VALIDATION_TIMEOUT_MS,
-  resolveServiceLimits
+  resolveServiceLimits,
 } from "../src/limits.js";
 
 describe("service limits", () => {
@@ -15,11 +15,11 @@ describe("service limits", () => {
         maxFiles: DEFAULT_MAX_FILES,
         maxFileTextBytes: DEFAULT_MAX_FILE_TEXT_BYTES,
         maxTotalTextBytes: DEFAULT_MAX_TOTAL_TEXT_BYTES,
-        validationTimeoutMs: DEFAULT_VALIDATION_TIMEOUT_MS
+        validationTimeoutMs: DEFAULT_VALIDATION_TIMEOUT_MS,
       },
       http: {
-        bodyLimitBytes: DEFAULT_HTTP_BODY_LIMIT_BYTES
-      }
+        bodyLimitBytes: DEFAULT_HTTP_BODY_LIMIT_BYTES,
+      },
     });
   });
 
@@ -30,18 +30,18 @@ describe("service limits", () => {
         VALIDATE_MAX_FILE_TEXT_BYTES: "3",
         VALIDATE_MAX_TOTAL_TEXT_BYTES: "4",
         HTTP_BODY_LIMIT_BYTES: "5",
-        VALIDATION_TIMEOUT_MS: "6"
-      })
+        VALIDATION_TIMEOUT_MS: "6",
+      }),
     ).toEqual({
       validate: {
         maxFiles: 2,
         maxFileTextBytes: 3,
         maxTotalTextBytes: 4,
-        validationTimeoutMs: 6
+        validationTimeoutMs: 6,
       },
       http: {
-        bodyLimitBytes: 5
-      }
+        bodyLimitBytes: 5,
+      },
     });
   });
 
@@ -52,18 +52,18 @@ describe("service limits", () => {
         VALIDATE_MAX_FILE_TEXT_BYTES: "none",
         VALIDATE_MAX_TOTAL_TEXT_BYTES: "unlimited",
         HTTP_BODY_LIMIT_BYTES: "NONE",
-        VALIDATION_TIMEOUT_MS: "UNLIMITED"
-      })
+        VALIDATION_TIMEOUT_MS: "UNLIMITED",
+      }),
     ).toEqual({
       validate: {
         maxFiles: null,
         maxFileTextBytes: null,
         maxTotalTextBytes: null,
-        validationTimeoutMs: null
+        validationTimeoutMs: null,
       },
       http: {
-        bodyLimitBytes: null
-      }
+        bodyLimitBytes: null,
+      },
     });
   });
 
@@ -73,7 +73,7 @@ describe("service limits", () => {
       ["VALIDATE_MAX_FILE_TEXT_BYTES", "1.5"],
       ["VALIDATE_MAX_TOTAL_TEXT_BYTES", "abc"],
       ["HTTP_BODY_LIMIT_BYTES", ""],
-      ["VALIDATION_TIMEOUT_MS", "NaN"]
+      ["VALIDATION_TIMEOUT_MS", "NaN"],
     ]) {
       expect(() => resolveServiceLimits({ [name]: value })).toThrow(name);
     }

@@ -8,7 +8,7 @@ import {
   envOverride,
   readPackageInfo,
   readVersionFile,
-  repositoryUrl
+  repositoryUrl,
 } from "../src/version.js";
 
 describe("version metadata helpers", () => {
@@ -38,19 +38,20 @@ describe("version metadata helpers", () => {
     const versionPath = join(directory, "VERSION");
 
     try {
-      writeFileSync(packagePath, JSON.stringify({ name: "pkg", version: "1.2.3" }));
+      writeFileSync(
+        packagePath,
+        JSON.stringify({ name: "pkg", version: "1.2.3" }),
+      );
       writeFileSync(versionPath, "4.5.6\n");
 
-      expect(
-        readPackageInfo(["./missing-package.json", packagePath])
-      ).toEqual({
+      expect(readPackageInfo(["./missing-package.json", packagePath])).toEqual({
         name: "pkg",
-        version: "1.2.3"
+        version: "1.2.3",
       });
       expect(readPackageInfo(["./missing-package.json"])).toEqual({});
-      expect(readVersionFile(["./missing-version", pathToFileURL(versionPath).href])).toBe(
-        "4.5.6"
-      );
+      expect(
+        readVersionFile(["./missing-version", pathToFileURL(versionPath).href]),
+      ).toBe("4.5.6");
       expect(readVersionFile(["./missing-version"])).toBeUndefined();
     } finally {
       rmSync(directory, { recursive: true, force: true });
@@ -59,11 +60,11 @@ describe("version metadata helpers", () => {
 
   it("normalizes repository and environment override values", () => {
     expect(repositoryUrl("https://example.test/repo.git", "fallback")).toBe(
-      "https://example.test/repo.git"
+      "https://example.test/repo.git",
     );
-    expect(repositoryUrl({ url: "https://example.test/object.git" }, "fallback")).toBe(
-      "https://example.test/object.git"
-    );
+    expect(
+      repositoryUrl({ url: "https://example.test/object.git" }, "fallback"),
+    ).toBe("https://example.test/object.git");
     expect(repositoryUrl({}, "fallback")).toBe("fallback");
 
     expect(envOverride("MISSING_TEST_ENV")).toBeUndefined();
@@ -77,23 +78,23 @@ describe("version metadata helpers", () => {
     expect(
       composeVersionInfo({
         servicePackage: {},
-        upstreamPackage: {}
-      })
+        upstreamPackage: {},
+      }),
     ).toMatchObject({
       service: {
         name: "sysmlv2-ls-service",
         version: "0.0.0",
         revision: "unknown",
-        sourceRepository: "https://github.com/HansBug/sysmlv2-ls-service"
+        sourceRepository: "https://github.com/HansBug/sysmlv2-ls-service",
       },
       upstream: {
         sysml2ls: {
           version: "unknown",
           revision: "unknown",
           packageName: "syside-languageserver",
-          repository: "https://github.com/sensmetry/sysml-2ls"
-        }
-      }
+          repository: "https://github.com/sensmetry/sysml-2ls",
+        },
+      },
     });
 
     setEnv("SERVICE_VERSION", "9.0.0");
@@ -108,29 +109,29 @@ describe("version metadata helpers", () => {
         servicePackage: {
           name: "package-service-name",
           version: "1.0.0",
-          repository: "https://example.test/package"
+          repository: "https://example.test/package",
         },
         serviceVersionFile: "2.0.0",
         upstreamPackage: {
           name: "package-upstream-name",
-          version: "3.0.0"
-        }
-      })
+          version: "3.0.0",
+        },
+      }),
     ).toMatchObject({
       service: {
         name: "package-service-name",
         version: "9.0.0",
         revision: "service-rev",
-        sourceRepository: "https://example.test/service"
+        sourceRepository: "https://example.test/service",
       },
       upstream: {
         sysml2ls: {
           version: "8.0.0",
           revision: "upstream-rev",
           packageName: "package-upstream-name",
-          repository: "https://example.test/upstream"
-        }
-      }
+          repository: "https://example.test/upstream",
+        },
+      },
     });
   });
 });

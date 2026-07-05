@@ -7,11 +7,11 @@ describe("validateSysML", () => {
       files: [
         {
           uri: "memory:///ok.sysml",
-          text: "package Demo { part def Vehicle; }"
-        }
+          text: "package Demo { part def Vehicle; }",
+        },
       ],
       standardLibrary: "none",
-      validationChecks: "all"
+      validationChecks: "all",
     });
 
     expect(result.ok).toBe(true);
@@ -24,18 +24,18 @@ describe("validateSysML", () => {
       files: [
         {
           uri: "memory:///bad.sysml",
-          text: "package Demo { part def }"
-        }
+          text: "package Demo { part def }",
+        },
       ],
       standardLibrary: "none",
-      validationChecks: "all"
+      validationChecks: "all",
     });
 
     expect(result.ok).toBe(false);
     expect(result.diagnostics.length).toBeGreaterThan(0);
     expect(result.diagnostics[0]).toMatchObject({
       severity: "error",
-      uri: result.files[0]?.uri
+      uri: result.files[0]?.uri,
     });
   });
 
@@ -44,11 +44,11 @@ describe("validateSysML", () => {
       files: [
         {
           uri: "memory:///bad.sysml",
-          text: "garbage!!!"
-        }
+          text: "garbage!!!",
+        },
       ],
       standardLibrary: "none",
-      validationChecks: "none"
+      validationChecks: "none",
     });
 
     expect(result.ok).toBe(false);
@@ -60,11 +60,11 @@ describe("validateSysML", () => {
       files: [
         {
           uri: "memory:///bad.sysml",
-          text: "package Demo { part def }"
-        }
+          text: "package Demo { part def }",
+        },
       ],
       standardLibrary: "none",
-      validationChecks: "all"
+      validationChecks: "all",
     });
 
     expect(result.files[0]?.uri).toBe("memory:///bad.sysml");
@@ -75,11 +75,11 @@ describe("validateSysML", () => {
     const result = await validateSysML({
       files: [
         {
-          text: "package Generated {}"
-        }
+          text: "package Generated {}",
+        },
       ],
       standardLibrary: "none",
-      validationChecks: "all"
+      validationChecks: "all",
     });
 
     expect(result.ok).toBe(true);
@@ -91,15 +91,15 @@ describe("validateSysML", () => {
       files: [
         {
           uri: "memory:///lib.sysml",
-          text: "package Lib { part def Base; }"
+          text: "package Lib { part def Base; }",
         },
         {
           uri: "memory:///use.sysml",
-          text: "package Use { public import Lib::*; part base : Base; }"
-        }
+          text: "package Use { public import Lib::*; part base : Base; }",
+        },
       ],
       standardLibrary: "none",
-      validationChecks: "all"
+      validationChecks: "all",
     });
 
     expect(result.ok).toBe(true);
@@ -111,11 +111,11 @@ describe("validateSysML", () => {
       files: [
         {
           uri: "memory:///ok.kerml",
-          text: "package KernelDemo { class Thing; }"
-        }
+          text: "package KernelDemo { class Thing; }",
+        },
       ],
       standardLibrary: "none",
-      validationChecks: "all"
+      validationChecks: "all",
     });
 
     expect(result.ok).toBe(true);
