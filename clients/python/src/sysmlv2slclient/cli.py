@@ -204,8 +204,13 @@ def _memory_uri(root, resolved_path, relative_uris):
 
 
 def _load_cli_files(paths, uri_scheme, relative_uris, language, encoding, encoding_errors):
-    resolved_paths = [Path(path).resolve() for path in paths]
-    root = Path(os.path.commonpath([str(path.parent) for path in resolved_paths]))
+    resolved_paths = []
+    parent_paths = []
+    for path in paths:
+        resolved_path = Path(path).resolve()
+        resolved_paths.append(resolved_path)
+        parent_paths.append(str(resolved_path.parent))
+    root = Path(os.path.commonpath(parent_paths))
     files = []
     for input_path, resolved_path in zip(paths, resolved_paths):
         text = _read_text_file(input_path, encoding, encoding_errors)
