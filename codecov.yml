@@ -6,6 +6,9 @@ flags:
   python-client:
     paths:
       - clients/python/src/
+  js-service:
+    paths:
+      - src/
 
 coverage:
   status:

@@ -30,10 +30,11 @@ jobs:
       - name: Upload Python 3.7 coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: clients/python/coverage-py37.xml
           flags: python-client
           name: python-client-py37
-          fail_ci_if_error: false
+          fail_ci_if_error: true
 
   unit:
     runs-on: ubuntu-latest
@@ -78,10 +79,11 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: clients/python/coverage-py${{ matrix.python-version }}.xml
           flags: python-client
           name: python-client-py${{ matrix.python-version }}
-          fail_ci_if_error: false
+          fail_ci_if_error: true
 
   live:
     runs-on: ubuntu-latest

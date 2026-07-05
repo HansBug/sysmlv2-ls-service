@@ -10,7 +10,7 @@ interface PackageInfo {
   repository?: string | { url?: string };
 }
 
-function readPackageInfo(paths: string[]): PackageInfo {
+export function readPackageInfo(paths: string[]): PackageInfo {
   for (const path of paths) {
     try {
       return require(path) as PackageInfo;
@@ -21,7 +21,7 @@ function readPackageInfo(paths: string[]): PackageInfo {
   return {};
 }
 
-function readVersionFile(paths: string[]): string | undefined {
+export function readVersionFile(paths: string[]): string | undefined {
   for (const path of paths) {
     try {
       const version = readFileSync(new URL(path, import.meta.url), "utf8").trim();
@@ -33,12 +33,12 @@ function readVersionFile(paths: string[]): string | undefined {
   return undefined;
 }
 
-function repositoryUrl(repository: PackageInfo["repository"], fallback: string): string {
+export function repositoryUrl(repository: PackageInfo["repository"], fallback: string): string {
   if (typeof repository === "string") return repository;
   return repository?.url ?? fallback;
 }
 
-function envOverride(name: string): string | undefined {
+export function envOverride(name: string): string | undefined {
   const value = process.env[name]?.trim();
   return value && value !== "unknown" ? value : undefined;
 }
@@ -50,21 +50,34 @@ const upstreamPackage = readPackageInfo([
   "../../upstream/sysml-2ls/packages/syside-languageserver/package.json"
 ]);
 
-export function getVersionInfo(): VersionResponse {
+interface VersionInfoSources {
+  servicePackage: PackageInfo;
+  serviceVersionFile?: string;
+  upstreamPackage: PackageInfo;
+}
+
+export function composeVersionInfo(sources: VersionInfoSources): VersionResponse {
   return {
     service: {
-      name: servicePackage.name ?? "sysmlv2-ls-service",
-      version: envOverride("SERVICE_VERSION") ?? serviceVersionFile ?? servicePackage.version ?? "0.0.0",
+      name: sources.servicePackage.name ?? "sysmlv2-ls-service",
+      version:
+        envOverride("SERVICE_VERSION") ??
+        sources.serviceVersionFile ??
+        sources.servicePackage.version ??
+        "0.0.0",
       revision: envOverride("SERVICE_REVISION") ?? "unknown",
       sourceRepository:
         envOverride("SOURCE_REPOSITORY") ??
-        repositoryUrl(servicePackage.repository, "https://github.com/HansBug/sysmlv2-ls-service")
+        repositoryUrl(
+          sources.servicePackage.repository,
+          "https://github.com/HansBug/sysmlv2-ls-service"
+        )
     },
     upstream: {
       sysml2ls: {
-        version: envOverride("UPSTREAM_SYSML_2LS_VERSION") ?? upstreamPackage.version ?? "unknown",
+        version: envOverride("UPSTREAM_SYSML_2LS_VERSION") ?? sources.upstreamPackage.version ?? "unknown",
         revision: envOverride("UPSTREAM_SYSML_2LS_REVISION") ?? "unknown",
-        packageName: upstreamPackage.name ?? "syside-languageserver",
+        packageName: sources.upstreamPackage.name ?? "syside-languageserver",
         repository:
           envOverride("UPSTREAM_SYSML_2LS_REPOSITORY") ??
           "https://github.com/sensmetry/sysml-2ls"
@@ -75,4 +88,12 @@ export function getVersionInfo(): VersionResponse {
       nodeVersion: process.version
     }
   };
+}
+
+export function getVersionInfo(): VersionResponse {
+  return composeVersionInfo({
+    servicePackage,
+    serviceVersionFile,
+    upstreamPackage
+  });
 }

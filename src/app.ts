@@ -57,7 +57,7 @@ function getErrorResponseCode(error: unknown, statusCode: number): string {
 }
 
 function withValidationTimeout<T>(operation: Promise<T>, timeoutMs: number): Promise<T> {
-  let timeout: ReturnType<typeof setTimeout> | undefined;
+  let timeout: ReturnType<typeof setTimeout>;
   const timeoutPromise = new Promise<never>((_resolve, reject) => {
     timeout = setTimeout(() => {
       reject(
@@ -71,7 +71,7 @@ function withValidationTimeout<T>(operation: Promise<T>, timeoutMs: number): Pro
   });
 
   return Promise.race([operation, timeoutPromise]).finally(() => {
-    if (timeout) clearTimeout(timeout);
+    clearTimeout(timeout);
   });
 }
 

@@ -37,6 +37,16 @@ jobs:
       - name: Run checks
         run: pnpm run ci
 
+      - name: Upload JS service coverage to Codecov
+        if: matrix.node-version == '24'
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/lcov.info,coverage/cobertura-coverage.xml
+          flags: js-service
+          name: js-service-node24
+          fail_ci_if_error: true
+
   docker:
     runs-on: ubuntu-latest
     steps:

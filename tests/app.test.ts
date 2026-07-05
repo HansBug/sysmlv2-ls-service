@@ -153,6 +153,31 @@ describe("HTTP API", () => {
     }
   });
 
+  it("uses safe fallback messages for non-Error client failures", async () => {
+    const defaultLoggerApp = await buildApp();
+    await defaultLoggerApp.close();
+
+    const fallbackApp = await buildApp({ logger: false });
+    fallbackApp.get("/test/non-error-client-failure", async () => {
+      throw { statusCode: 400 };
+    });
+
+    try {
+      const response = await fallbackApp.inject({
+        method: "GET",
+        url: "/test/non-error-client-failure"
+      });
+
+      expect(response.statusCode).toBe(400);
+      expect(response.json()).toEqual({
+        error: "bad_request",
+        message: "Unknown error"
+      });
+    } finally {
+      await fallbackApp.close();
+    }
+  });
+
   it("exposes capabilities", async () => {
     const response = await app.inject({ method: "GET", url: "/v1/capabilities" });
 

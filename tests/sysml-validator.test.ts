@@ -71,6 +71,21 @@ describe("validateSysML", () => {
     expect(result.diagnostics[0]?.uri).toBe("memory:///bad.sysml");
   });
 
+  it("uses generated document URIs when callers omit uri and path", async () => {
+    const result = await validateSysML({
+      files: [
+        {
+          text: "package Generated {}"
+        }
+      ],
+      standardLibrary: "none",
+      validationChecks: "all"
+    });
+
+    expect(result.ok).toBe(true);
+    expect(result.files[0]?.uri).toBe("memory:/workspace/input-0.sysml");
+  });
+
   it("resolves references across files in one request", async () => {
     const result = await validateSysML({
       files: [
