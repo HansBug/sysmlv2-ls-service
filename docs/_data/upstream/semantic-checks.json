@@ -1,0 +1,1374 @@
+{
+  "header": {
+    "schemaVersion": "upstream-semantic-checks-inventory/v1",
+    "sourceKind": "static",
+    "analysisTarget": "typescript-source",
+    "analysisPolicy": "This first inventory version statically scans upstream TypeScript grammar and validator source. It verifies compiled JS/d.ts artifacts exist so the pinned submodule has been built, but those compiled artifacts are not primary parser evidence yet.",
+    "compiledArtifacts": {
+      "presenceChecked": true,
+      "primaryEvidence": false,
+      "requiredPaths": [
+        "packages/syside-languageserver/lib/services/validation/sysml-validator.js",
+        "packages/syside-languageserver/lib/services/validation/kerml-validator.js",
+        "packages/syside-languageserver/lib/generated/grammar.js",
+        "packages/syside-languageserver/lib/generated/ast.d.ts"
+      ]
+    },
+    "serviceRepository": {
+      "repository": "https://github.com/HansBug/sysmlv2-ls-service",
+      "revision": "resolved-at-build-time",
+      "sourceDate": "resolved-at-build-time",
+      "metadataPolicy": "Committed inventory uses deterministic placeholders for the service repository; the MkDocs version hook resolves the rendered site revision/source date at build time."
+    },
+    "upstream": {
+      "repository": "https://github.com/sensmetry/sysml-2ls",
+      "revision": "a0b3ddbf783063dd7291aac0b51d4282decc789e",
+      "packageName": "syside-languageserver",
+      "packageVersion": "0.9.1"
+    },
+    "toolchain": {
+      "requiredNodeVersion": "20.19",
+      "requiredPnpmVersion": "9.15.4",
+      "requiredPythonVersion": "3.12",
+      "runtimePolicy": "GitHub Actions docs job owns generation; Read the Docs consumes committed Markdown/JSON."
+    },
+    "generatedBy": "scripts/docs/inventory-upstream.mjs",
+    "generatedFor": "GitHub Actions docs job; Read the Docs consumes committed output only."
+  },
+  "checks": [
+    {
+      "id": "sysml:validateAcceptActionUsageParameters",
+      "language": "sysml",
+      "checkName": "validateAcceptActionUsageParameters",
+      "decorators": [
+        "ast.AcceptActionUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateActionUsageTyping",
+      "language": "sysml",
+      "checkName": "validateActionUsageTyping",
+      "decorators": [
+        "ast.ActionUsage, [ast.StateUsage, ast.CalculationUsage, ast.FlowConnectionUsage]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateActorMembershipOwningType",
+      "language": "sysml",
+      "checkName": "validateActorMembershipOwningType",
+      "decorators": [
+        "ast.ActorMembership"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAllocationUsageTyping",
+      "language": "sysml",
+      "checkName": "validateAllocationUsageTyping",
+      "decorators": [
+        "ast.AllocationUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAllTypings",
+      "language": "sysml",
+      "checkName": "validateAllTypings",
+      "decorators": [
+        "ast.AttributeUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAllTypings",
+      "language": "sysml",
+      "checkName": "validateAllTypings",
+      "decorators": [
+        "ast.OccurrenceUsage, [ast.ItemUsage, ast.PortUsage, ast.Step]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAllTypings",
+      "language": "sysml",
+      "checkName": "validateAllTypings",
+      "decorators": [
+        "ast.ItemUsage, [ast.PartUsage, ast.PortUsage, ast.MetadataUsage]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAllTypings",
+      "language": "sysml",
+      "checkName": "validateAllTypings",
+      "decorators": [
+        "ast.PartUsage, [ast.ConnectionUsage]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAllTypings",
+      "language": "sysml",
+      "checkName": "validateAllTypings",
+      "decorators": [
+        "ast.PortUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAllTypings",
+      "language": "sysml",
+      "checkName": "validateAllTypings",
+      "decorators": [
+        "ast.ConnectionUsage, [\n        ast.FlowConnectionUsage,\n        ast.InterfaceUsage,\n        ast.AllocationUsage,\n    ]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAllTypings",
+      "language": "sysml",
+      "checkName": "validateAllTypings",
+      "decorators": [
+        "ast.FlowConnectionUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAllTypings",
+      "language": "sysml",
+      "checkName": "validateAllTypings",
+      "decorators": [
+        "ast.InterfaceUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAllTypings",
+      "language": "sysml",
+      "checkName": "validateAllTypings",
+      "decorators": [
+        "ast.AllocationUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAllTypings",
+      "language": "sysml",
+      "checkName": "validateAllTypings",
+      "decorators": [
+        "ast.ActionUsage, [ast.StateUsage, ast.CalculationUsage, ast.FlowConnectionUsage]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAllTypings",
+      "language": "sysml",
+      "checkName": "validateAllTypings",
+      "decorators": [
+        "ast.StateUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAnalysisCaseUsageTyping",
+      "language": "sysml",
+      "checkName": "validateAnalysisCaseUsageTyping",
+      "decorators": [
+        "ast.AnalysisCaseUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAssertConstraintUsageReference",
+      "language": "sysml",
+      "checkName": "validateAssertConstraintUsageReference",
+      "decorators": [
+        "ast.AssertConstraintUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAssignmentActionUsageReferent",
+      "language": "sysml",
+      "checkName": "validateAssignmentActionUsageReferent",
+      "decorators": [
+        "ast.AssignmentActionUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAssocStructSpecialization",
+      "language": "sysml",
+      "checkName": "validateAssocStructSpecialization",
+      "decorators": [
+        "ast.AssociationStructure",
+        "ast.Interaction"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAtLeastTyping",
+      "language": "sysml",
+      "checkName": "validateAtLeastTyping",
+      "decorators": [
+        "ast.PartUsage, [ast.ConnectionUsage]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAttributeUsageTyping",
+      "language": "sysml",
+      "checkName": "validateAttributeUsageTyping",
+      "decorators": [
+        "ast.AttributeUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateCalculationUsageTyping",
+      "language": "sysml",
+      "checkName": "validateCalculationUsageTyping",
+      "decorators": [
+        "ast.CalculationUsage, [ast.CaseUsage]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateCaseDefinitionOnlyOneSubject",
+      "language": "sysml",
+      "checkName": "validateCaseDefinitionOnlyOneSubject",
+      "decorators": [
+        "ast.CaseDefinition",
+        "ast.CaseUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateCaseOnlyOneObjective",
+      "language": "sysml",
+      "checkName": "validateCaseOnlyOneObjective",
+      "decorators": [
+        "ast.CaseDefinition",
+        "ast.CaseUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateCaseSubjectParameterPosition",
+      "language": "sysml",
+      "checkName": "validateCaseSubjectParameterPosition",
+      "decorators": [
+        "ast.CaseDefinition",
+        "ast.CaseUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateCaseUsageTyping",
+      "language": "sysml",
+      "checkName": "validateCaseUsageTyping",
+      "decorators": [
+        "ast.CaseUsage, [\n        ast.AnalysisCaseUsage,\n        ast.VerificationCaseUsage,\n        ast.UseCaseUsage,\n    ]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateClassSpecialization",
+      "language": "sysml",
+      "checkName": "validateClassSpecialization",
+      "decorators": [
+        "ast.Class, [ast.AssociationStructure, ast.Interaction]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateConjugatedPortDefinitionOriginalPortDefinition",
+      "language": "sysml",
+      "checkName": "validateConjugatedPortDefinitionOriginalPortDefinition",
+      "decorators": [
+        "ast.ConjugatedPortDefinition"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateConnectionUsageTyping",
+      "language": "sysml",
+      "checkName": "validateConnectionUsageTyping",
+      "decorators": [
+        "ast.ConnectionUsage, [\n        ast.FlowConnectionUsage,\n        ast.InterfaceUsage,\n        ast.AllocationUsage,\n    ]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateConstraintUsageTyping",
+      "language": "sysml",
+      "checkName": "validateConstraintUsageTyping",
+      "decorators": [
+        "ast.ConstraintUsage, [ast.RequirementUsage]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateControlNodeOwningType",
+      "language": "sysml",
+      "checkName": "validateControlNodeOwningType",
+      "decorators": [
+        "ast.ControlNode"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateDatatypeSpecialization",
+      "language": "sysml",
+      "checkName": "validateDatatypeSpecialization",
+      "decorators": [
+        "ast.DataType"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateEnumerationUsageTyping",
+      "language": "sysml",
+      "checkName": "validateEnumerationUsageTyping",
+      "decorators": [
+        "ast.EnumerationUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateEventOccurrenceUsageReference",
+      "language": "sysml",
+      "checkName": "validateEventOccurrenceUsageReference",
+      "decorators": [
+        "ast.EventOccurrenceUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping",
+      "language": "sysml",
+      "checkName": "validateExactlyOneTyping",
+      "decorators": [
+        "ast.EnumerationUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping",
+      "language": "sysml",
+      "checkName": "validateExactlyOneTyping",
+      "decorators": [
+        "ast.CalculationUsage, [ast.CaseUsage]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping",
+      "language": "sysml",
+      "checkName": "validateExactlyOneTyping",
+      "decorators": [
+        "ast.ConstraintUsage, [ast.RequirementUsage]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping",
+      "language": "sysml",
+      "checkName": "validateExactlyOneTyping",
+      "decorators": [
+        "ast.RequirementUsage, [ast.ViewpointUsage]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping",
+      "language": "sysml",
+      "checkName": "validateExactlyOneTyping",
+      "decorators": [
+        "ast.CaseUsage, [\n        ast.AnalysisCaseUsage,\n        ast.VerificationCaseUsage,\n        ast.UseCaseUsage,\n    ]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping",
+      "language": "sysml",
+      "checkName": "validateExactlyOneTyping",
+      "decorators": [
+        "ast.AnalysisCaseUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping",
+      "language": "sysml",
+      "checkName": "validateExactlyOneTyping",
+      "decorators": [
+        "ast.VerificationCaseUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping",
+      "language": "sysml",
+      "checkName": "validateExactlyOneTyping",
+      "decorators": [
+        "ast.UseCaseUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping",
+      "language": "sysml",
+      "checkName": "validateExactlyOneTyping",
+      "decorators": [
+        "ast.RenderingUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping",
+      "language": "sysml",
+      "checkName": "validateExactlyOneTyping",
+      "decorators": [
+        "ast.ViewpointUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping",
+      "language": "sysml",
+      "checkName": "validateExactlyOneTyping",
+      "decorators": [
+        "ast.ViewUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping",
+      "language": "sysml",
+      "checkName": "validateExactlyOneTyping",
+      "decorators": [
+        "ast.MetadataUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExhibitStateUsageReference",
+      "language": "sysml",
+      "checkName": "validateExhibitStateUsageReference",
+      "decorators": [
+        "ast.ExhibitStateUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExposeNoExplicitVisibility",
+      "language": "sysml",
+      "checkName": "validateExposeNoExplicitVisibility",
+      "decorators": [
+        "ast.Expose"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExposeOwningNamespace",
+      "language": "sysml",
+      "checkName": "validateExposeOwningNamespace",
+      "decorators": [
+        "ast.Expose"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateFlowConnectionEnd",
+      "language": "sysml",
+      "checkName": "validateFlowConnectionEnd",
+      "decorators": [
+        "ast.FlowConnectionDefinition"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateFlowConnectionUsageTyping",
+      "language": "sysml",
+      "checkName": "validateFlowConnectionUsageTyping",
+      "decorators": [
+        "ast.FlowConnectionUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateIncludeUseCaseUsageReference",
+      "language": "sysml",
+      "checkName": "validateIncludeUseCaseUsageReference",
+      "decorators": [
+        "ast.IncludeUseCaseUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateInterfaceEnds",
+      "language": "sysml",
+      "checkName": "validateInterfaceEnds",
+      "decorators": [
+        "ast.InterfaceDefinition",
+        "ast.InterfaceUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateInterfaceUsageTyping",
+      "language": "sysml",
+      "checkName": "validateInterfaceUsageTyping",
+      "decorators": [
+        "ast.InterfaceUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateItemUsageTyping",
+      "language": "sysml",
+      "checkName": "validateItemUsageTyping",
+      "decorators": [
+        "ast.ItemUsage, [ast.PartUsage, ast.PortUsage, ast.MetadataUsage]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateMetadataUsageTyping",
+      "language": "sysml",
+      "checkName": "validateMetadataUsageTyping",
+      "decorators": [
+        "ast.MetadataUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateObjectiveMembershipIsComposite",
+      "language": "sysml",
+      "checkName": "validateObjectiveMembershipIsComposite",
+      "decorators": [
+        "ast.ObjectiveMembership"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateObjectiveMembershipOwningType",
+      "language": "sysml",
+      "checkName": "validateObjectiveMembershipOwningType",
+      "decorators": [
+        "ast.ObjectiveMembership"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateOccurrenceDefinitionLifeClass",
+      "language": "sysml",
+      "checkName": "validateOccurrenceDefinitionLifeClass",
+      "decorators": [
+        "ast.OccurrenceDefinition"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateOccurrenceUsageIndividual",
+      "language": "sysml",
+      "checkName": "validateOccurrenceUsageIndividual",
+      "decorators": [
+        "ast.OccurrenceUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateOccurrenceUsageTyping",
+      "language": "sysml",
+      "checkName": "validateOccurrenceUsageTyping",
+      "decorators": [
+        "ast.OccurrenceUsage, [ast.ItemUsage, ast.PortUsage, ast.Step]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateOperatorExpressionQuantity",
+      "language": "sysml",
+      "checkName": "validateOperatorExpressionQuantity",
+      "decorators": [
+        "ast.OperatorExpression, [\n        ast.CollectExpression,\n        ast.SelectExpression,\n        ast.FeatureChainExpression,\n    ]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validatePartUsageTyping",
+      "language": "sysml",
+      "checkName": "validatePartUsageTyping",
+      "decorators": [
+        "ast.PartUsage, [ast.ConnectionUsage]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validatePerformActionUsageReference",
+      "language": "sysml",
+      "checkName": "validatePerformActionUsageReference",
+      "decorators": [
+        "ast.PerformActionUsage, [ast.ExhibitStateUsage, ast.IncludeUseCaseUsage]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validatePortDefinitionConjugatedPortDefinition",
+      "language": "sysml",
+      "checkName": "validatePortDefinitionConjugatedPortDefinition",
+      "decorators": [
+        "ast.PortDefinition, [ast.ConjugatedPortDefinition]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validatePortOwnedUsagesNotComposite",
+      "language": "sysml",
+      "checkName": "validatePortOwnedUsagesNotComposite",
+      "decorators": [
+        "ast.PortDefinition",
+        "ast.PortUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validatePortUsageTyping",
+      "language": "sysml",
+      "checkName": "validatePortUsageTyping",
+      "decorators": [
+        "ast.PortUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateRenderingUsageTyping",
+      "language": "sysml",
+      "checkName": "validateRenderingUsageTyping",
+      "decorators": [
+        "ast.RenderingUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateRequirementConstraintMembershipIsComposite",
+      "language": "sysml",
+      "checkName": "validateRequirementConstraintMembershipIsComposite",
+      "decorators": [
+        "ast.RequirementConstraintMembership"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateRequirementMembershipOwningType",
+      "language": "sysml",
+      "checkName": "validateRequirementMembershipOwningType",
+      "decorators": [
+        "ast.RequirementConstraintMembership",
+        "ast.StakeholderMembership"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateRequirementOnlyOneSubject",
+      "language": "sysml",
+      "checkName": "validateRequirementOnlyOneSubject",
+      "decorators": [
+        "ast.RequirementDefinition",
+        "ast.RequirementUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateRequirementSubjectParameterPosition",
+      "language": "sysml",
+      "checkName": "validateRequirementSubjectParameterPosition",
+      "decorators": [
+        "ast.RequirementDefinition",
+        "ast.RequirementUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateRequirementUsageTyping",
+      "language": "sysml",
+      "checkName": "validateRequirementUsageTyping",
+      "decorators": [
+        "ast.RequirementUsage, [ast.ViewpointUsage]"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateRequirementVerificationMembershipOwningType",
+      "language": "sysml",
+      "checkName": "validateRequirementVerificationMembershipOwningType",
+      "decorators": [
+        "ast.RequirementVerificationMembership"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSatisfyRequirementUsageReference",
+      "language": "sysml",
+      "checkName": "validateSatisfyRequirementUsageReference",
+      "decorators": [
+        "ast.SatisfyRequirementUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSendActionParameters",
+      "language": "sysml",
+      "checkName": "validateSendActionParameters",
+      "decorators": [
+        "ast.SendActionUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSendActionReceiver",
+      "language": "sysml",
+      "checkName": "validateSendActionReceiver",
+      "decorators": [
+        "ast.SendActionUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateStateParallelSubactions",
+      "language": "sysml",
+      "checkName": "validateStateParallelSubactions",
+      "decorators": [
+        "ast.SuccessionAsUsage",
+        "ast.TransitionUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateStateSubactionKind",
+      "language": "sysml",
+      "checkName": "validateStateSubactionKind",
+      "decorators": [
+        "ast.StateDefinition",
+        "ast.StateUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateStateSubactionMembershipOwningType",
+      "language": "sysml",
+      "checkName": "validateStateSubactionMembershipOwningType",
+      "decorators": [
+        "ast.StateSubactionMembership"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateStateUsageTyping",
+      "language": "sysml",
+      "checkName": "validateStateUsageTyping",
+      "decorators": [
+        "ast.StateUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSubjectMembershipOwningType",
+      "language": "sysml",
+      "checkName": "validateSubjectMembershipOwningType",
+      "decorators": [
+        "ast.SubjectMembership"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSysML",
+      "language": "sysml",
+      "checkName": "validateSysML",
+      "decorators": [
+        "ast.Definition"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSysML",
+      "language": "sysml",
+      "checkName": "validateSysML",
+      "decorators": [
+        "ast.Definition"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSysML",
+      "language": "sysml",
+      "checkName": "validateSysML",
+      "decorators": [
+        "ast.PortDefinition"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSysML",
+      "language": "sysml",
+      "checkName": "validateSysML",
+      "decorators": [
+        "ast.InterfaceDefinition"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSysML",
+      "language": "sysml",
+      "checkName": "validateSysML",
+      "decorators": [
+        "ast.SuccessionAsUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSysML",
+      "language": "sysml",
+      "checkName": "validateSysML",
+      "decorators": [
+        "ast.StateDefinition"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSysML",
+      "language": "sysml",
+      "checkName": "validateSysML",
+      "decorators": [
+        "ast.RequirementConstraintMembership"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSysML",
+      "language": "sysml",
+      "checkName": "validateSysML",
+      "decorators": [
+        "ast.RequirementDefinition"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSysML",
+      "language": "sysml",
+      "checkName": "validateSysML",
+      "decorators": [
+        "ast.RequirementDefinition"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSysML",
+      "language": "sysml",
+      "checkName": "validateSysML",
+      "decorators": [
+        "ast.CaseDefinition"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSysML",
+      "language": "sysml",
+      "checkName": "validateSysML",
+      "decorators": [
+        "ast.CaseDefinition"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSysML",
+      "language": "sysml",
+      "checkName": "validateSysML",
+      "decorators": [
+        "ast.CaseDefinition"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSysML",
+      "language": "sysml",
+      "checkName": "validateSysML",
+      "decorators": [
+        "ast.ViewDefinition"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSysML",
+      "language": "sysml",
+      "checkName": "validateSysML",
+      "decorators": [
+        "ast.AssociationStructure"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateTransitionFeatureMembership",
+      "language": "sysml",
+      "checkName": "validateTransitionFeatureMembership",
+      "decorators": [
+        "ast.TransitionFeatureMembership"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateTransitionFeatureMembershipOwningType",
+      "language": "sysml",
+      "checkName": "validateTransitionFeatureMembershipOwningType",
+      "decorators": [
+        "ast.TransitionFeatureMembership"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateTransitionUsageParameters",
+      "language": "sysml",
+      "checkName": "validateTransitionUsageParameters",
+      "decorators": [
+        "ast.TransitionUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateTransitionUsageSuccession",
+      "language": "sysml",
+      "checkName": "validateTransitionUsageSuccession",
+      "decorators": [
+        "ast.TransitionUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateTriggerInvocationExpression",
+      "language": "sysml",
+      "checkName": "validateTriggerInvocationExpression",
+      "decorators": [
+        "ast.TriggerInvocationExpression"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateUseCaseUsageTyping",
+      "language": "sysml",
+      "checkName": "validateUseCaseUsageTyping",
+      "decorators": [
+        "ast.UseCaseUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateVariantMembershipOwningNamespace",
+      "language": "sysml",
+      "checkName": "validateVariantMembershipOwningNamespace",
+      "decorators": [
+        "ast.VariantMembership"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateVariationMembership",
+      "language": "sysml",
+      "checkName": "validateVariationMembership",
+      "decorators": [
+        "ast.Definition",
+        "ast.Usage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateVariationSpecialization",
+      "language": "sysml",
+      "checkName": "validateVariationSpecialization",
+      "decorators": [
+        "ast.Definition",
+        "ast.Usage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateVerificationCaseUsageTyping",
+      "language": "sysml",
+      "checkName": "validateVerificationCaseUsageTyping",
+      "decorators": [
+        "ast.VerificationCaseUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateViewDefinitionOnlyOneViewRendering",
+      "language": "sysml",
+      "checkName": "validateViewDefinitionOnlyOneViewRendering",
+      "decorators": [
+        "ast.ViewDefinition",
+        "ast.ViewUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateViewpointUsageTyping",
+      "language": "sysml",
+      "checkName": "validateViewpointUsageTyping",
+      "decorators": [
+        "ast.ViewpointUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateViewRenderingMembershipOwningType",
+      "language": "sysml",
+      "checkName": "validateViewRenderingMembershipOwningType",
+      "decorators": [
+        "ast.ViewRenderingMembership"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateViewUsageTyping",
+      "language": "sysml",
+      "checkName": "validateViewUsageTyping",
+      "decorators": [
+        "ast.ViewUsage"
+      ],
+      "sourcePath": "packages/syside-languageserver/src/services/validation/sysml-validator.ts",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    }
+  ]
+}

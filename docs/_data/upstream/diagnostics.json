@@ -1,0 +1,984 @@
+{
+  "header": {
+    "schemaVersion": "upstream-diagnostics-inventory/v1",
+    "sourceKind": "static",
+    "analysisTarget": "typescript-source",
+    "analysisPolicy": "This first inventory version statically scans upstream TypeScript grammar and validator source. It verifies compiled JS/d.ts artifacts exist so the pinned submodule has been built, but those compiled artifacts are not primary parser evidence yet.",
+    "compiledArtifacts": {
+      "presenceChecked": true,
+      "primaryEvidence": false,
+      "requiredPaths": [
+        "packages/syside-languageserver/lib/services/validation/sysml-validator.js",
+        "packages/syside-languageserver/lib/services/validation/kerml-validator.js",
+        "packages/syside-languageserver/lib/generated/grammar.js",
+        "packages/syside-languageserver/lib/generated/ast.d.ts"
+      ]
+    },
+    "serviceRepository": {
+      "repository": "https://github.com/HansBug/sysmlv2-ls-service",
+      "revision": "resolved-at-build-time",
+      "sourceDate": "resolved-at-build-time",
+      "metadataPolicy": "Committed inventory uses deterministic placeholders for the service repository; the MkDocs version hook resolves the rendered site revision/source date at build time."
+    },
+    "upstream": {
+      "repository": "https://github.com/sensmetry/sysml-2ls",
+      "revision": "a0b3ddbf783063dd7291aac0b51d4282decc789e",
+      "packageName": "syside-languageserver",
+      "packageVersion": "0.9.1"
+    },
+    "toolchain": {
+      "requiredNodeVersion": "20.19",
+      "requiredPnpmVersion": "9.15.4",
+      "requiredPythonVersion": "3.12",
+      "runtimePolicy": "GitHub Actions docs job owns generation; Read the Docs consumes committed Markdown/JSON."
+    },
+    "generatedBy": "scripts/docs/inventory-upstream.mjs",
+    "generatedFor": "GitHub Actions docs job; Read the Docs consumes committed output only."
+  },
+  "diagnostics": [
+    {
+      "id": "sysml:validateAcceptActionUsageParameters:diagnostics-unspecified",
+      "checkId": "sysml:validateAcceptActionUsageParameters",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateActionUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateActionUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateActorMembershipOwningType:diagnostic-1",
+      "checkId": "sysml:validateActorMembershipOwningType",
+      "messagePattern": "The owningType of ActorMembership must be a RequirementDefinition, RequirementUsage, CaseDefinition, or CaseUsage.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAllocationUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateAllocationUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAllTypings:diagnostics-unspecified",
+      "checkId": "sysml:validateAllTypings",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAllTypings:diagnostics-unspecified",
+      "checkId": "sysml:validateAllTypings",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAllTypings:diagnostics-unspecified",
+      "checkId": "sysml:validateAllTypings",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAllTypings:diagnostics-unspecified",
+      "checkId": "sysml:validateAllTypings",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAllTypings:diagnostics-unspecified",
+      "checkId": "sysml:validateAllTypings",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAllTypings:diagnostics-unspecified",
+      "checkId": "sysml:validateAllTypings",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAllTypings:diagnostics-unspecified",
+      "checkId": "sysml:validateAllTypings",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAllTypings:diagnostics-unspecified",
+      "checkId": "sysml:validateAllTypings",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAllTypings:diagnostics-unspecified",
+      "checkId": "sysml:validateAllTypings",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAllTypings:diagnostics-unspecified",
+      "checkId": "sysml:validateAllTypings",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAllTypings:diagnostics-unspecified",
+      "checkId": "sysml:validateAllTypings",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAnalysisCaseUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateAnalysisCaseUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAssertConstraintUsageReference:diagnostics-unspecified",
+      "checkId": "sysml:validateAssertConstraintUsageReference",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAssignmentActionUsageReferent:diagnostic-1",
+      "checkId": "sysml:validateAssignmentActionUsageReferent",
+      "messagePattern": "An assignment must have a Feature referent.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateAssocStructSpecialization:diagnostics-unspecified",
+      "checkId": "sysml:validateAssocStructSpecialization",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAtLeastTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateAtLeastTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateAttributeUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateAttributeUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateCalculationUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateCalculationUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateCaseDefinitionOnlyOneSubject:diagnostics-unspecified",
+      "checkId": "sysml:validateCaseDefinitionOnlyOneSubject",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateCaseOnlyOneObjective:diagnostics-unspecified",
+      "checkId": "sysml:validateCaseOnlyOneObjective",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateCaseSubjectParameterPosition:diagnostics-unspecified",
+      "checkId": "sysml:validateCaseSubjectParameterPosition",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateCaseUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateCaseUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateClassSpecialization:diagnostics-unspecified",
+      "checkId": "sysml:validateClassSpecialization",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateConjugatedPortDefinitionOriginalPortDefinition:diagnostic-1",
+      "checkId": "sysml:validateConjugatedPortDefinitionOriginalPortDefinition",
+      "messagePattern": "The originalPortDefinition of the ownedPortConjugator of a ConjugatedPortDefinition must be the originalPortDefinition of the ConjugatedPortDefinition.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateConnectionUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateConnectionUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateConstraintUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateConstraintUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateControlNodeOwningType:diagnostic-1",
+      "checkId": "sysml:validateControlNodeOwningType",
+      "messagePattern": "The owningType of a ControlNode must be an ActionDefinition or ActionUsage.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateDatatypeSpecialization:diagnostics-unspecified",
+      "checkId": "sysml:validateDatatypeSpecialization",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateEnumerationUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateEnumerationUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateEventOccurrenceUsageReference:diagnostics-unspecified",
+      "checkId": "sysml:validateEventOccurrenceUsageReference",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateExactlyOneTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateExactlyOneTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateExactlyOneTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateExactlyOneTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateExactlyOneTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateExactlyOneTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateExactlyOneTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateExactlyOneTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateExactlyOneTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateExactlyOneTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateExactlyOneTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateExactlyOneTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateExactlyOneTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateExhibitStateUsageReference:diagnostics-unspecified",
+      "checkId": "sysml:validateExhibitStateUsageReference",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateExposeNoExplicitVisibility:diagnostic-1",
+      "checkId": "sysml:validateExposeNoExplicitVisibility",
+      "messagePattern": "An Expose cannot have an explicit visibility.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateExposeOwningNamespace:diagnostic-1",
+      "checkId": "sysml:validateExposeOwningNamespace",
+      "messagePattern": "The importOwningNamespace of an Expose must be a ViewUsage.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateFlowConnectionEnd:diagnostics-unspecified",
+      "checkId": "sysml:validateFlowConnectionEnd",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateFlowConnectionUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateFlowConnectionUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateIncludeUseCaseUsageReference:diagnostics-unspecified",
+      "checkId": "sysml:validateIncludeUseCaseUsageReference",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateInterfaceEnds:diagnostics-unspecified",
+      "checkId": "sysml:validateInterfaceEnds",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateInterfaceUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateInterfaceUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateItemUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateItemUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateMetadataUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateMetadataUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateObjectiveMembershipIsComposite:diagnostic-1",
+      "checkId": "sysml:validateObjectiveMembershipIsComposite",
+      "messagePattern": "The ownedConstraint of a ObjectiveMembership must be composite.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateObjectiveMembershipOwningType:diagnostic-1",
+      "checkId": "sysml:validateObjectiveMembershipOwningType",
+      "messagePattern": "The owningType of an ObjectiveMembership must be a CaseDefinition or CaseUsage.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateOccurrenceDefinitionLifeClass:diagnostics-unspecified",
+      "checkId": "sysml:validateOccurrenceDefinitionLifeClass",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateOccurrenceUsageIndividual:diagnostic-1",
+      "checkId": "sysml:validateOccurrenceUsageIndividual",
+      "messagePattern": "An OccurrenceUsage must have at most one occurrenceDefinition with isIndividual = true.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateOccurrenceUsageIndividual:diagnostic-2",
+      "checkId": "sysml:validateOccurrenceUsageIndividual",
+      "messagePattern": "An individual OccurrenceUsage must an individualDefinition.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateOccurrenceUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateOccurrenceUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateOperatorExpressionQuantity:diagnostic-1",
+      "checkId": "sysml:validateOperatorExpressionQuantity",
+      "messagePattern": "${options.type} must have ${key} parameter.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateOperatorExpressionQuantity:diagnostic-2",
+      "checkId": "sysml:validateOperatorExpressionQuantity",
+      "messagePattern": "Invalid quantity expression, expected a measurement reference unit",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateOperatorExpressionQuantity:diagnostic-3",
+      "checkId": "sysml:validateOperatorExpressionQuantity",
+      "messagePattern": "ReferenceSubsettings owned by ${options.type} must reference ${options.reference}",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validatePartUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validatePartUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validatePerformActionUsageReference:diagnostics-unspecified",
+      "checkId": "sysml:validatePerformActionUsageReference",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validatePortDefinitionConjugatedPortDefinition:diagnostics-unspecified",
+      "checkId": "sysml:validatePortDefinitionConjugatedPortDefinition",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validatePortOwnedUsagesNotComposite:diagnostics-unspecified",
+      "checkId": "sysml:validatePortOwnedUsagesNotComposite",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validatePortUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validatePortUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateRenderingUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateRenderingUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateRequirementConstraintMembershipIsComposite:diagnostic-1",
+      "checkId": "sysml:validateRequirementConstraintMembershipIsComposite",
+      "messagePattern": "The ownedConstraint of a RequirementConstraintMembership must be composite.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateRequirementMembershipOwningType:diagnostic-1",
+      "checkId": "sysml:validateRequirementMembershipOwningType",
+      "messagePattern": "The owningType of an ${node.nodeType()} must be a RequirementDefinition or RequirementUsage.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateRequirementOnlyOneSubject:diagnostics-unspecified",
+      "checkId": "sysml:validateRequirementOnlyOneSubject",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateRequirementSubjectParameterPosition:diagnostics-unspecified",
+      "checkId": "sysml:validateRequirementSubjectParameterPosition",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateRequirementUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateRequirementUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateRequirementVerificationMembershipOwningType:diagnostic-1",
+      "checkId": "sysml:validateRequirementVerificationMembershipOwningType",
+      "messagePattern": "The owningType of a RequirementVerificationMembership must be a RequirementUsage that is owned by an ObjectiveMembership.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSatisfyRequirementUsageReference:diagnostics-unspecified",
+      "checkId": "sysml:validateSatisfyRequirementUsageReference",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSendActionParameters:diagnostics-unspecified",
+      "checkId": "sysml:validateSendActionParameters",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSendActionReceiver:diagnostic-1",
+      "checkId": "sysml:validateSendActionReceiver",
+      "messagePattern": "Sending to a port should be done through",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateStateParallelSubactions:diagnostic-1",
+      "checkId": "sysml:validateStateParallelSubactions",
+      "messagePattern": "Parallel ${type} ${member} must not have any incomingTransitions or outgoingTransitions.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateStateSubactionKind:diagnostics-unspecified",
+      "checkId": "sysml:validateStateSubactionKind",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateStateSubactionMembershipOwningType:diagnostic-1",
+      "checkId": "sysml:validateStateSubactionMembershipOwningType",
+      "messagePattern": "The owningType of a StateSubactionMembership must be a StateDefinition or a StateUsage.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateStateUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateStateUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSubjectMembershipOwningType:diagnostic-1",
+      "checkId": "sysml:validateSubjectMembershipOwningType",
+      "messagePattern": "The owningType of SubjectMembership must be a RequirementDefinition, RequirementUsage, CaseDefinition, or CaseUsage.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateSysML:diagnostics-unspecified",
+      "checkId": "sysml:validateSysML",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSysML:diagnostics-unspecified",
+      "checkId": "sysml:validateSysML",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSysML:diagnostics-unspecified",
+      "checkId": "sysml:validateSysML",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSysML:diagnostics-unspecified",
+      "checkId": "sysml:validateSysML",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSysML:diagnostics-unspecified",
+      "checkId": "sysml:validateSysML",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSysML:diagnostics-unspecified",
+      "checkId": "sysml:validateSysML",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSysML:diagnostics-unspecified",
+      "checkId": "sysml:validateSysML",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSysML:diagnostics-unspecified",
+      "checkId": "sysml:validateSysML",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSysML:diagnostics-unspecified",
+      "checkId": "sysml:validateSysML",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSysML:diagnostics-unspecified",
+      "checkId": "sysml:validateSysML",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSysML:diagnostics-unspecified",
+      "checkId": "sysml:validateSysML",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSysML:diagnostics-unspecified",
+      "checkId": "sysml:validateSysML",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSysML:diagnostics-unspecified",
+      "checkId": "sysml:validateSysML",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateSysML:diagnostics-unspecified",
+      "checkId": "sysml:validateSysML",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateTransitionFeatureMembership:diagnostic-1",
+      "checkId": "sysml:validateTransitionFeatureMembership",
+      "messagePattern": "TransitionFeature of kind effect must be an ActionUsage.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateTransitionFeatureMembership:diagnostic-2",
+      "checkId": "sysml:validateTransitionFeatureMembership",
+      "messagePattern": "TransitionFeature of kind guard must be a boolean expression.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateTransitionFeatureMembership:diagnostic-3",
+      "checkId": "sysml:validateTransitionFeatureMembership",
+      "messagePattern": "TransitionFeature of kind trigger must be an AcceptActionUsage.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateTransitionFeatureMembershipOwningType:diagnostic-1",
+      "checkId": "sysml:validateTransitionFeatureMembershipOwningType",
+      "messagePattern": "The owningType of a TransitionFeatureMembership must be a TransitionUsage.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateTransitionUsageParameters:diagnostic-1",
+      "checkId": "sysml:validateTransitionUsageParameters",
+      "messagePattern": "A TransitionUsage must have a transitionLinkSource.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateTransitionUsageParameters:diagnostic-2",
+      "checkId": "sysml:validateTransitionUsageParameters",
+      "messagePattern": "A TransitionUsage with a triggerAction must have a payload.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateTransitionUsageSuccession:diagnostic-1",
+      "checkId": "sysml:validateTransitionUsageSuccession",
+      "messagePattern": "A TransitionUsage must have an ownedMember that is a Succession with an ActionUsage as its targetFeature.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateTriggerInvocationExpression:diagnostic-1",
+      "checkId": "sysml:validateTriggerInvocationExpression",
+      "messagePattern": "A when expression must be Boolean.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateTriggerInvocationExpression:diagnostic-2",
+      "checkId": "sysml:validateTriggerInvocationExpression",
+      "messagePattern": "An after expression must be a DurationValue.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateTriggerInvocationExpression:diagnostic-3",
+      "checkId": "sysml:validateTriggerInvocationExpression",
+      "messagePattern": "An at expression must be a TimeInstantValue.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateUseCaseUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateUseCaseUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateVariantMembershipOwningNamespace:diagnostics-unspecified",
+      "checkId": "sysml:validateVariantMembershipOwningNamespace",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateVariationMembership:diagnostics-unspecified",
+      "checkId": "sysml:validateVariationMembership",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateVariationSpecialization:diagnostics-unspecified",
+      "checkId": "sysml:validateVariationSpecialization",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateVerificationCaseUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateVerificationCaseUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateViewDefinitionOnlyOneViewRendering:diagnostics-unspecified",
+      "checkId": "sysml:validateViewDefinitionOnlyOneViewRendering",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateViewpointUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateViewpointUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    },
+    {
+      "id": "sysml:validateViewRenderingMembershipOwningType:diagnostic-1",
+      "checkId": "sysml:validateViewRenderingMembershipOwningType",
+      "messagePattern": "The owningType of an ViewRenderingMembership must be a CaseDefinition or CaseUsage.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "sysml:validateViewUsageTyping:diagnostics-unspecified",
+      "checkId": "sysml:validateViewUsageTyping",
+      "messagePattern": "No static message literal found by the inventory script.",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "low"
+    }
+  ]
+}

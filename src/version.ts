@@ -16,9 +16,15 @@ import type { VersionResponse } from "./contracts.js";
 
 const require = createRequire(import.meta.url);
 
-interface PackageInfo {
+/**
+ * Minimal package metadata consumed by the version metadata composer.
+ */
+export interface PackageInfo {
+  /** Package name. */
   name?: string;
+  /** Package version. */
   version?: string;
+  /** Repository metadata as a URL string or package-json object. */
   repository?: string | { url?: string };
 }
 
@@ -117,9 +123,15 @@ const upstreamPackage = readPackageInfo([
   "../../upstream/sysml-2ls/packages/syside-languageserver/package.json",
 ]);
 
-interface VersionInfoSources {
+/**
+ * Explicit source inputs used to compose public version metadata.
+ */
+export interface VersionInfoSources {
+  /** Service package metadata. */
   servicePackage: PackageInfo;
+  /** Canonical VERSION file contents when available. */
   serviceVersionFile?: string;
+  /** Upstream sysml-2ls package metadata. */
   upstreamPackage: PackageInfo;
 }
 

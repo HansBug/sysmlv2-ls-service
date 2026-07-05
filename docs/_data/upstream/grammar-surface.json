@@ -1,0 +1,4820 @@
+{
+  "header": {
+    "schemaVersion": "upstream-grammar-surface-inventory/v1",
+    "sourceKind": "static",
+    "analysisTarget": "typescript-source",
+    "analysisPolicy": "This first inventory version statically scans upstream TypeScript grammar and validator source. It verifies compiled JS/d.ts artifacts exist so the pinned submodule has been built, but those compiled artifacts are not primary parser evidence yet.",
+    "compiledArtifacts": {
+      "presenceChecked": true,
+      "primaryEvidence": false,
+      "requiredPaths": [
+        "packages/syside-languageserver/lib/services/validation/sysml-validator.js",
+        "packages/syside-languageserver/lib/services/validation/kerml-validator.js",
+        "packages/syside-languageserver/lib/generated/grammar.js",
+        "packages/syside-languageserver/lib/generated/ast.d.ts"
+      ]
+    },
+    "serviceRepository": {
+      "repository": "https://github.com/HansBug/sysmlv2-ls-service",
+      "revision": "resolved-at-build-time",
+      "sourceDate": "resolved-at-build-time",
+      "metadataPolicy": "Committed inventory uses deterministic placeholders for the service repository; the MkDocs version hook resolves the rendered site revision/source date at build time."
+    },
+    "upstream": {
+      "repository": "https://github.com/sensmetry/sysml-2ls",
+      "revision": "a0b3ddbf783063dd7291aac0b51d4282decc789e",
+      "packageName": "syside-languageserver",
+      "packageVersion": "0.9.1"
+    },
+    "toolchain": {
+      "requiredNodeVersion": "20.19",
+      "requiredPnpmVersion": "9.15.4",
+      "requiredPythonVersion": "3.12",
+      "runtimePolicy": "GitHub Actions docs job owns generation; Read the Docs consumes committed Markdown/JSON."
+    },
+    "generatedBy": "scripts/docs/inventory-upstream.mjs",
+    "generatedFor": "GitHub Actions docs job; Read the Docs consumes committed output only."
+  },
+  "grammar": [
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:Annotation",
+      "ruleName": "Annotation",
+      "entry": false,
+      "returns": "Annotation",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:ClassificationTestOperator",
+      "ruleName": "ClassificationTestOperator",
+      "entry": false,
+      "returns": "string",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:ClassifierReference",
+      "ruleName": "ClassifierReference",
+      "entry": false,
+      "returns": "ClassifierReference",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:Comment",
+      "ruleName": "Comment",
+      "entry": false,
+      "returns": "Comment",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:Documentation",
+      "ruleName": "Documentation",
+      "entry": false,
+      "returns": "Documentation",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:ElementReference",
+      "ruleName": "ElementReference",
+      "entry": false,
+      "returns": "ElementReference",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:EqualityOperator",
+      "ruleName": "EqualityOperator",
+      "entry": false,
+      "returns": "string",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:FeatureChainMember",
+      "ruleName": "FeatureChainMember",
+      "entry": false,
+      "returns": "Membership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:FeatureChainPrefix",
+      "ruleName": "FeatureChainPrefix",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:FeatureDirectionKind",
+      "ruleName": "FeatureDirectionKind",
+      "entry": false,
+      "returns": "string",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:FeatureReference",
+      "ruleName": "FeatureReference",
+      "entry": false,
+      "returns": "FeatureReference",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:FeatureReferenceExpression",
+      "ruleName": "FeatureReferenceExpression",
+      "entry": false,
+      "returns": "FeatureReferenceExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:FeatureReferenceMember",
+      "ruleName": "FeatureReferenceMember",
+      "entry": false,
+      "returns": "Membership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:FunctionReference",
+      "ruleName": "FunctionReference",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:FunctionReferenceExpression",
+      "ruleName": "FunctionReferenceExpression",
+      "entry": false,
+      "returns": "FeatureReferenceExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:FunctionReferenceMember",
+      "ruleName": "FunctionReferenceMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:ImportKind",
+      "ruleName": "ImportKind",
+      "entry": false,
+      "returns": "string",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:LiteralBoolean",
+      "ruleName": "LiteralBoolean",
+      "entry": false,
+      "returns": "LiteralBoolean",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:LiteralExpression",
+      "ruleName": "LiteralExpression",
+      "entry": false,
+      "returns": "LiteralExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:LiteralInfinity",
+      "ruleName": "LiteralInfinity",
+      "entry": false,
+      "returns": "LiteralInfinity",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:LiteralNumber",
+      "ruleName": "LiteralNumber",
+      "entry": false,
+      "returns": "LiteralNumber",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:LiteralString",
+      "ruleName": "LiteralString",
+      "entry": false,
+      "returns": "LiteralString",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:MembershipReference",
+      "ruleName": "MembershipReference",
+      "entry": false,
+      "returns": "MembershipReference",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:MetaclassReference",
+      "ruleName": "MetaclassReference",
+      "entry": false,
+      "returns": "MetaclassReference",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:MetadataAccessExpression",
+      "ruleName": "MetadataAccessExpression",
+      "entry": false,
+      "returns": "MetadataAccessExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:MetadataReference",
+      "ruleName": "MetadataReference",
+      "entry": false,
+      "returns": "MetadataAccessExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:MetadataTyping",
+      "ruleName": "MetadataTyping",
+      "entry": false,
+      "returns": "FeatureTyping",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:Name",
+      "ruleName": "Name",
+      "entry": false,
+      "returns": "string",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:NamespaceReference",
+      "ruleName": "NamespaceReference",
+      "entry": false,
+      "returns": "NamespaceReference",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:NullExpression",
+      "ruleName": "NullExpression",
+      "entry": false,
+      "returns": "NullExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:OwnedFeatureChain",
+      "ruleName": "OwnedFeatureChain",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:OwnedFeatureChaining",
+      "ruleName": "OwnedFeatureChaining",
+      "entry": false,
+      "returns": "FeatureChaining",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:OwnedFeatureTyping",
+      "ruleName": "OwnedFeatureTyping",
+      "entry": false,
+      "returns": "FeatureTyping",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:ReferenceTyping",
+      "ruleName": "ReferenceTyping",
+      "entry": false,
+      "returns": "FeatureTyping",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:RelationalOperator",
+      "ruleName": "RelationalOperator",
+      "entry": false,
+      "returns": "string",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:TextualRepresentation",
+      "ruleName": "TextualRepresentation",
+      "entry": false,
+      "returns": "TextualRepresentation",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:TypeReference",
+      "ruleName": "TypeReference",
+      "entry": false,
+      "returns": "TypeReference",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:TypeReferenceFeature",
+      "ruleName": "TypeReferenceFeature",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:TypeReferenceMember",
+      "ruleName": "TypeReferenceMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:TypeResultMember",
+      "ruleName": "TypeResultMember",
+      "entry": false,
+      "returns": "ReturnParameterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:UnaryOperator",
+      "ruleName": "UnaryOperator",
+      "entry": false,
+      "returns": "string",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.expressions.langium:VisibilityKind",
+      "ruleName": "VisibilityKind",
+      "entry": false,
+      "returns": "string",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.expressions.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium:type:ClassificationTestOperator",
+      "ruleName": "ClassificationTestOperator",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium:type:EqualityOperator",
+      "ruleName": "EqualityOperator",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium:type:FeatureDirectionKind",
+      "ruleName": "FeatureDirectionKind",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium:type:FeatureRelationship",
+      "ruleName": "FeatureRelationship",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium:type:ImportKind",
+      "ruleName": "ImportKind",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium:type:InlineExpression",
+      "ruleName": "InlineExpression",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium:type:NonOwnerType",
+      "ruleName": "NonOwnerType",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium:type:RelationalOperator",
+      "ruleName": "RelationalOperator",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium:type:TypeRelationship",
+      "ruleName": "TypeRelationship",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium:type:UnaryOperator",
+      "ruleName": "UnaryOperator",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium:type:VisibilityKind",
+      "ruleName": "VisibilityKind",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:AdditiveExpression",
+      "ruleName": "AdditiveExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:AliasMember",
+      "ruleName": "AliasMember",
+      "entry": false,
+      "returns": "Membership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:AndExpression",
+      "ruleName": "AndExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:AnnotatingElement",
+      "ruleName": "AnnotatingElement",
+      "entry": false,
+      "returns": "AnnotatingElement",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:AnnotatingMember",
+      "ruleName": "AnnotatingMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Argument",
+      "ruleName": "Argument",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ArgumentMember",
+      "ruleName": "ArgumentMember",
+      "entry": false,
+      "returns": "ParameterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ArgumentValue",
+      "ruleName": "ArgumentValue",
+      "entry": false,
+      "returns": "FeatureValue",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Association",
+      "ruleName": "Association",
+      "entry": false,
+      "returns": "Association",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:AssociationStructure",
+      "ruleName": "AssociationStructure",
+      "entry": false,
+      "returns": "AssociationStructure",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:BaseExpression",
+      "ruleName": "BaseExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Behavior",
+      "ruleName": "Behavior",
+      "entry": false,
+      "returns": "Behavior",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:BindingConnector",
+      "ruleName": "BindingConnector",
+      "entry": false,
+      "returns": "BindingConnector",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:BodyExpression",
+      "ruleName": "BodyExpression",
+      "entry": false,
+      "returns": "FeatureReferenceExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:BooleanExpression",
+      "ruleName": "BooleanExpression",
+      "entry": false,
+      "returns": "BooleanExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Class",
+      "ruleName": "Class",
+      "entry": false,
+      "returns": "Class",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ClassificationExpression",
+      "ruleName": "ClassificationExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Classifier",
+      "ruleName": "Classifier",
+      "entry": false,
+      "returns": "Classifier",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ClassifierConjugation",
+      "ruleName": "ClassifierConjugation",
+      "entry": false,
+      "returns": "Conjugation",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ConcreteConditionalExpression",
+      "ruleName": "ConcreteConditionalExpression",
+      "entry": false,
+      "returns": "OperatorExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ConditionalExpression",
+      "ruleName": "ConditionalExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Conjugation",
+      "ruleName": "Conjugation",
+      "entry": false,
+      "returns": "Conjugation",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Connector",
+      "ruleName": "Connector",
+      "entry": false,
+      "returns": "Connector",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ConnectorEnd",
+      "ruleName": "ConnectorEnd",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ConnectorEndMember",
+      "ruleName": "ConnectorEndMember",
+      "entry": false,
+      "returns": "EndFeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:DataType",
+      "ruleName": "DataType",
+      "entry": false,
+      "returns": "DataType",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Dependency",
+      "ruleName": "Dependency",
+      "entry": false,
+      "returns": "Dependency",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Differencing",
+      "ruleName": "Differencing",
+      "entry": false,
+      "returns": "Differencing",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Disjoining",
+      "ruleName": "Disjoining",
+      "entry": false,
+      "returns": "Disjoining",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ElementFilterMember",
+      "ruleName": "ElementFilterMember",
+      "entry": false,
+      "returns": "ElementFilterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:EqualityExpression",
+      "ruleName": "EqualityExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:EqualityExpressionMember",
+      "ruleName": "EqualityExpressionMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:EqualityExpressionReference",
+      "ruleName": "EqualityExpressionReference",
+      "entry": false,
+      "returns": "FeatureReferenceExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ExponentiationExpression",
+      "ruleName": "ExponentiationExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Expression",
+      "ruleName": "Expression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ExpressionBody",
+      "ruleName": "ExpressionBody",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ExpressionBodyMember",
+      "ruleName": "ExpressionBodyMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ExtentExpression",
+      "ruleName": "ExtentExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Feature",
+      "ruleName": "Feature",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:FeatureConjugation",
+      "ruleName": "FeatureConjugation",
+      "entry": false,
+      "returns": "Conjugation",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:FeatureElement",
+      "ruleName": "FeatureElement",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:FeatureInverting",
+      "ruleName": "FeatureInverting",
+      "entry": false,
+      "returns": "FeatureInverting",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:FeatureMember",
+      "ruleName": "FeatureMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:FeatureTyping",
+      "ruleName": "FeatureTyping",
+      "entry": false,
+      "returns": "FeatureTyping",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:FeatureValue",
+      "ruleName": "FeatureValue",
+      "entry": false,
+      "returns": "FeatureValue",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:FilterPackage",
+      "ruleName": "FilterPackage",
+      "entry": false,
+      "returns": "Package",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:FilterPackageMember",
+      "ruleName": "FilterPackageMember",
+      "entry": false,
+      "returns": "ElementFilterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ImpliesExpression",
+      "ruleName": "ImpliesExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ImpliesExpressionMember",
+      "ruleName": "ImpliesExpressionMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ImpliesExpressionReference",
+      "ruleName": "ImpliesExpressionReference",
+      "entry": false,
+      "returns": "FeatureReferenceExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Import",
+      "ruleName": "Import",
+      "entry": false,
+      "returns": "Import",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Interaction",
+      "ruleName": "Interaction",
+      "entry": false,
+      "returns": "Interaction",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Intersecting",
+      "ruleName": "Intersecting",
+      "entry": false,
+      "returns": "Intersecting",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Invariant",
+      "ruleName": "Invariant",
+      "entry": false,
+      "returns": "Invariant",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:InvocationExpression",
+      "ruleName": "InvocationExpression",
+      "entry": false,
+      "returns": "InvocationExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ItemFeature",
+      "ruleName": "ItemFeature",
+      "entry": false,
+      "returns": "ItemFeature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ItemFeatureMember",
+      "ruleName": "ItemFeatureMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ItemFlow",
+      "ruleName": "ItemFlow",
+      "entry": false,
+      "returns": "ItemFlow",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ItemFlowEnd",
+      "ruleName": "ItemFlowEnd",
+      "entry": false,
+      "returns": "ItemFlowEnd",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ItemFlowEndMember",
+      "ruleName": "ItemFlowEndMember",
+      "entry": false,
+      "returns": "EndFeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ItemFlowEndSubsetting",
+      "ruleName": "ItemFlowEndSubsetting",
+      "entry": false,
+      "returns": "ReferenceSubsetting",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ItemFlowFeature",
+      "ruleName": "ItemFlowFeature",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ItemFlowFeatureMember",
+      "ruleName": "ItemFlowFeatureMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ItemFlowRedefinition",
+      "ruleName": "ItemFlowRedefinition",
+      "entry": false,
+      "returns": "Redefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:LibraryPackage",
+      "ruleName": "LibraryPackage",
+      "entry": false,
+      "returns": "LibraryPackage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Metaclass",
+      "ruleName": "Metaclass",
+      "entry": false,
+      "returns": "Metaclass",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:MetadataBodyFeature",
+      "ruleName": "MetadataBodyFeature",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:MetadataBodyFeatureMember",
+      "ruleName": "MetadataBodyFeatureMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:MetadataFeature",
+      "ruleName": "MetadataFeature",
+      "entry": false,
+      "returns": "MetadataFeature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:MultiplicativeExpression",
+      "ruleName": "MultiplicativeExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Multiplicity",
+      "ruleName": "Multiplicity",
+      "entry": false,
+      "returns": "Multiplicity",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:MultiplicityExpressionMember",
+      "ruleName": "MultiplicityExpressionMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:MultiplicityRange",
+      "ruleName": "MultiplicityRange",
+      "entry": false,
+      "returns": "MultiplicityRange",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:MultiplicitySubset",
+      "ruleName": "MultiplicitySubset",
+      "entry": false,
+      "returns": "Multiplicity",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:NamedArgument",
+      "ruleName": "NamedArgument",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:NamedArgumentMember",
+      "ruleName": "NamedArgumentMember",
+      "entry": false,
+      "returns": "ParameterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Namespace",
+      "ruleName": "Namespace",
+      "entry": false,
+      "returns": "Namespace",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:NamespaceFeatureMember",
+      "ruleName": "NamespaceFeatureMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:NonFeatureElement",
+      "ruleName": "NonFeatureElement",
+      "entry": false,
+      "returns": "Namespace",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:NonFeatureMember",
+      "ruleName": "NonFeatureMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:NullCoalescingExpression",
+      "ruleName": "NullCoalescingExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OrExpression",
+      "ruleName": "OrExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OrExpressionMember",
+      "ruleName": "OrExpressionMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OrExpressionReference",
+      "ruleName": "OrExpressionReference",
+      "entry": false,
+      "returns": "FeatureReferenceExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedAnnotation",
+      "ruleName": "OwnedAnnotation",
+      "entry": false,
+      "returns": "Annotation",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedConjugation",
+      "ruleName": "OwnedConjugation",
+      "entry": false,
+      "returns": "Conjugation",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedCrossingFeature",
+      "ruleName": "OwnedCrossingFeature",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedCrossingFeatureMember",
+      "ruleName": "OwnedCrossingFeatureMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedCrossMultiplicity",
+      "ruleName": "OwnedCrossMultiplicity",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedCrossMultiplicityMember",
+      "ruleName": "OwnedCrossMultiplicityMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedCrossSubsetting",
+      "ruleName": "OwnedCrossSubsetting",
+      "entry": false,
+      "returns": "CrossSubsetting",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedDisjoining",
+      "ruleName": "OwnedDisjoining",
+      "entry": false,
+      "returns": "Disjoining",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedExpression",
+      "ruleName": "OwnedExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedExpressionMember",
+      "ruleName": "OwnedExpressionMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedExpressionReference",
+      "ruleName": "OwnedExpressionReference",
+      "entry": false,
+      "returns": "FeatureReferenceExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedFeatureInverting",
+      "ruleName": "OwnedFeatureInverting",
+      "entry": false,
+      "returns": "FeatureInverting",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedFeatureMember",
+      "ruleName": "OwnedFeatureMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedMultiplicity",
+      "ruleName": "OwnedMultiplicity",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedMultiplicityRange",
+      "ruleName": "OwnedMultiplicityRange",
+      "entry": false,
+      "returns": "MultiplicityRange",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedRedefinition",
+      "ruleName": "OwnedRedefinition",
+      "entry": false,
+      "returns": "Redefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedReferenceSubsetting",
+      "ruleName": "OwnedReferenceSubsetting",
+      "entry": false,
+      "returns": "ReferenceSubsetting",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedSpecialization",
+      "ruleName": "OwnedSpecialization",
+      "entry": false,
+      "returns": "Specialization",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedSubclassification",
+      "ruleName": "OwnedSubclassification",
+      "entry": false,
+      "returns": "Subclassification",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedSubsetting",
+      "ruleName": "OwnedSubsetting",
+      "entry": false,
+      "returns": "Subsetting",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:OwnedTypeFeaturing",
+      "ruleName": "OwnedTypeFeaturing",
+      "entry": false,
+      "returns": "TypeFeaturing",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Package",
+      "ruleName": "Package",
+      "entry": false,
+      "returns": "Package",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ParameterRedefinition",
+      "ruleName": "ParameterRedefinition",
+      "entry": false,
+      "returns": "Redefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Predicate",
+      "ruleName": "Predicate",
+      "entry": false,
+      "returns": "Predicate",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:PrefixMetadataAnnotation",
+      "ruleName": "PrefixMetadataAnnotation",
+      "entry": false,
+      "returns": "Annotation",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:PrefixMetadataFeature",
+      "ruleName": "PrefixMetadataFeature",
+      "entry": false,
+      "returns": "MetadataFeature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:PrefixMetadataMember",
+      "ruleName": "PrefixMetadataMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:PrimaryExpression",
+      "ruleName": "PrimaryExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:RangeExpression",
+      "ruleName": "RangeExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Redefinition",
+      "ruleName": "Redefinition",
+      "entry": false,
+      "returns": "Redefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:RelationalExpression",
+      "ruleName": "RelationalExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:RelationshipElement",
+      "ruleName": "RelationshipElement",
+      "entry": false,
+      "returns": "Relationship",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:RelationshipMember",
+      "ruleName": "RelationshipMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ResultExpressionMember",
+      "ruleName": "ResultExpressionMember",
+      "entry": false,
+      "returns": "ResultExpressionMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:ReturnFeatureMember",
+      "ruleName": "ReturnFeatureMember",
+      "entry": false,
+      "returns": "ReturnParameterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:RootNamespace",
+      "ruleName": "RootNamespace",
+      "entry": true,
+      "returns": "Namespace",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:SequenceExpression",
+      "ruleName": "SequenceExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Specialization",
+      "ruleName": "Specialization",
+      "entry": false,
+      "returns": "Specialization",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Step",
+      "ruleName": "Step",
+      "entry": false,
+      "returns": "Step",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Structure",
+      "ruleName": "Structure",
+      "entry": false,
+      "returns": "Structure",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Subclassification",
+      "ruleName": "Subclassification",
+      "entry": false,
+      "returns": "Subclassification",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Subsetting",
+      "ruleName": "Subsetting",
+      "entry": false,
+      "returns": "Subsetting",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Succession",
+      "ruleName": "Succession",
+      "entry": false,
+      "returns": "Succession",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:SuccessionItemFlow",
+      "ruleName": "SuccessionItemFlow",
+      "entry": false,
+      "returns": "SuccessionItemFlow",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:SysMLFunction",
+      "ruleName": "SysMLFunction",
+      "entry": false,
+      "returns": "SysMLFunction",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Type",
+      "ruleName": "Type",
+      "entry": false,
+      "returns": "Type",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:TypeFeatureMember",
+      "ruleName": "TypeFeatureMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:TypeFeaturing",
+      "ruleName": "TypeFeaturing",
+      "entry": false,
+      "returns": "TypeFeaturing",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:UnaryExpression",
+      "ruleName": "UnaryExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:Unioning",
+      "ruleName": "Unioning",
+      "entry": false,
+      "returns": "Unioning",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:XorExpression",
+      "ruleName": "XorExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:XorExpressionMember",
+      "ruleName": "XorExpressionMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/KerML.langium:XorExpressionReference",
+      "ruleName": "XorExpressionReference",
+      "entry": false,
+      "returns": "FeatureReferenceExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/KerML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium:type:ParameterKind",
+      "ruleName": "ParameterKind",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium:type:PortionKind",
+      "ruleName": "PortionKind",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium:type:RequirementConstraintKind",
+      "ruleName": "RequirementConstraintKind",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium:type:RequirementKind",
+      "ruleName": "RequirementKind",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium:type:StateSubactionKind",
+      "ruleName": "StateSubactionKind",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium:type:TransitionFeatureKind",
+      "ruleName": "TransitionFeatureKind",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium:type:TransparentElement",
+      "ruleName": "TransparentElement",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium:type:TriggerKind",
+      "ruleName": "TriggerKind",
+      "entry": false,
+      "returns": "type-alias",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.interfaces.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:AcceptNode",
+      "ruleName": "AcceptNode",
+      "entry": false,
+      "returns": "AcceptActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ActionBodyParameter",
+      "ruleName": "ActionBodyParameter",
+      "entry": false,
+      "returns": "ActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ActionBodyParameterMember",
+      "ruleName": "ActionBodyParameterMember",
+      "entry": false,
+      "returns": "ParameterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ActionDefinition",
+      "ruleName": "ActionDefinition",
+      "entry": false,
+      "returns": "ActionDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ActionNode",
+      "ruleName": "ActionNode",
+      "entry": false,
+      "returns": "ActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ActionNodeMember",
+      "ruleName": "ActionNodeMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ActionTargetSuccession",
+      "ruleName": "ActionTargetSuccession",
+      "entry": false,
+      "returns": "Usage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ActionUsage",
+      "ruleName": "ActionUsage",
+      "entry": false,
+      "returns": "ActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ActorMember",
+      "ruleName": "ActorMember",
+      "entry": false,
+      "returns": "ActorMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ActorUsage",
+      "ruleName": "ActorUsage",
+      "entry": false,
+      "returns": "PartUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:AdditiveExpression",
+      "ruleName": "AdditiveExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:AliasMember",
+      "ruleName": "AliasMember",
+      "entry": false,
+      "returns": "Membership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:AllocationDefinition",
+      "ruleName": "AllocationDefinition",
+      "entry": false,
+      "returns": "AllocationDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:AllocationUsage",
+      "ruleName": "AllocationUsage",
+      "entry": false,
+      "returns": "AllocationUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:AnalysisCaseDefinition",
+      "ruleName": "AnalysisCaseDefinition",
+      "entry": false,
+      "returns": "AnalysisCaseDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:AnalysisCaseUsage",
+      "ruleName": "AnalysisCaseUsage",
+      "entry": false,
+      "returns": "AnalysisCaseUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:AndExpression",
+      "ruleName": "AndExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:AnnotatingElement",
+      "ruleName": "AnnotatingElement",
+      "entry": false,
+      "returns": "AnnotatingElement",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:AnnotatingMember",
+      "ruleName": "AnnotatingMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:Argument",
+      "ruleName": "Argument",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ArgumentExpression",
+      "ruleName": "ArgumentExpression",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ArgumentExpressionMember",
+      "ruleName": "ArgumentExpressionMember",
+      "entry": false,
+      "returns": "ParameterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ArgumentExpressionValue",
+      "ruleName": "ArgumentExpressionValue",
+      "entry": false,
+      "returns": "FeatureValue",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ArgumentMember",
+      "ruleName": "ArgumentMember",
+      "entry": false,
+      "returns": "ParameterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ArgumentValue",
+      "ruleName": "ArgumentValue",
+      "entry": false,
+      "returns": "FeatureValue",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:AssertConstraintUsage",
+      "ruleName": "AssertConstraintUsage",
+      "entry": false,
+      "returns": "AssertConstraintUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:AssignmentNode",
+      "ruleName": "AssignmentNode",
+      "entry": false,
+      "returns": "AssignmentActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:AssignmentTargetMember",
+      "ruleName": "AssignmentTargetMember",
+      "entry": false,
+      "returns": "ParameterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:AttributeDefinition",
+      "ruleName": "AttributeDefinition",
+      "entry": false,
+      "returns": "AttributeDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:AttributeUsage",
+      "ruleName": "AttributeUsage",
+      "entry": false,
+      "returns": "AttributeUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:BaseExpression",
+      "ruleName": "BaseExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:BehaviorUsageElement",
+      "ruleName": "BehaviorUsageElement",
+      "entry": false,
+      "returns": "Usage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:BehaviorUsageMember",
+      "ruleName": "BehaviorUsageMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:BindingConnectorAsUsage",
+      "ruleName": "BindingConnectorAsUsage",
+      "entry": false,
+      "returns": "BindingConnectorAsUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:BodyExpression",
+      "ruleName": "BodyExpression",
+      "entry": false,
+      "returns": "FeatureReferenceExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:CalculationDefinition",
+      "ruleName": "CalculationDefinition",
+      "entry": false,
+      "returns": "CalculationDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:CalculationUsage",
+      "ruleName": "CalculationUsage",
+      "entry": false,
+      "returns": "CalculationUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:CaseDefinition",
+      "ruleName": "CaseDefinition",
+      "entry": false,
+      "returns": "CaseDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:CaseUsage",
+      "ruleName": "CaseUsage",
+      "entry": false,
+      "returns": "CaseUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ClassificationExpression",
+      "ruleName": "ClassificationExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ConcernDefinition",
+      "ruleName": "ConcernDefinition",
+      "entry": false,
+      "returns": "ConcernDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ConcernUsage",
+      "ruleName": "ConcernUsage",
+      "entry": false,
+      "returns": "ConcernUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ConcreteConditionalExpression",
+      "ruleName": "ConcreteConditionalExpression",
+      "entry": false,
+      "returns": "OperatorExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ConditionalExpression",
+      "ruleName": "ConditionalExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ConjugatedPortDefinition",
+      "ruleName": "ConjugatedPortDefinition",
+      "entry": false,
+      "returns": "ConjugatedPortDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ConjugatedPortDefinitionMember",
+      "ruleName": "ConjugatedPortDefinitionMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ConjugatedPortReference",
+      "ruleName": "ConjugatedPortReference",
+      "entry": false,
+      "returns": "ConjugatedPortReference",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ConjugatedPortTyping",
+      "ruleName": "ConjugatedPortTyping",
+      "entry": false,
+      "returns": "ConjugatedPortTyping",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ConnectionDefinition",
+      "ruleName": "ConnectionDefinition",
+      "entry": false,
+      "returns": "ConnectionDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ConnectionUsage",
+      "ruleName": "ConnectionUsage",
+      "entry": false,
+      "returns": "ConnectionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ConnectorEnd",
+      "ruleName": "ConnectorEnd",
+      "entry": false,
+      "returns": "ReferenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ConnectorEndMember",
+      "ruleName": "ConnectorEndMember",
+      "entry": false,
+      "returns": "EndFeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ConstraintDefinition",
+      "ruleName": "ConstraintDefinition",
+      "entry": false,
+      "returns": "ConstraintDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ConstraintUsage",
+      "ruleName": "ConstraintUsage",
+      "entry": false,
+      "returns": "ConstraintUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ControlNode",
+      "ruleName": "ControlNode",
+      "entry": false,
+      "returns": "ControlNode",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:DecisionNode",
+      "ruleName": "DecisionNode",
+      "entry": false,
+      "returns": "DecisionNode",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:DefaultInterfaceEnd",
+      "ruleName": "DefaultInterfaceEnd",
+      "entry": false,
+      "returns": "PortUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:DefaultReferenceUsage",
+      "ruleName": "DefaultReferenceUsage",
+      "entry": false,
+      "returns": "ReferenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:DefaultTargetSuccession",
+      "ruleName": "DefaultTargetSuccession",
+      "entry": false,
+      "returns": "TransitionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:DefinitionElement",
+      "ruleName": "DefinitionElement",
+      "entry": false,
+      "returns": "Namespace",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:DefinitionMember",
+      "ruleName": "DefinitionMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:Dependency",
+      "ruleName": "Dependency",
+      "entry": false,
+      "returns": "Dependency",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:DoActionMember",
+      "ruleName": "DoActionMember",
+      "entry": false,
+      "returns": "StateSubactionMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EffectBehaviorMember",
+      "ruleName": "EffectBehaviorMember",
+      "entry": false,
+      "returns": "TransitionFeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EffectBehaviorUsage",
+      "ruleName": "EffectBehaviorUsage",
+      "entry": false,
+      "returns": "ActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EffectBehaviorUsage_1",
+      "ruleName": "EffectBehaviorUsage_1",
+      "entry": false,
+      "returns": "ActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EffectBehaviorUsage_2",
+      "ruleName": "EffectBehaviorUsage_2",
+      "entry": false,
+      "returns": "PerformActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EffectBehaviorUsage_3",
+      "ruleName": "EffectBehaviorUsage_3",
+      "entry": false,
+      "returns": "AcceptActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EffectBehaviorUsage_4",
+      "ruleName": "EffectBehaviorUsage_4",
+      "entry": false,
+      "returns": "SendActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EffectBehaviorUsage_5",
+      "ruleName": "EffectBehaviorUsage_5",
+      "entry": false,
+      "returns": "AssignmentActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ElementFilterMember",
+      "ruleName": "ElementFilterMember",
+      "entry": false,
+      "returns": "ElementFilterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EmptySuccession",
+      "ruleName": "EmptySuccession",
+      "entry": false,
+      "returns": "SuccessionAsUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EmptySuccessionMember",
+      "ruleName": "EmptySuccessionMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EntryActionMember",
+      "ruleName": "EntryActionMember",
+      "entry": false,
+      "returns": "StateSubactionMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EntryTransitionMember",
+      "ruleName": "EntryTransitionMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EnumeratedValue",
+      "ruleName": "EnumeratedValue",
+      "entry": false,
+      "returns": "EnumerationUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EnumerationDefinition",
+      "ruleName": "EnumerationDefinition",
+      "entry": false,
+      "returns": "EnumerationDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EnumerationUsage",
+      "ruleName": "EnumerationUsage",
+      "entry": false,
+      "returns": "EnumerationUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EnumerationUsageMember",
+      "ruleName": "EnumerationUsageMember",
+      "entry": false,
+      "returns": "VariantMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EqualityExpression",
+      "ruleName": "EqualityExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EqualityExpressionMember",
+      "ruleName": "EqualityExpressionMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EqualityExpressionReference",
+      "ruleName": "EqualityExpressionReference",
+      "entry": false,
+      "returns": "FeatureReferenceExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:EventOccurrenceUsage",
+      "ruleName": "EventOccurrenceUsage",
+      "entry": false,
+      "returns": "EventOccurrenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ExhibitStateUsage",
+      "ruleName": "ExhibitStateUsage",
+      "entry": false,
+      "returns": "ExhibitStateUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ExitActionMember",
+      "ruleName": "ExitActionMember",
+      "entry": false,
+      "returns": "StateSubactionMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ExponentiationExpression",
+      "ruleName": "ExponentiationExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:Expose",
+      "ruleName": "Expose",
+      "entry": false,
+      "returns": "Expose",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ExpressionBody",
+      "ruleName": "ExpressionBody",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ExpressionBodyMember",
+      "ruleName": "ExpressionBodyMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ExpressionParameterMember",
+      "ruleName": "ExpressionParameterMember",
+      "entry": false,
+      "returns": "ParameterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ExtendedDefinition",
+      "ruleName": "ExtendedDefinition",
+      "entry": false,
+      "returns": "Definition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ExtendedUsage",
+      "ruleName": "ExtendedUsage",
+      "entry": false,
+      "returns": "Usage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ExtentExpression",
+      "ruleName": "ExtentExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:FeatureBinding",
+      "ruleName": "FeatureBinding",
+      "entry": false,
+      "returns": "FeatureValue",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:FeatureTyping",
+      "ruleName": "FeatureTyping",
+      "entry": false,
+      "returns": "FeatureTyping",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:FeatureValue",
+      "ruleName": "FeatureValue",
+      "entry": false,
+      "returns": "FeatureValue",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:FilterPackage",
+      "ruleName": "FilterPackage",
+      "entry": false,
+      "returns": "Package",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:FilterPackageMember",
+      "ruleName": "FilterPackageMember",
+      "entry": false,
+      "returns": "ElementFilterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:FlowConnectionDefinition",
+      "ruleName": "FlowConnectionDefinition",
+      "entry": false,
+      "returns": "FlowConnectionDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:FlowConnectionUsage",
+      "ruleName": "FlowConnectionUsage",
+      "entry": false,
+      "returns": "FlowConnectionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:FlowEnd",
+      "ruleName": "FlowEnd",
+      "entry": false,
+      "returns": "ItemFlowEnd",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:FlowEndMember",
+      "ruleName": "FlowEndMember",
+      "entry": false,
+      "returns": "EndFeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:FlowEndSubsetting",
+      "ruleName": "FlowEndSubsetting",
+      "entry": false,
+      "returns": "ReferenceSubsetting",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:FlowFeature",
+      "ruleName": "FlowFeature",
+      "entry": false,
+      "returns": "ReferenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:FlowFeatureMember",
+      "ruleName": "FlowFeatureMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:FlowRedefinition",
+      "ruleName": "FlowRedefinition",
+      "entry": false,
+      "returns": "Redefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ForkNode",
+      "ruleName": "ForkNode",
+      "entry": false,
+      "returns": "ForkNode",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ForLoopNode",
+      "ruleName": "ForLoopNode",
+      "entry": false,
+      "returns": "ForLoopActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ForVariableDeclaration",
+      "ruleName": "ForVariableDeclaration",
+      "entry": false,
+      "returns": "ReferenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ForVariableDeclarationMember",
+      "ruleName": "ForVariableDeclarationMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:FramedConcernMember",
+      "ruleName": "FramedConcernMember",
+      "entry": false,
+      "returns": "FramedConcernMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:FramedConcernUsage",
+      "ruleName": "FramedConcernUsage",
+      "entry": false,
+      "returns": "ConcernUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:GuardedSuccession",
+      "ruleName": "GuardedSuccession",
+      "entry": false,
+      "returns": "TransitionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:GuardedSuccessionMember",
+      "ruleName": "GuardedSuccessionMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:GuardedTargetSuccession",
+      "ruleName": "GuardedTargetSuccession",
+      "entry": false,
+      "returns": "TransitionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:GuardExpressionMember",
+      "ruleName": "GuardExpressionMember",
+      "entry": false,
+      "returns": "TransitionFeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:IfNode",
+      "ruleName": "IfNode",
+      "entry": false,
+      "returns": "IfActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:IfNodeParameterMember",
+      "ruleName": "IfNodeParameterMember",
+      "entry": false,
+      "returns": "ParameterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ImpliesExpression",
+      "ruleName": "ImpliesExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ImpliesExpressionMember",
+      "ruleName": "ImpliesExpressionMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ImpliesExpressionReference",
+      "ruleName": "ImpliesExpressionReference",
+      "entry": false,
+      "returns": "FeatureReferenceExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:Import",
+      "ruleName": "Import",
+      "entry": false,
+      "returns": "Import",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:IncludeUseCaseUsage",
+      "ruleName": "IncludeUseCaseUsage",
+      "entry": false,
+      "returns": "IncludeUseCaseUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:IndividualDefinition",
+      "ruleName": "IndividualDefinition",
+      "entry": false,
+      "returns": "OccurrenceDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:IndividualUsage",
+      "ruleName": "IndividualUsage",
+      "entry": false,
+      "returns": "OccurrenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:InitialNodeMember",
+      "ruleName": "InitialNodeMember",
+      "entry": false,
+      "returns": "Membership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:InterfaceDefinition",
+      "ruleName": "InterfaceDefinition",
+      "entry": false,
+      "returns": "InterfaceDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:InterfaceEnd",
+      "ruleName": "InterfaceEnd",
+      "entry": false,
+      "returns": "PortUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:InterfaceEndMember",
+      "ruleName": "InterfaceEndMember",
+      "entry": false,
+      "returns": "EndFeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:InterfaceNonOccurrenceUsageElement",
+      "ruleName": "InterfaceNonOccurrenceUsageElement",
+      "entry": false,
+      "returns": "Usage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:InterfaceNonOccurrenceUsageMember",
+      "ruleName": "InterfaceNonOccurrenceUsageMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:InterfaceOccurrenceUsageElement",
+      "ruleName": "InterfaceOccurrenceUsageElement",
+      "entry": false,
+      "returns": "Usage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:InterfaceOccurrenceUsageMember",
+      "ruleName": "InterfaceOccurrenceUsageMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:InterfaceUsage",
+      "ruleName": "InterfaceUsage",
+      "entry": false,
+      "returns": "InterfaceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:InvocationExpression",
+      "ruleName": "InvocationExpression",
+      "entry": false,
+      "returns": "InvocationExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ItemDefinition",
+      "ruleName": "ItemDefinition",
+      "entry": false,
+      "returns": "ItemDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ItemFeature",
+      "ruleName": "ItemFeature",
+      "entry": false,
+      "returns": "ItemFeature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ItemFeatureMember",
+      "ruleName": "ItemFeatureMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ItemUsage",
+      "ruleName": "ItemUsage",
+      "entry": false,
+      "returns": "ItemUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:JoinNode",
+      "ruleName": "JoinNode",
+      "entry": false,
+      "returns": "JoinNode",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:LibraryPackage",
+      "ruleName": "LibraryPackage",
+      "entry": false,
+      "returns": "LibraryPackage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:MergeNode",
+      "ruleName": "MergeNode",
+      "entry": false,
+      "returns": "MergeNode",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:Message",
+      "ruleName": "Message",
+      "entry": false,
+      "returns": "FlowConnectionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:MessageEvent",
+      "ruleName": "MessageEvent",
+      "entry": false,
+      "returns": "EventOccurrenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:MessageEventMember",
+      "ruleName": "MessageEventMember",
+      "entry": false,
+      "returns": "ParameterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:MetadataBodyUsage",
+      "ruleName": "MetadataBodyUsage",
+      "entry": false,
+      "returns": "ReferenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:MetadataBodyUsageMember",
+      "ruleName": "MetadataBodyUsageMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:MetadataDefinition",
+      "ruleName": "MetadataDefinition",
+      "entry": false,
+      "returns": "MetadataDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:MetadataUsage",
+      "ruleName": "MetadataUsage",
+      "entry": false,
+      "returns": "MetadataUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:Model",
+      "ruleName": "Model",
+      "entry": true,
+      "returns": "Namespace",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:MultiplicativeExpression",
+      "ruleName": "MultiplicativeExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:MultiplicityExpressionMember",
+      "ruleName": "MultiplicityExpressionMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:MultiplicityRange",
+      "ruleName": "MultiplicityRange",
+      "entry": false,
+      "returns": "MultiplicityRange",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:MultiplicitySourceEnd",
+      "ruleName": "MultiplicitySourceEnd",
+      "entry": false,
+      "returns": "ReferenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:MultiplicitySourceEndMember",
+      "ruleName": "MultiplicitySourceEndMember",
+      "entry": false,
+      "returns": "EndFeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:NamedArgument",
+      "ruleName": "NamedArgument",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:NamedArgumentMember",
+      "ruleName": "NamedArgumentMember",
+      "entry": false,
+      "returns": "ParameterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:NodeParameter",
+      "ruleName": "NodeParameter",
+      "entry": false,
+      "returns": "ReferenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:NodeParameterMember",
+      "ruleName": "NodeParameterMember",
+      "entry": false,
+      "returns": "ParameterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:NonOccurrenceUsageElement",
+      "ruleName": "NonOccurrenceUsageElement",
+      "entry": false,
+      "returns": "Usage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:NonOccurrenceUsageMember",
+      "ruleName": "NonOccurrenceUsageMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:NullCoalescingExpression",
+      "ruleName": "NullCoalescingExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ObjectiveMember",
+      "ruleName": "ObjectiveMember",
+      "entry": false,
+      "returns": "ObjectiveMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ObjectiveRequirementUsage",
+      "ruleName": "ObjectiveRequirementUsage",
+      "entry": false,
+      "returns": "RequirementUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OccurrenceDefinition",
+      "ruleName": "OccurrenceDefinition",
+      "entry": false,
+      "returns": "OccurrenceDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OccurrenceUsage",
+      "ruleName": "OccurrenceUsage",
+      "entry": false,
+      "returns": "OccurrenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OccurrenceUsageElement",
+      "ruleName": "OccurrenceUsageElement",
+      "entry": false,
+      "returns": "Usage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OccurrenceUsageMember",
+      "ruleName": "OccurrenceUsageMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OrExpression",
+      "ruleName": "OrExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OrExpressionMember",
+      "ruleName": "OrExpressionMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OrExpressionReference",
+      "ruleName": "OrExpressionReference",
+      "entry": false,
+      "returns": "FeatureReferenceExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OwnedAnnotation",
+      "ruleName": "OwnedAnnotation",
+      "entry": false,
+      "returns": "Annotation",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OwnedCrossingFeature",
+      "ruleName": "OwnedCrossingFeature",
+      "entry": false,
+      "returns": "ReferenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OwnedCrossingFeatureMember",
+      "ruleName": "OwnedCrossingFeatureMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OwnedCrossMultiplicity",
+      "ruleName": "OwnedCrossMultiplicity",
+      "entry": false,
+      "returns": "Feature",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OwnedCrossMultiplicityMember",
+      "ruleName": "OwnedCrossMultiplicityMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OwnedCrossSubsetting",
+      "ruleName": "OwnedCrossSubsetting",
+      "entry": false,
+      "returns": "CrossSubsetting",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OwnedExpression",
+      "ruleName": "OwnedExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OwnedExpressionMember",
+      "ruleName": "OwnedExpressionMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OwnedExpressionReference",
+      "ruleName": "OwnedExpressionReference",
+      "entry": false,
+      "returns": "FeatureReferenceExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OwnedMultiplicity",
+      "ruleName": "OwnedMultiplicity",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OwnedRedefinition",
+      "ruleName": "OwnedRedefinition",
+      "entry": false,
+      "returns": "Redefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OwnedReferenceSubsetting",
+      "ruleName": "OwnedReferenceSubsetting",
+      "entry": false,
+      "returns": "ReferenceSubsetting",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OwnedSubclassification",
+      "ruleName": "OwnedSubclassification",
+      "entry": false,
+      "returns": "Subclassification",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:OwnedSubsetting",
+      "ruleName": "OwnedSubsetting",
+      "entry": false,
+      "returns": "Subsetting",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:Package",
+      "ruleName": "Package",
+      "entry": false,
+      "returns": "Package",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ParameterRedefinition",
+      "ruleName": "ParameterRedefinition",
+      "entry": false,
+      "returns": "Redefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:PartDefinition",
+      "ruleName": "PartDefinition",
+      "entry": false,
+      "returns": "PartDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:PartUsage",
+      "ruleName": "PartUsage",
+      "entry": false,
+      "returns": "PartUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:PayloadParameter",
+      "ruleName": "PayloadParameter",
+      "entry": false,
+      "returns": "ReferenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:PayloadParameterMember",
+      "ruleName": "PayloadParameterMember",
+      "entry": false,
+      "returns": "ParameterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:PerformActionUsage",
+      "ruleName": "PerformActionUsage",
+      "entry": false,
+      "returns": "PerformActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:PortConjugation",
+      "ruleName": "PortConjugation",
+      "entry": false,
+      "returns": "PortConjugation",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:PortDefinition",
+      "ruleName": "PortDefinition",
+      "entry": false,
+      "returns": "PortDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:PortionKind",
+      "ruleName": "PortionKind",
+      "entry": false,
+      "returns": "string",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:PortionUsage",
+      "ruleName": "PortionUsage",
+      "entry": false,
+      "returns": "OccurrenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:PortUsage",
+      "ruleName": "PortUsage",
+      "entry": false,
+      "returns": "PortUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:PrefixMetadataAnnotation",
+      "ruleName": "PrefixMetadataAnnotation",
+      "entry": false,
+      "returns": "Annotation",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:PrefixMetadataMember",
+      "ruleName": "PrefixMetadataMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:PrefixMetadataUsage",
+      "ruleName": "PrefixMetadataUsage",
+      "entry": false,
+      "returns": "MetadataUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:PrimaryExpression",
+      "ruleName": "PrimaryExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:RangeExpression",
+      "ruleName": "RangeExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ReferenceUsage",
+      "ruleName": "ReferenceUsage",
+      "entry": false,
+      "returns": "ReferenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:RelationalExpression",
+      "ruleName": "RelationalExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:RelationshipMember",
+      "ruleName": "RelationshipMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:RenderingDefinition",
+      "ruleName": "RenderingDefinition",
+      "entry": false,
+      "returns": "RenderingDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:RenderingUsage",
+      "ruleName": "RenderingUsage",
+      "entry": false,
+      "returns": "RenderingUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:RequirementConstraintKind",
+      "ruleName": "RequirementConstraintKind",
+      "entry": false,
+      "returns": "string",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:RequirementConstraintMember",
+      "ruleName": "RequirementConstraintMember",
+      "entry": false,
+      "returns": "RequirementConstraintMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:RequirementConstraintUsage",
+      "ruleName": "RequirementConstraintUsage",
+      "entry": false,
+      "returns": "ConstraintUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:RequirementDefinition",
+      "ruleName": "RequirementDefinition",
+      "entry": false,
+      "returns": "RequirementDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:RequirementUsage",
+      "ruleName": "RequirementUsage",
+      "entry": false,
+      "returns": "RequirementUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:RequirementVerificationMember",
+      "ruleName": "RequirementVerificationMember",
+      "entry": false,
+      "returns": "RequirementVerificationMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:RequirementVerificationUsage",
+      "ruleName": "RequirementVerificationUsage",
+      "entry": false,
+      "returns": "RequirementUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ResultExpressionMember",
+      "ruleName": "ResultExpressionMember",
+      "entry": false,
+      "returns": "ResultExpressionMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ReturnParameterMember",
+      "ruleName": "ReturnParameterMember",
+      "entry": false,
+      "returns": "ReturnParameterMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:SatisfactionFeatureValue",
+      "ruleName": "SatisfactionFeatureValue",
+      "entry": false,
+      "returns": "FeatureValue",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:SatisfactionParameter",
+      "ruleName": "SatisfactionParameter",
+      "entry": false,
+      "returns": "ReferenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:SatisfactionReferenceExpression",
+      "ruleName": "SatisfactionReferenceExpression",
+      "entry": false,
+      "returns": "FeatureReferenceExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:SatisfactionSubjectMember",
+      "ruleName": "SatisfactionSubjectMember",
+      "entry": false,
+      "returns": "SubjectMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:SatisfyRequirementUsage",
+      "ruleName": "SatisfyRequirementUsage",
+      "entry": false,
+      "returns": "SatisfyRequirementUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:SendNode",
+      "ruleName": "SendNode",
+      "entry": false,
+      "returns": "SendActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:SequenceExpression",
+      "ruleName": "SequenceExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:StakeholderMember",
+      "ruleName": "StakeholderMember",
+      "entry": false,
+      "returns": "StakeholderMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:StakeholderUsage",
+      "ruleName": "StakeholderUsage",
+      "entry": false,
+      "returns": "PartUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:StateActionUsage",
+      "ruleName": "StateActionUsage",
+      "entry": false,
+      "returns": "ActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:StateActionUsage_1",
+      "ruleName": "StateActionUsage_1",
+      "entry": false,
+      "returns": "ActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:StateActionUsage_2",
+      "ruleName": "StateActionUsage_2",
+      "entry": false,
+      "returns": "PerformActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:StateActionUsage_3",
+      "ruleName": "StateActionUsage_3",
+      "entry": false,
+      "returns": "AcceptActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:StateActionUsage_4",
+      "ruleName": "StateActionUsage_4",
+      "entry": false,
+      "returns": "SendActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:StateActionUsage_5",
+      "ruleName": "StateActionUsage_5",
+      "entry": false,
+      "returns": "AssignmentActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:StateDefinition",
+      "ruleName": "StateDefinition",
+      "entry": false,
+      "returns": "StateDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:StateUsage",
+      "ruleName": "StateUsage",
+      "entry": false,
+      "returns": "StateUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:StructureUsageElement",
+      "ruleName": "StructureUsageElement",
+      "entry": false,
+      "returns": "Usage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:StructureUsageMember",
+      "ruleName": "StructureUsageMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:SubjectMember",
+      "ruleName": "SubjectMember",
+      "entry": false,
+      "returns": "SubjectMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:SubjectUsage",
+      "ruleName": "SubjectUsage",
+      "entry": false,
+      "returns": "ReferenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:SuccessionAsUsage",
+      "ruleName": "SuccessionAsUsage",
+      "entry": false,
+      "returns": "SuccessionAsUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:SuccessionFlowConnectionUsage",
+      "ruleName": "SuccessionFlowConnectionUsage",
+      "entry": false,
+      "returns": "SuccessionFlowConnectionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TargetAccessedFeatureMember",
+      "ruleName": "TargetAccessedFeatureMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TargetBinding",
+      "ruleName": "TargetBinding",
+      "entry": false,
+      "returns": "FeatureValue",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TargetExpression",
+      "ruleName": "TargetExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TargetFeature",
+      "ruleName": "TargetFeature",
+      "entry": false,
+      "returns": "ReferenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TargetFeatureMember",
+      "ruleName": "TargetFeatureMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TargetParameter",
+      "ruleName": "TargetParameter",
+      "entry": false,
+      "returns": "ReferenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TargetSuccession",
+      "ruleName": "TargetSuccession",
+      "entry": false,
+      "returns": "SuccessionAsUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TargetSuccessionMember",
+      "ruleName": "TargetSuccessionMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TargetTransitionUsage",
+      "ruleName": "TargetTransitionUsage",
+      "entry": false,
+      "returns": "TransitionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TargetTransitionUsageMember",
+      "ruleName": "TargetTransitionUsageMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TerminateNode",
+      "ruleName": "TerminateNode",
+      "entry": false,
+      "returns": "TerminateActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TransitionSourceMember",
+      "ruleName": "TransitionSourceMember",
+      "entry": false,
+      "returns": "Membership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TransitionSuccession",
+      "ruleName": "TransitionSuccession",
+      "entry": false,
+      "returns": "SuccessionAsUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TransitionSuccessionMember",
+      "ruleName": "TransitionSuccessionMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TransitionUsage",
+      "ruleName": "TransitionUsage",
+      "entry": false,
+      "returns": "TransitionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TransitionUsageMember",
+      "ruleName": "TransitionUsageMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TriggerAction",
+      "ruleName": "TriggerAction",
+      "entry": false,
+      "returns": "AcceptActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TriggerActionMember",
+      "ruleName": "TriggerActionMember",
+      "entry": false,
+      "returns": "TransitionFeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TriggerExpression",
+      "ruleName": "TriggerExpression",
+      "entry": false,
+      "returns": "TriggerInvocationExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:TriggerFeatureValue",
+      "ruleName": "TriggerFeatureValue",
+      "entry": false,
+      "returns": "FeatureValue",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:UnaryExpression",
+      "ruleName": "UnaryExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:UsageElement",
+      "ruleName": "UsageElement",
+      "entry": false,
+      "returns": "Usage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:UsageMember",
+      "ruleName": "UsageMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:UseCaseDefinition",
+      "ruleName": "UseCaseDefinition",
+      "entry": false,
+      "returns": "UseCaseDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:UseCaseUsage",
+      "ruleName": "UseCaseUsage",
+      "entry": false,
+      "returns": "UseCaseUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:VariantReference",
+      "ruleName": "VariantReference",
+      "entry": false,
+      "returns": "ReferenceUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:VariantUsageElement",
+      "ruleName": "VariantUsageElement",
+      "entry": false,
+      "returns": "Usage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:VariantUsageMember",
+      "ruleName": "VariantUsageMember",
+      "entry": false,
+      "returns": "VariantMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:VerificationCaseDefinition",
+      "ruleName": "VerificationCaseDefinition",
+      "entry": false,
+      "returns": "VerificationCaseDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:VerificationCaseUsage",
+      "ruleName": "VerificationCaseUsage",
+      "entry": false,
+      "returns": "VerificationCaseUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ViewDefinition",
+      "ruleName": "ViewDefinition",
+      "entry": false,
+      "returns": "ViewDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ViewpointDefinition",
+      "ruleName": "ViewpointDefinition",
+      "entry": false,
+      "returns": "ViewpointDefinition",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ViewpointUsage",
+      "ruleName": "ViewpointUsage",
+      "entry": false,
+      "returns": "ViewpointUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ViewRenderingMember",
+      "ruleName": "ViewRenderingMember",
+      "entry": false,
+      "returns": "ViewRenderingMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ViewRenderingUsage",
+      "ruleName": "ViewRenderingUsage",
+      "entry": false,
+      "returns": "RenderingUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:ViewUsage",
+      "ruleName": "ViewUsage",
+      "entry": false,
+      "returns": "ViewUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:VisibleAnnotatingMember",
+      "ruleName": "VisibleAnnotatingMember",
+      "entry": false,
+      "returns": "OwningMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:WhileLoopNode",
+      "ruleName": "WhileLoopNode",
+      "entry": false,
+      "returns": "WhileLoopActionUsage",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:XorExpression",
+      "ruleName": "XorExpression",
+      "entry": false,
+      "returns": "Expression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:XorExpressionMember",
+      "ruleName": "XorExpressionMember",
+      "entry": false,
+      "returns": "FeatureMembership",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    },
+    {
+      "id": "packages/syside-languageserver/src/grammar/SysML.langium:XorExpressionReference",
+      "ruleName": "XorExpressionReference",
+      "entry": false,
+      "returns": "FeatureReferenceExpression",
+      "sourcePath": "packages/syside-languageserver/src/grammar/SysML.langium",
+      "sourceKind": "static",
+      "analysisTarget": "typescript-source",
+      "confidence": "medium"
+    }
+  ]
+}

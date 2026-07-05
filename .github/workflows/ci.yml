@@ -47,6 +47,43 @@ jobs:
           name: js-service-node24
           fail_ci_if_error: true
 
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "20.19"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 9.15.4
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install root dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build upstream sysml-2ls
+        run: pnpm run build:upstream
+
+      - name: Install documentation dependencies
+        run: |
+          python -m pip install -r docs/requirements.txt
+          python -m pip install --no-build-isolation -e clients/python
+
+      - name: Run documentation checks
+        run: pnpm run docs:check:full
+
   docker:
     runs-on: ubuntu-latest
     steps:
