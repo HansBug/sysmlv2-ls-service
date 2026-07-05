@@ -115,6 +115,10 @@ JavaScript/TypeScript rules:
 - Core modules need a module-level JSDoc block explaining ownership and
   boundaries, especially contracts, routes, limits, diagnostics, URI handling,
   validator adapter, and version metadata.
+- `pnpm run docs:check` scans `src/`, `tests/`, and `scripts/`; it requires
+  module-level JSDoc for `src/` modules, requires JSDoc before exported
+  declarations in all three roots, and rejects empty `/** */` placeholder
+  comments.
 - JS/TS formatting, linting, and documentation checks use:
 
 ```bash

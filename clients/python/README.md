@@ -39,9 +39,11 @@ service limits. Missing or malformed `limits` in a capabilities response raises
 `SysMLResponseError`; the client does not silently use old hard-coded defaults.
 
 Runtime dependencies are `requests` and `click`. The package supports Python
-3.7, which may force dependency resolution to older `requests` releases. That is
-intentional for compatibility; users who keep Python 3.7 accept the associated
-security and maintenance risk.
+3.7, which can force dependency resolution to `requests==2.31.0` because
+`requests` 2.32.x requires Python 3.8 or newer. That is intentional for
+compatibility; users who keep Python 3.7 accept the associated security and
+maintenance risk, including vulnerabilities fixed only in later `requests`
+lines such as CVE-2024-35195.
 
 CLI use:
 

@@ -8,6 +8,7 @@ from sysmlv2slclient import (
     CapabilitiesResponse,
     HealthResponse,
     SysMLConnectionError,
+    SysMLDirectoryError,
     ValidateResult,
     VersionResponse,
 )
@@ -184,6 +185,23 @@ def test_health_capabilities_and_version_outputs_json_and_text():
     assert payload["service"]["revision"] == "abc"
 
 
+def test_global_parameter_validation_is_click_usage_error():
+    query = invoke(["--base-url", "http://svc.test?bad=true", "health"])
+    assert query.exit_code == 2
+    assert "must not include query or fragment" in query.output
+    assert "Traceback" not in query.output
+
+    no_host = invoke(["--base-url", "svc.test", "health"])
+    assert no_host.exit_code == 2
+    assert "must include scheme and host" in no_host.output
+    assert "Traceback" not in no_host.output
+
+    bad_timeout = invoke(["--timeout", "0", "health"])
+    assert bad_timeout.exit_code == 2
+    assert "must be greater than 0" in bad_timeout.output
+    assert "Traceback" not in bad_timeout.output
+
+
 def test_validate_text_sources_and_failure_exit(tmp_path):
     ok = invoke(["validate", "text", "package Demo {}", "--uri", "memory:///demo.sysml"])
     assert ok.exit_code == 0
@@ -304,7 +322,32 @@ def test_validate_files_and_directory_options(tmp_path):
     assert options["follow_symlinks"] is True
 
 
-def test_cli_errors_exit_three(monkeypatch):
+def test_validate_files_local_errors_exit_three(tmp_path, monkeypatch):
+    source = tmp_path / "a.sysml"
+    source.write_text("package A {}", encoding="utf-8")
+
+    def broken_commonpath(paths):
+        raise ValueError("mixed roots")
+
+    with monkeypatch.context() as patch:
+        patch.setattr(cli_module.os.path, "commonpath", broken_commonpath)
+        commonpath_error = invoke(["validate", "files", str(source)])
+    assert commonpath_error.exit_code == 3
+    assert "Cannot determine common root" in commonpath_error.output
+    assert "Traceback" not in commonpath_error.output
+
+    def broken_memory_uri(root, rel_posix, relative_uris):
+        raise SysMLDirectoryError("bad generated URI")
+
+    with monkeypatch.context() as patch:
+        patch.setattr(cli_module, "_shared_memory_uri", broken_memory_uri)
+        uri_error = invoke(["validate", "files", str(source)])
+    assert uri_error.exit_code == 3
+    assert "bad generated URI" in uri_error.output
+    assert "Traceback" not in uri_error.output
+
+
+def test_client_errors_exit_three(monkeypatch):
     class BrokenClient(FakeClient):
         def health(self):
             raise SysMLConnectionError("offline")
@@ -313,3 +356,15 @@ def test_cli_errors_exit_three(monkeypatch):
     result = invoke(["health"])
     assert result.exit_code == 3
     assert "offline" in result.output
+
+
+def test_client_value_errors_exit_three(monkeypatch):
+    class BrokenClient(FakeClient):
+        def __init__(self, *args, **kwargs):
+            raise ValueError("bad client configuration")
+
+    monkeypatch.setattr(cli_module, "SysMLV2LSClient", BrokenClient)
+    result = invoke(["health"])
+    assert result.exit_code == 3
+    assert "bad client configuration" in result.output
+    assert "Traceback" not in result.output

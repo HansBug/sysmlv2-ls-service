@@ -47,7 +47,7 @@ class SysMLV2LSClient(object):
 
     The client normalizes the service root URL, sends JSON through
     :class:`requests.Session`, parses service-owned DTOs, and optionally runs
-    client-side request limit preflight using `/v1/capabilities`.
+    client-side request limit preflight using ``/v1/capabilities``.
 
     :param base_url: Service root URL, including scheme and host.
     :type base_url: str

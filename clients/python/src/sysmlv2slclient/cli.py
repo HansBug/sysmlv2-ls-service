@@ -19,13 +19,14 @@ Example::
 
 import json
 import os
+import urllib.parse
 from pathlib import Path
-from urllib.parse import quote
 
 import click
 
 from ._version import __version__
 from .client import SysMLV2LSClient
+from .directory import _memory_uri as _shared_memory_uri
 from .errors import SysMLClientError
 from .models import SysMLFile
 
@@ -75,6 +76,21 @@ def _limits_arg(value):
     return "auto"
 
 
+def _validate_base_url(ctx, param, value):
+    parts = urllib.parse.urlsplit(value)
+    if parts.query or parts.fragment:
+        raise click.BadParameter("must not include query or fragment")
+    if not parts.scheme or not parts.netloc:
+        raise click.BadParameter("must include scheme and host")
+    return value
+
+
+def _validate_timeout(ctx, param, value):
+    if value <= 0:
+        raise click.BadParameter("must be greater than 0")
+    return value
+
+
 def _make_client(ctx, enforce_client_limits=True, limits="auto"):
     return SysMLV2LSClient(
         ctx.obj["base_url"],
@@ -96,7 +112,7 @@ def _validate_client(ctx):
 def _call_client(call):
     try:
         return call()
-    except SysMLClientError as error:
+    except (SysMLClientError, ValueError) as error:
         raise SysMLCLIError(str(error))
 
 
@@ -193,16 +209,6 @@ def _read_text_file(path, encoding, encoding_errors):
         raise SysMLCLIError("Cannot read %s: %s" % (path, error))
 
 
-def _memory_uri(root, resolved_path, relative_uris):
-    rel_posix = Path(os.path.relpath(str(resolved_path), str(root))).as_posix()
-    segments = rel_posix.split("/")
-    encoded = "/".join(quote(segment, safe="") for segment in segments)
-    if relative_uris:
-        return "memory:///%s" % encoded
-    root_name = quote(root.name or "workspace", safe="")
-    return "memory:///%s/%s" % (root_name, encoded)
-
-
 def _load_cli_files(paths, uri_scheme, relative_uris, language, encoding, encoding_errors):
     resolved_paths = []
     parent_paths = []
@@ -210,16 +216,24 @@ def _load_cli_files(paths, uri_scheme, relative_uris, language, encoding, encodi
         resolved_path = Path(path).resolve()
         resolved_paths.append(resolved_path)
         parent_paths.append(str(resolved_path.parent))
-    root = Path(os.path.commonpath(parent_paths))
+    try:
+        root = Path(os.path.commonpath(parent_paths))
+    except ValueError as error:
+        raise SysMLCLIError("Cannot determine common root for input files: %s" % error)
     files = []
     for input_path, resolved_path in zip(paths, resolved_paths):
         text = _read_text_file(input_path, encoding, encoding_errors)
         if uri_scheme == "file":
             files.append(SysMLFile(path=str(resolved_path), text=text, language=language))
         else:
+            rel_posix = Path(os.path.relpath(str(resolved_path), str(root))).as_posix()
+            try:
+                uri = _shared_memory_uri(root, rel_posix, relative_uris)
+            except SysMLClientError as error:
+                raise SysMLCLIError(str(error))
             files.append(
                 SysMLFile(
-                    uri=_memory_uri(root, resolved_path, relative_uris),
+                    uri=uri,
                     text=text,
                     language=language,
                 )
@@ -248,6 +262,7 @@ Examples:
     default=DEFAULT_BASE_URL,
     show_default=True,
     show_envvar=True,
+    callback=_validate_base_url,
     help="Service root URL. Reverse-proxy path prefixes are allowed.",
 )
 @click.option(
@@ -257,6 +272,7 @@ Examples:
     show_default=True,
     show_envvar=True,
     type=float,
+    callback=_validate_timeout,
     help="HTTP request timeout in seconds.",
 )
 @click.option("--json", "output_json", is_flag=True, help="Print service DTO JSON.")

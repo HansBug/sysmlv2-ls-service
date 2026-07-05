@@ -2,6 +2,7 @@
 """Check Python client public pydoc conventions."""
 
 import ast
+import re
 import sys
 from pathlib import Path
 
@@ -30,14 +31,23 @@ def _has_restructured_param_docs(doc, args):
     return missing
 
 
-def _check_doc(path, node, name, args=(), require_return=False):
+def _has_single_backtick_literal(doc):
+    doc_without_roles = re.sub(r":[A-Za-z][A-Za-z0-9_-]*:`[^`]+`", "", doc)
+    return re.search(r"(?<!`)`(?!`)", doc_without_roles) is not None
+
+
+def _has_raise_statement(node):
+    return any(isinstance(child, ast.Raise) for child in ast.walk(node))
+
+
+def _check_doc(path, node, name, args=(), require_return=False, require_raises=False):
     doc = _doc(node)
     errors = []
     if not doc:
         return ["%s:%s missing docstring" % (path, name)]
     if "Example::" not in doc:
         errors.append("%s:%s docstring must include Example::" % (path, name))
-    if "`" in doc and "``" not in doc:
+    if _has_single_backtick_literal(doc):
         errors.append(
             "%s:%s docstring must use reST double-backtick literals" % (path, name)
         )
@@ -50,6 +60,8 @@ def _check_doc(path, node, name, args=(), require_return=False):
             errors.append("%s:%s missing :return:" % (path, name))
         if ":rtype:" not in doc:
             errors.append("%s:%s missing :rtype:" % (path, name))
+    if require_raises and ":raises" not in doc:
+        errors.append("%s:%s missing :raises: for public raise path" % (path, name))
     return errors
 
 
@@ -74,11 +86,22 @@ def _check_module(path):
     for node in tree.body:
         if isinstance(node, ast.ClassDef) and _public_name(node.name):
             init_args = []
+            init_node = None
             for item in node.body:
                 if isinstance(item, ast.FunctionDef) and item.name == "__init__":
                     init_args = _function_args(item)
+                    init_node = item
                     break
-            errors.extend(_check_doc(path, node, node.name, init_args))
+            errors.extend(
+                _check_doc(
+                    path,
+                    node,
+                    node.name,
+                    init_args,
+                    require_raises=init_node is not None
+                    and _has_raise_statement(init_node),
+                )
+            )
             for item in node.body:
                 if isinstance(item, ast.FunctionDef) and _public_name(item.name):
                     if item.name == "__init__":
@@ -91,12 +114,20 @@ def _check_module(path):
                             "%s.%s" % (node.name, item.name),
                             _function_args(item),
                             require_return,
+                            _has_raise_statement(item),
                         )
                     )
         elif isinstance(node, ast.FunctionDef) and _public_name(node.name):
             returns = node.name not in ("cli",)
             errors.extend(
-                _check_doc(path, node, node.name, _function_args(node), returns)
+                _check_doc(
+                    path,
+                    node,
+                    node.name,
+                    _function_args(node),
+                    returns,
+                    _has_raise_statement(node),
+                )
             )
     return errors
 

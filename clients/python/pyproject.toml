@@ -11,7 +11,8 @@ requires-python = ">=3.7"
 authors = [{ name = "HansBug" }]
 dependencies = [
   "requests>=2.31,<3",
-  "click>=8.1,<8.2",
+  "click>=8.1,<8.2; python_version < '3.8'",
+  "click>=8.1; python_version >= '3.8'",
 ]
 
 [project.scripts]
