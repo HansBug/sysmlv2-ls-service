@@ -1,3 +1,16 @@
+/**
+ * Fastify application factory and route wiring.
+ *
+ * This module owns HTTP behavior: CORS, request body limits, service error
+ * mapping, request schema parsing, duplicate canonical URI rejection, timeout
+ * handling, and route registration.
+ *
+ * @example
+ * ```ts
+ * const app = await buildApp({ logger: false });
+ * await app.ready();
+ * ```
+ */
 import Fastify, { type FastifyInstance } from "fastify";
 import cors from "@fastify/cors";
 import { ZodError } from "zod";
@@ -7,27 +20,36 @@ import {
   type ValidateRequest,
   type ValidateResponse,
   type VersionResponse,
-  validateRequestSchema
+  makeValidateRequestSchema,
 } from "./contracts.js";
+import {
+  fastifyBodyLimit,
+  resolveServiceLimits,
+  type ServiceLimits,
+} from "./limits.js";
 import { validateSysML } from "./sysml-validator.js";
 import { makeDocumentUriKey } from "./uri.js";
 import { getVersionInfo } from "./version.js";
 
-const DEFAULT_VALIDATION_TIMEOUT_MS = 30_000;
-
 type ValidateFunction = (request: ValidateRequest) => Promise<ValidateResponse>;
 
+/**
+ * Application construction options.
+ */
 export interface AppOptions {
+  /** Enable or disable Fastify logging. */
   logger?: boolean;
+  /** Optional validate function used by tests or embedding callers. */
   validate?: ValidateFunction;
-  validationTimeoutMs?: number;
+  /** Effective service limits. Omit to resolve them from environment. */
+  limits?: ServiceLimits;
 }
 
 class HttpError extends Error {
   constructor(
     readonly statusCode: number,
     readonly responseCode: string,
-    message: string
+    message: string,
   ) {
     super(message);
     this.name = "HttpError";
@@ -53,37 +75,29 @@ function getErrorResponseCode(error: unknown, statusCode: number): string {
   return statusCode < 500 ? "bad_request" : "internal_error";
 }
 
-function getValidationTimeoutMs(options: AppOptions): number {
-  if (options.validationTimeoutMs !== undefined) return options.validationTimeoutMs;
-
-  const raw = process.env.VALIDATION_TIMEOUT_MS;
-  if (raw === undefined) return DEFAULT_VALIDATION_TIMEOUT_MS;
-
-  const parsed = Number(raw);
-  if (!Number.isFinite(parsed) || parsed <= 0) return DEFAULT_VALIDATION_TIMEOUT_MS;
-  return Math.floor(parsed);
-}
-
-function withValidationTimeout<T>(operation: Promise<T>, timeoutMs: number): Promise<T> {
-  let timeout: ReturnType<typeof setTimeout> | undefined;
+function withValidationTimeout<T>(
+  operation: Promise<T>,
+  timeoutMs: number,
+): Promise<T> {
+  let timeout: ReturnType<typeof setTimeout>;
   const timeoutPromise = new Promise<never>((_resolve, reject) => {
     timeout = setTimeout(() => {
       reject(
         new HttpError(
           503,
           "validation_timeout",
-          `Validation exceeded ${timeoutMs} ms.`
-        )
+          `Validation exceeded ${timeoutMs} ms.`,
+        ),
       );
     }, timeoutMs);
   });
 
   return Promise.race([operation, timeoutPromise]).finally(() => {
-    if (timeout) clearTimeout(timeout);
+    clearTimeout(timeout);
   });
 }
 
-function rejectDuplicateDocumentUris(payload: ReturnType<typeof validateRequestSchema.parse>): void {
+function rejectDuplicateDocumentUris(payload: ValidateRequest): void {
   const seenUris = new Set<string>();
   payload.files.forEach((file, index) => {
     const documentUri = makeDocumentUriKey(file, index);
@@ -92,22 +106,39 @@ function rejectDuplicateDocumentUris(payload: ReturnType<typeof validateRequestS
         {
           code: "custom",
           path: ["files", index, "uri"],
-          message: `Duplicate canonical file URI: ${documentUri}`
-        }
+          message: `Duplicate canonical file URI: ${documentUri}`,
+        },
       ]);
     }
     seenUris.add(documentUri);
   });
 }
 
-export async function buildApp(options: AppOptions = {}): Promise<FastifyInstance> {
+/**
+ * Build a configured Fastify application.
+ *
+ * @param options - Optional app construction settings.
+ * @returns Ready-to-start Fastify application instance.
+ *
+ * @example
+ * ```ts
+ * const app = await buildApp({ logger: false });
+ * const response = await app.inject({ method: "GET", url: "/healthz" });
+ * ```
+ */
+export async function buildApp(
+  options: AppOptions = {},
+): Promise<FastifyInstance> {
+  const limits = options.limits ?? resolveServiceLimits();
+  const validateRequestSchema = makeValidateRequestSchema(limits);
+
   const app = Fastify({
     logger: options.logger ?? true,
-    bodyLimit: 5 * 1024 * 1024
+    bodyLimit: fastifyBodyLimit(limits),
   });
 
   await app.register(cors, {
-    origin: false
+    origin: false,
   });
 
   app.setErrorHandler((error, _request, reply) => {
@@ -117,7 +148,7 @@ export async function buildApp(options: AppOptions = {}): Promise<FastifyInstanc
       reply.status(400).send({
         error: "bad_request",
         message: "Request body failed schema validation.",
-        issues: error.issues
+        issues: error.issues,
       });
       return;
     }
@@ -139,7 +170,7 @@ export async function buildApp(options: AppOptions = {}): Promise<FastifyInstanc
             : "Unknown error";
     reply.status(statusCode).send({
       error: errorCode,
-      message
+      message,
     });
   });
 
@@ -148,28 +179,31 @@ export async function buildApp(options: AppOptions = {}): Promise<FastifyInstanc
     return {
       ok: true,
       service: version.service.name,
-      version: version.service.version
+      version: version.service.version,
     };
   });
 
   app.get("/v1/capabilities", async (): Promise<CapabilitiesResponse> => ({
     languages: [
       { id: "sysml", extensions: [".sysml"] },
-      { id: "kerml", extensions: [".kerml"] }
+      { id: "kerml", extensions: [".kerml"] },
     ],
     validationChecks: ["all", "none"],
-    standardLibrary: ["none"]
+    standardLibrary: ["none"],
+    limits,
   }));
 
-  app.get("/v1/version", async (): Promise<VersionResponse> => getVersionInfo());
+  app.get("/v1/version", async (): Promise<VersionResponse> =>
+    getVersionInfo(),
+  );
 
   app.post("/v1/validate", async (request) => {
     const payload = validateRequestSchema.parse(request.body);
     rejectDuplicateDocumentUris(payload);
-    return withValidationTimeout(
-      (options.validate ?? validateSysML)(payload),
-      getValidationTimeoutMs(options)
-    );
+    const operation = (options.validate ?? validateSysML)(payload);
+    return limits.validate.validationTimeoutMs === null
+      ? operation
+      : withValidationTimeout(operation, limits.validate.validationTimeoutMs);
   });
 
   return app;

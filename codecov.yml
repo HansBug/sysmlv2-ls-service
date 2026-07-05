@@ -1,0 +1,20 @@
+comment:
+  layout: "reach,diff,flags,tree"
+  behavior: default
+
+flags:
+  python-client:
+    paths:
+      - clients/python/src/
+  js-service:
+    paths:
+      - src/
+
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+    patch:
+      default:
+        target: 100%

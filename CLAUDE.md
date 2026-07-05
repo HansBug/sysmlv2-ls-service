@@ -61,14 +61,77 @@ corepack enable
 pnpm install --frozen-lockfile
 pnpm run build:upstream
 pnpm run version:check
+pnpm run format:check
+pnpm run docs:check
 pnpm run ci
 pnpm run audit
 pnpm run dev
 docker build -t sysmlv2-ls-service:local .
+
+python -m pip install -e "clients/python[test]"
+python -m ruff format --check clients/python/src clients/python/tests scripts/check-python-docs.py
+python -m ruff check clients/python/src clients/python/tests scripts/check-python-docs.py
+python scripts/check-python-docs.py
 ```
 
 Use `pnpm install --frozen-lockfile` in CI-like validation. Use plain
 `pnpm install` only when intentionally updating dependency metadata.
+
+## Code Style and Documentation Discipline
+
+These rules apply to service-owned code only. Exclude `upstream/sysml-2ls`,
+generated build output, dependency directories, and coverage artifacts.
+
+Python client rules:
+
+- Runtime code lives under `clients/python/src/sysmlv2slclient`.
+- Public modules, classes, functions, and methods must use English
+  reStructuredText docstrings following PEP 257 / Sphinx style.
+- Module docstrings must explain the module's responsibility and its place in
+  the SDK. Public class/function/method docstrings must document `:param:`,
+  `:type:`, `:return:`, `:rtype:`, relevant `:raises:`, and include an
+  `Example::` block.
+- `clients/python/src/sysmlv2slclient/__init__.py` must keep a table-shaped
+  module roadmap that explains the main exports and their purposes.
+- Inline code in Python docstrings uses double-backtick reST literals, never
+  Markdown single backticks or Google/NumPy style sections.
+- Python formatting and linting use Ruff:
+
+```bash
+python -m ruff format clients/python/src clients/python/tests scripts/check-python-docs.py
+python -m ruff format --check clients/python/src clients/python/tests scripts/check-python-docs.py
+python -m ruff check clients/python/src clients/python/tests scripts/check-python-docs.py
+python scripts/check-python-docs.py
+```
+
+JavaScript/TypeScript rules:
+
+- Service-owned JS/TS code lives under `src/`, `tests/`, and `scripts/`.
+  `upstream/` is never part of service code style or documentation checks.
+- ESLint is the code-quality and bug-risk checker. Prettier is the formatter.
+  Do not move formatter-only concerns into ESLint rules.
+- Public/exported TypeScript APIs require TSDoc/JSDoc comments that explain
+  responsibility, parameters, return values, and error semantics where relevant.
+- Core modules need a module-level JSDoc block explaining ownership and
+  boundaries, especially contracts, routes, limits, diagnostics, URI handling,
+  validator adapter, and version metadata.
+- `pnpm run docs:check` scans `src/`, `tests/`, and `scripts/`; it requires
+  module-level JSDoc for `src/` modules, requires JSDoc before exported
+  declarations in all three roots, and rejects empty `/** */` placeholder
+  comments.
+- JS/TS formatting, linting, and documentation checks use:
+
+```bash
+pnpm run format
+pnpm run format:check
+pnpm run lint
+pnpm run docs:check
+```
+
+Before claiming a code change ready, run the appropriate language checks plus
+the normal test and audit gates. Do not weaken doc/comment check scripts to
+avoid writing documentation; update the docs or the explicit allowlist only when
+the public surface genuinely changes.
 
 ## API Contract
 
@@ -271,8 +334,22 @@ Implementation rules:
 For normal code changes, run:
 
 ```bash
+pnpm run format:check
+pnpm run docs:check
 pnpm run ci
 pnpm run audit
+```
+
+For Python client changes, additionally run:
+
+```bash
+python -m pip install -e "clients/python[test]"
+python -m ruff format --check clients/python/src clients/python/tests scripts/check-python-docs.py
+python -m ruff check clients/python/src clients/python/tests scripts/check-python-docs.py
+python scripts/check-python-docs.py
+cd clients/python
+python -m coverage run --branch -m pytest
+python -m coverage report --fail-under=100
 ```
 
 For Docker, release, version, dependency, or runtime-path changes, additionally

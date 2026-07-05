@@ -204,18 +204,53 @@ workflow does.
 }
 ```
 
-Limits:
+Default service-owned limits:
 
 - Maximum files per request: 64
 - Maximum text per file: 512 KiB
 - Maximum total text per request: 1 MiB
+- Maximum HTTP body size: 5 MiB
 - Default validation wall-clock timeout: 30 seconds
 - Duplicate `uri`/`path` values are rejected after URI canonicalization
 
-Set `VALIDATION_TIMEOUT_MS` to change the validation timeout for local or
-container deployments. The timeout is a service guard for long-running upstream
-validation work; timed-out requests return HTTP `503` rather than SysML
-diagnostics.
+These limits are service guardrails, not upstream `sysml-2ls` language-server
+limits. They can be configured or disabled with environment variables:
+
+| Variable | Default | Disable values | Purpose |
+| --- | --- | --- | --- |
+| `VALIDATE_MAX_FILES` | `64` | `0`, `none`, `unlimited` | Maximum files per validate request. |
+| `VALIDATE_MAX_FILE_TEXT_BYTES` | `524288` | `0`, `none`, `unlimited` | Maximum UTF-8 text bytes per file. |
+| `VALIDATE_MAX_TOTAL_TEXT_BYTES` | `1048576` | `0`, `none`, `unlimited` | Maximum total UTF-8 text bytes per request. |
+| `HTTP_BODY_LIMIT_BYTES` | `5242880` | `0`, `none`, `unlimited` | HTTP request body service cap. |
+| `VALIDATION_TIMEOUT_MS` | `30000` | `0`, `none`, `unlimited` | Validation wall-clock timeout. |
+
+Unset variables use the defaults. Positive integers override the defaults.
+Invalid, negative, or non-integer values fail fast during service startup.
+
+`0` for `VALIDATION_TIMEOUT_MS` now disables the service timeout wrapper. Older
+service builds treated `0` and other non-positive values as "use the default
+30 seconds"; this is an intentional behavior change so all service-owned limits
+share the same disable syntax.
+
+Disabled limits are reported as JSON `null` from `GET /v1/capabilities`. A
+disabled limit only means this service no longer performs that specific
+guardrail check; requests are still bounded by Node.js, Fastify/Node parsers,
+container memory, the upstream validator, and the operating system.
+
+Example Docker run with all service-owned limits disabled:
+
+```bash
+docker run --rm -p 3000:3000 \
+  -e VALIDATE_MAX_FILES=0 \
+  -e VALIDATE_MAX_FILE_TEXT_BYTES=0 \
+  -e VALIDATE_MAX_TOTAL_TEXT_BYTES=0 \
+  -e HTTP_BODY_LIMIT_BYTES=0 \
+  -e VALIDATION_TIMEOUT_MS=0 \
+  sysmlv2-ls-service:local
+```
+
+The validation timeout is a service guard for long-running upstream validation
+work; timed-out requests return HTTP `503` rather than SysML diagnostics.
 
 `validationChecks: "none"` skips semantic checks only. Lexer and parser failures
 still return `ok: false`.
@@ -484,7 +519,7 @@ The repository includes these security controls:
 | Dependabot | `.github/dependabot.yml` | Weekly npm, GitHub Actions, and Docker base image update PRs. |
 | CodeQL | `.github/workflows/codeql.yml`, `.github/codeql/codeql-config.yml` | JavaScript/TypeScript code scanning on PR, push, and weekly schedule, scoped to service-owned code and excluding pinned upstream. |
 | Docker metadata | `Dockerfile`, `/v1/version` | Runtime and image provenance for current repo and pinned upstream. |
-| Request limits | `src/contracts.ts`, `src/app.ts` | Per-file, total text, file count, duplicate URI, and body-size protections. |
+| Request limits | `src/limits.ts`, `src/contracts.ts`, `src/app.ts` | Configurable per-file, total text, file count, timeout, duplicate URI, and body-size protections. |
 
 The current lockfile uses patched dev tooling (`vitest`, `vite`, `esbuild`) and
 an explicit `lodash` override for the `langium -> chevrotain` transitive chain.

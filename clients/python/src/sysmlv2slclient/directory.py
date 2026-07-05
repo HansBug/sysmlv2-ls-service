@@ -1,0 +1,274 @@
+"""
+Directory discovery helpers for validation workspaces.
+
+This module turns a human-friendly directory root into deterministic
+:class:`SysMLFile` inputs while enforcing request-local root boundaries. It
+supports relative include/exclude patterns, memory URI generation, file path
+mode, encoding control, and guarded symlink traversal.
+
+The module contains:
+
+* :func:`collect_directory_files` - collect validated SDK file DTOs from a
+  directory root.
+
+Example::
+
+    >>> files = collect_directory_files(".", include=("**/*.sysml",))
+    >>> isinstance(files, list)
+    True
+"""
+
+import os
+import re
+from pathlib import Path
+from urllib.parse import quote
+
+from .errors import SysMLDirectoryError
+from .models import SysMLFile
+
+
+def _as_sequence(value, default):
+    if value is None:
+        return default
+    if isinstance(value, str):
+        return (value,)
+    return tuple(value)
+
+
+def _validate_pattern(pattern):
+    if os.path.isabs(pattern):
+        raise SysMLDirectoryError("Glob pattern must be relative: %s" % pattern)
+    parts = pattern.replace("\\", "/").split("/")
+    if "." in parts or ".." in parts:
+        raise SysMLDirectoryError("Glob pattern cannot contain . or .. segments: %s" % pattern)
+
+
+def _glob_to_regex(pattern):
+    _validate_pattern(pattern)
+    parts = pattern.replace("\\", "/").split("/")
+    regex = "^"
+    for index, part in enumerate(parts):
+        last = index == len(parts) - 1
+        if part == "**":
+            regex += ".*" if last else "(?:[^/]+/)*"
+            continue
+        segment = ""
+        for char in part:
+            if char == "*":
+                segment += "[^/]*"
+            elif char == "?":
+                segment += "[^/]"
+            else:
+                segment += re.escape(char)
+        regex += segment
+        if not last:
+            regex += "/"
+    regex += "$"
+    return re.compile(regex)
+
+
+def _matcher(rule, default):
+    if callable(rule):
+        return rule
+    patterns = _as_sequence(rule, default)
+    compiled = []
+    for pattern in patterns:
+        compiled.append(_glob_to_regex(pattern))
+
+    def matches(rel_path):
+        rel = rel_path.as_posix()
+        return any(pattern.match(rel) for pattern in compiled)
+
+    return matches
+
+
+def _inside(root, resolved):
+    try:
+        return os.path.commonpath([str(root), str(resolved)]) == str(root)
+    except ValueError:
+        return False
+
+
+def _append_file_if_regular(files, display_path, resolved_path):
+    if resolved_path.is_file():
+        files.append((display_path, resolved_path))
+        return True
+    return False
+
+
+def _scan(root, follow_symlinks):
+    files = []
+    visited = set()
+    active = set()
+
+    def scan_dir(directory):
+        try:
+            stat = os.stat(str(directory))
+        except OSError as error:
+            raise SysMLDirectoryError("Cannot stat directory %s: %s" % (directory, error))
+        identity = (stat.st_dev, stat.st_ino)
+        if identity in active:
+            raise SysMLDirectoryError("Symlink loop detected: %s" % directory)
+        if identity in visited:
+            return
+        visited.add(identity)
+        active.add(identity)
+
+        try:
+            with os.scandir(str(directory)) as entries:
+                for entry in entries:
+                    entry_path = Path(entry.path)
+                    if entry.is_symlink():
+                        if not follow_symlinks:
+                            continue
+                        try:
+                            resolved = entry_path.resolve(strict=True)
+                        except OSError as error:
+                            raise SysMLDirectoryError(
+                                "Cannot resolve symlink %s: %s" % (entry_path, error)
+                            )
+                        if not _inside(root, resolved):
+                            raise SysMLDirectoryError(
+                                "Symlink target escapes root: %s" % entry_path
+                            )
+                        if resolved.is_dir():
+                            scan_dir(resolved)
+                            continue
+                        _append_file_if_regular(files, entry_path, resolved)
+                        continue
+                    if entry.is_dir(follow_symlinks=False):
+                        scan_dir(entry_path)
+                    elif entry.is_file(follow_symlinks=False):
+                        try:
+                            resolved = entry_path.resolve(strict=True)
+                        except OSError as error:
+                            raise SysMLDirectoryError(
+                                "Cannot resolve file %s: %s" % (entry_path, error)
+                            )
+                        if not _inside(root, resolved):
+                            raise SysMLDirectoryError("File escapes root: %s" % entry_path)
+                        _append_file_if_regular(files, entry_path, resolved)
+        except OSError as error:
+            raise SysMLDirectoryError("Cannot scan directory %s: %s" % (directory, error))
+        finally:
+            active.remove(identity)
+
+    scan_dir(root)
+    return files
+
+
+def _memory_uri(root, rel_posix, relative_uris):
+    segments = rel_posix.split("/")
+    if any(segment in ("", ".", "..") for segment in segments):
+        raise SysMLDirectoryError("Invalid relative path for memory URI: %s" % rel_posix)
+    encoded = "/".join(quote(segment, safe="") for segment in segments)
+    if relative_uris:
+        return "memory:///%s" % encoded
+    root_name = quote(root.name or "workspace", safe="")
+    return "memory:///%s/%s" % (root_name, encoded)
+
+
+def collect_directory_files(
+    path,
+    include=("**/*.sysml",),
+    exclude=None,
+    uri_scheme="memory",
+    relative_uris=True,
+    language=None,
+    encoding="utf-8",
+    encoding_errors="strict",
+    follow_symlinks=False,
+):
+    """
+    Collect SysML/KerML files under a directory root.
+
+    :param path: Directory root to scan.
+    :type path: str | pathlib.Path
+    :param include: Relative glob pattern or patterns, defaults to
+        ``("**/*.sysml",)``.
+    :type include: tuple[str, ...] | callable, optional
+    :param exclude: Relative glob pattern or patterns to skip.
+    :type exclude: tuple[str, ...] | callable, optional
+    :param uri_scheme: ``"memory"`` for generated memory URIs or ``"file"``
+        for absolute file paths.
+    :type uri_scheme: str, optional
+    :param relative_uris: Whether generated memory URIs are relative to
+        ``path``.
+    :type relative_uris: bool, optional
+    :param language: Optional explicit language, ``"sysml"`` or ``"kerml"``.
+    :type language: str, optional
+    :param encoding: File text encoding.
+    :type encoding: str, optional
+    :param encoding_errors: File decoding error handler.
+    :type encoding_errors: str, optional
+    :param follow_symlinks: Whether symlinks inside the root may be followed.
+    :type follow_symlinks: bool, optional
+    :return: Sorted list of SDK file DTOs.
+    :rtype: list[SysMLFile]
+    :raises SysMLDirectoryError: If the root, patterns, symlinks, decoding, or
+        URI generation are invalid.
+    :raises ValueError: If ``language`` is not supported.
+
+    Example::
+
+        >>> files = collect_directory_files(".", include=("**/*.sysml",))
+        >>> isinstance(files, list)
+        True
+    """
+
+    try:
+        root = Path(path).resolve(strict=True)
+    except OSError as error:
+        raise SysMLDirectoryError("Path does not exist: %s" % error)
+    if not root.is_dir():
+        raise SysMLDirectoryError("Path is not a directory: %s" % path)
+    if uri_scheme not in ("memory", "file"):
+        raise SysMLDirectoryError("uri_scheme must be 'memory' or 'file'")
+    if uri_scheme == "file" and relative_uris:
+        raise SysMLDirectoryError("file uri_scheme requires relative_uris=False")
+    if language is not None and language not in ("sysml", "kerml"):
+        raise ValueError("language must be 'sysml' or 'kerml'")
+
+    include_matcher = _matcher(include, ("**/*.sysml",))
+    exclude_matcher = _matcher(exclude, ())
+    selected = []
+
+    for display_path, resolved_path in _scan(root, follow_symlinks):
+        rel_posix = Path(os.path.relpath(str(display_path), str(root))).as_posix()
+        rel_path = Path(rel_posix)
+        if not include_matcher(rel_path):
+            continue
+        if exclude_matcher(rel_path):
+            continue
+        selected.append((rel_posix, resolved_path))
+
+    if not selected:
+        raise SysMLDirectoryError("No files matched directory validation input.")
+
+    files = []
+    seen_uris = set()
+    seen_paths = set()
+    for rel_posix, resolved_path in sorted(selected, key=lambda item: item[0]):
+        try:
+            text = resolved_path.read_text(encoding=encoding, errors=encoding_errors)
+        except LookupError as error:
+            raise SysMLDirectoryError(
+                "Cannot decode %s: unknown encoding option: %s" % (rel_posix, error)
+            )
+        except UnicodeDecodeError as error:
+            raise SysMLDirectoryError("Cannot decode %s: %s" % (rel_posix, error))
+
+        if uri_scheme == "memory":
+            uri = _memory_uri(root, rel_posix, relative_uris)
+            if uri in seen_uris:
+                raise SysMLDirectoryError("Duplicate generated URI: %s" % uri)
+            seen_uris.add(uri)
+            files.append(SysMLFile(uri=uri, text=text, language=language))
+        else:
+            canonical_path = str(resolved_path)
+            if canonical_path in seen_paths:
+                continue
+            seen_paths.add(canonical_path)
+            files.append(SysMLFile(path=canonical_path, text=text, language=language))
+
+    return files

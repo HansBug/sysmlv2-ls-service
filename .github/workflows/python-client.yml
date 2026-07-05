@@ -1,0 +1,200 @@
+name: Python Client
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  python37:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Run Python 3.7 tests in Docker
+        run: |
+          docker run --rm -v "$PWD":/repo -w /repo python:3.7-slim \
+            sh -lc 'python -m pip install --upgrade "pip<24" &&
+                    python -m pip install -e "clients/python[test]" &&
+                    python -m ruff format --check clients/python/src clients/python/tests scripts/check-python-docs.py &&
+                    python -m ruff check clients/python/src clients/python/tests scripts/check-python-docs.py &&
+                    python scripts/check-python-docs.py &&
+                    cd clients/python &&
+                    python -m coverage run --branch -m pytest &&
+                    python -m coverage report --fail-under=100 &&
+                    python -m coverage xml -o coverage-py37.xml &&
+                    python -m pip install . &&
+                    python -c "import sysmlv2slclient; print(sysmlv2slclient.__version__)" &&
+                    python -c "from pathlib import Path; import sysmlv2slclient; assert Path(sysmlv2slclient.__file__).with_name(\"py.typed\").exists()" &&
+                    python -c "from sysmlv2slclient import SysMLV2LSClient, SysMLFile" &&
+                    sysmlv2sl --version'
+
+      - name: Upload Python 3.7 coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: clients/python/coverage-py37.xml
+          flags: python-client
+          name: python-client-py37
+          fail_ci_if_error: true
+
+  unit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Python client
+        run: python -m pip install -e "clients/python[test]"
+
+      - name: Run unit tests with coverage
+        run: |
+          python -m ruff format --check clients/python/src clients/python/tests scripts/check-python-docs.py
+          python -m ruff check clients/python/src clients/python/tests scripts/check-python-docs.py
+          python scripts/check-python-docs.py
+          cd clients/python
+          python -m coverage run --branch -m pytest
+          python -m coverage report --fail-under=100
+          python -m coverage xml -o "coverage-py${{ matrix.python-version }}.xml"
+
+      - name: Verify installed package
+        run: |
+          python -m pip install ./clients/python
+          python -c "import sysmlv2slclient; print(sysmlv2slclient.__version__)"
+          python -c "from pathlib import Path; import sysmlv2slclient; assert Path(sysmlv2slclient.__file__).with_name('py.typed').exists()"
+          python -c "from sysmlv2slclient import SysMLV2LSClient, SysMLFile"
+          sysmlv2sl --version
+          python - <<'PY'
+          import importlib.metadata
+          dist = importlib.metadata.distribution("sysmlv2slclient")
+          requirements = "\n".join(dist.requires or [])
+          assert "requests" in requirements, requirements
+          assert "click" in requirements, requirements
+          scripts = {
+              item.name: item.value
+              for item in dist.entry_points
+              if item.group == "console_scripts"
+          }
+          assert scripts["sysmlv2sl"] == "sysmlv2slclient.cli:cli", scripts
+          PY
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: clients/python/coverage-py${{ matrix.python-version }}.xml
+          flags: python-client
+          name: python-client-py${{ matrix.python-version }}
+          fail_ci_if_error: true
+
+  live:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 9.15.4
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Build service
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+          pnpm run build:upstream
+          pnpm run build
+
+      - name: Install Python client
+        run: python -m pip install -e "clients/python[test]"
+
+      - name: Run live tests against current service
+        run: |
+          set -euo pipefail
+
+          start_service() {
+            local mode="$1"
+            local port="$2"
+            local pid_file=".service-${mode}.pid"
+            local log_file=".service-${mode}.log"
+            shift 2
+            env \
+              SERVICE_VERSION="$(cat VERSION)" \
+              SERVICE_REVISION="$(git rev-parse HEAD)" \
+              SOURCE_REPOSITORY="https://github.com/HansBug/sysmlv2-ls-service" \
+              UPSTREAM_SYSML_2LS_VERSION="$(node -p 'require("./upstream/sysml-2ls/packages/syside-languageserver/package.json").version')" \
+              UPSTREAM_SYSML_2LS_REVISION="$(git -C upstream/sysml-2ls rev-parse HEAD)" \
+              UPSTREAM_SYSML_2LS_REPOSITORY="https://github.com/sensmetry/sysml-2ls" \
+              BUILD_DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+              PORT="$port" \
+              HOST=127.0.0.1 \
+              LOGGER=false \
+              "$@" \
+              node dist/src/server.js >"$log_file" 2>&1 &
+            echo $! > "$pid_file"
+            for attempt in $(seq 1 60); do
+              if curl --noproxy '*' -fsS "http://127.0.0.1:${port}/healthz" >/dev/null; then
+                return 0
+              fi
+              sleep 1
+            done
+            cat "$log_file"
+            return 1
+          }
+
+          cleanup() {
+            for pid_file in .service-*.pid; do
+              [ -f "$pid_file" ] || continue
+              kill "$(cat "$pid_file")" >/dev/null 2>&1 || true
+            done
+          }
+          trap cleanup EXIT
+
+          start_service default 3100
+          SYSMLV2_LS_TEST_URL=http://127.0.0.1:3100 \
+          SYSMLV2_LS_EXPECTED_REVISION="$(git rev-parse HEAD)" \
+          SYSMLV2_LS_EXPECTED_LIMITS=default \
+            python -m pytest clients/python/tests/live
+
+          start_service disabled 3101 \
+            VALIDATE_MAX_FILES=0 \
+            VALIDATE_MAX_FILE_TEXT_BYTES=0 \
+            VALIDATE_MAX_TOTAL_TEXT_BYTES=0 \
+            HTTP_BODY_LIMIT_BYTES=0 \
+            VALIDATION_TIMEOUT_MS=0
+          SYSMLV2_LS_TEST_URL=http://127.0.0.1:3101 \
+          SYSMLV2_LS_EXPECTED_REVISION="$(git rev-parse HEAD)" \
+          SYSMLV2_LS_EXPECTED_LIMITS=disabled \
+            python -m pytest clients/python/tests/live
+
+      - name: Print service logs on failure
+        if: failure()
+        run: |
+          for log_file in .service-*.log; do
+            [ -f "$log_file" ] || continue
+            echo "::group::$log_file"
+            cat "$log_file"
+            echo "::endgroup::"
+          done

@@ -37,6 +37,16 @@ jobs:
       - name: Run checks
         run: pnpm run ci
 
+      - name: Upload JS service coverage to Codecov
+        if: matrix.node-version == '24'
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/lcov.info,coverage/cobertura-coverage.xml
+          flags: js-service
+          name: js-service-node24
+          fail_ci_if_error: true
+
   docker:
     runs-on: ubuntu-latest
     steps:
@@ -74,6 +84,7 @@ jobs:
           docker run -d --rm --name sysmlv2-ls-service-ci -p 3000:3000 sysmlv2-ls-service:ci
           cleanup() {
             docker stop sysmlv2-ls-service-ci >/dev/null 2>&1 || true
+            docker stop sysmlv2-ls-service-ci-disabled >/dev/null 2>&1 || true
           }
           trap cleanup EXIT
           for i in $(seq 1 30); do
@@ -108,3 +119,38 @@ jobs:
             --data '{"files":[{"uri":"memory:///bad.sysml","text":"package Demo { part def }"}],"validationChecks":"none"}' \
             | tee /tmp/invalid.json
           grep -q '"ok":false' /tmp/invalid.json
+
+          docker run -d --rm --name sysmlv2-ls-service-ci-disabled -p 3001:3000 \
+            -e VALIDATE_MAX_FILES=0 \
+            -e VALIDATE_MAX_FILE_TEXT_BYTES=0 \
+            -e VALIDATE_MAX_TOTAL_TEXT_BYTES=0 \
+            -e HTTP_BODY_LIMIT_BYTES=0 \
+            -e VALIDATION_TIMEOUT_MS=0 \
+            sysmlv2-ls-service:ci
+          for i in $(seq 1 30); do
+            if curl --noproxy '*' -fsS http://127.0.0.1:3001/healthz; then
+              break
+            fi
+            if [ "$i" = 30 ]; then
+              docker logs sysmlv2-ls-service-ci-disabled
+              exit 1
+            fi
+            sleep 1
+          done
+          curl --noproxy '*' -fsS http://127.0.0.1:3001/v1/capabilities \
+            | tee /tmp/capabilities-disabled.json
+          node -e '
+            const fs = require("node:fs");
+            const limits = JSON.parse(fs.readFileSync("/tmp/capabilities-disabled.json", "utf8")).limits;
+            const values = [
+              limits.validate.maxFiles,
+              limits.validate.maxFileTextBytes,
+              limits.validate.maxTotalTextBytes,
+              limits.validate.validationTimeoutMs,
+              limits.http.bodyLimitBytes
+            ];
+            if (!values.every((value) => value === null)) {
+              console.error("Expected disabled Docker limits to be null:", values);
+              process.exit(1);
+            }
+          '
