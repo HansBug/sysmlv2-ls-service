@@ -4,6 +4,21 @@ Generated inventory of diagnostic message patterns statically associated with up
 
 Inventory context: upstream package `0.9.1` at revision `a0b3ddbf783063dd7291aac0b51d4282decc789e`. Evidence target: TypeScript source. Compiled JS/d.ts artifacts are checked for presence after `pnpm run build:upstream`, but are not primary evidence in this first inventory version.
 
+!!! warning "Message wording"
+    Message patterns are static source evidence. Runtime diagnostics may include template interpolation or additional Langium/linking diagnostics that are not direct semantic-check literals.
+
+## Summary
+
+| Metric | Value |
+| --- | --- |
+| Rows | 118 |
+| Confidence | `low`: 87, `medium`: 31 |
+| Unique check IDs | 76 |
+
+## Complete discovered table
+
+<div class="compact-table wide-table" markdown>
+
 | Check | Message pattern | Confidence |
 | --- | --- | --- |
 | `sysml:validateAcceptActionUsageParameters` | No static message literal found by the inventory script. | low |
@@ -124,3 +139,5 @@ Inventory context: upstream package `0.9.1` at revision `a0b3ddbf783063dd7291aac
 | `sysml:validateViewpointUsageTyping` | No static message literal found by the inventory script. | low |
 | `sysml:validateViewRenderingMembershipOwningType` | The owningType of an ViewRenderingMembership must be a CaseDefinition or CaseUsage. | medium |
 | `sysml:validateViewUsageTyping` | No static message literal found by the inventory script. | low |
+
+</div>

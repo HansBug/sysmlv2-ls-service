@@ -266,9 +266,40 @@ function table(rows, columns) {
   return `${head}\n${sep}\n${body}`;
 }
 
-function writeMarkdown(path, title, intro, rows, columns) {
+function countBy(rows, key) {
+  return rows.reduce((counts, row) => {
+    const value = key(row);
+    counts[value] = (counts[value] ?? 0) + 1;
+    return counts;
+  }, {});
+}
+
+function summaryTable(entries) {
+  return table(
+    entries.map(([metric, value]) => ({ metric, value })),
+    [
+      { title: "Metric", value: (row) => row.metric },
+      { title: "Value", value: (row) => row.value },
+    ],
+  );
+}
+
+function compactSource(path) {
+  return path.split("/").slice(-1)[0];
+}
+
+function compactDecorator(value) {
+  return String(value)
+    .replaceAll("ast.", "")
+    .replace(/\s+/g, " ")
+    .replace(/\[\s*/g, "excluding ")
+    .replace(/\s*\]/g, "")
+    .trim();
+}
+
+function writeMarkdown(path, title, content) {
   mkdirSync(dirname(path), { recursive: true });
-  writeFileSync(path, `# ${title}\n\n${intro}\n\n${table(rows, columns)}\n`);
+  writeFileSync(path, `# ${title}\n\n${content.trim()}\n`);
 }
 
 ensureCompiledUpstream();
@@ -299,52 +330,132 @@ function inventoryIntro(description, currentHeader) {
 writeMarkdown(
   "docs/reference/upstream/semantic-checks.md",
   "Upstream semantic checks",
-  inventoryIntro(
+  `${inventoryIntro(
     "Generated inventory of validator methods discovered from the pinned upstream `sysml-2ls` submodule. These are structural SysML/KerML checks, not temporal model-checking results.",
     semanticHeader,
-  ),
-  checks.slice(0, 200),
+  )}
+
+!!! warning "Static evidence"
+    Rows are discovered from upstream TypeScript source. They show validator methods and decorators in the pinned submodule; they do not prove temporal model-checking capability or dynamic reachability from every service request.
+
+## Summary
+
+${summaryTable([
+  ["Rows", checks.length],
+  ["Unique check names", new Set(checks.map((row) => row.checkName)).size],
   [
-    { title: "Check", value: (row) => `\`${row.checkName}\`` },
-    { title: "Language", value: (row) => row.language },
-    {
-      title: "Decorators",
-      value: (row) => row.decorators.map((item) => `\`${item}\``).join(", "),
-    },
-    { title: "Source", value: (row) => `\`${row.sourcePath}\`` },
+    "Languages",
+    Object.entries(countBy(checks, (row) => row.language))
+      .map(([language, count]) => `\`${language}\`: ${count}`)
+      .join(", "),
   ],
+  [
+    "Source files",
+    Object.entries(countBy(checks, (row) => compactSource(row.sourcePath)))
+      .map(([source, count]) => `\`${source}\`: ${count}`)
+      .join(", "),
+  ],
+])}
+
+## Complete discovered table
+
+The table focuses on check names and decorators for readability. The summary lists compact source filenames, and the committed JSON data under \`docs/_data/upstream/semantic-checks.json\` retains full source paths and generator metadata.
+
+<div class="compact-table wide-table" markdown>
+
+${table(checks, [
+  { title: "Check", value: (row) => `\`${row.checkName}\`` },
+  { title: "Lang", value: (row) => row.language },
+  {
+    title: "Decorators",
+    value: (row) =>
+      row.decorators.map((item) => `\`${compactDecorator(item)}\``).join(", "),
+  },
+])}
+
+</div>`,
 );
 
 writeMarkdown(
   "docs/reference/upstream/diagnostics-inventory.md",
   "Upstream diagnostics inventory",
-  inventoryIntro(
+  `${inventoryIntro(
     "Generated inventory of diagnostic message patterns statically associated with upstream validation checks. Low-confidence rows mean the script found a check but no direct message literal.",
     diagnosticHeader,
-  ),
-  diagnostics.slice(0, 200),
+  )}
+
+!!! warning "Message wording"
+    Message patterns are static source evidence. Runtime diagnostics may include template interpolation or additional Langium/linking diagnostics that are not direct semantic-check literals.
+
+## Summary
+
+${summaryTable([
+  ["Rows", diagnostics.length],
   [
-    { title: "Check", value: (row) => `\`${row.checkId}\`` },
-    {
-      title: "Message pattern",
-      value: (row) => row.messagePattern,
-    },
-    { title: "Confidence", value: (row) => row.confidence },
+    "Confidence",
+    Object.entries(countBy(diagnostics, (row) => row.confidence))
+      .map(([confidence, count]) => `\`${confidence}\`: ${count}`)
+      .join(", "),
   ],
+  ["Unique check IDs", new Set(diagnostics.map((row) => row.checkId)).size],
+])}
+
+## Complete discovered table
+
+<div class="compact-table wide-table" markdown>
+
+${table(diagnostics, [
+  { title: "Check", value: (row) => `\`${row.checkId}\`` },
+  {
+    title: "Message pattern",
+    value: (row) => row.messagePattern,
+  },
+  { title: "Confidence", value: (row) => row.confidence },
+])}
+
+</div>`,
 );
 
 writeMarkdown(
   "docs/reference/upstream/grammar-surface.md",
   "Upstream grammar surface",
-  inventoryIntro(
+  `${inventoryIntro(
     "Generated inventory of top-level Langium grammar rules and type aliases from the pinned upstream submodule. The generated parser may contain additional lower-level artifacts.",
     grammarHeader,
-  ),
-  grammar.slice(0, 240),
+  )}
+
+!!! info "Reading grammar rows"
+    \`entry\` marks Langium entry rules. \`type-alias\` rows come from grammar interface files. This inventory is a surface map for documentation and investigation, not a replacement for the SysML/KerML specifications.
+
+## Summary
+
+${summaryTable([
+  ["Rows", grammar.length],
+  ["Entry rules", grammar.filter((row) => row.entry).length],
   [
-    { title: "Rule/type", value: (row) => `\`${row.ruleName}\`` },
-    { title: "Entry", value: (row) => (row.entry ? "yes" : "no") },
-    { title: "Returns", value: (row) => row.returns ?? "" },
-    { title: "Source", value: (row) => `\`${row.sourcePath}\`` },
+    "Type aliases",
+    grammar.filter((row) => row.returns === "type-alias").length,
   ],
+  [
+    "Source files",
+    Object.entries(countBy(grammar, (row) => compactSource(row.sourcePath)))
+      .map(([source, count]) => `\`${source}\`: ${count}`)
+      .join(", "),
+  ],
+])}
+
+## Complete discovered table
+
+The table uses compact source filenames for readability. The committed JSON data under \`docs/_data/upstream/grammar-surface.json\` retains full paths.
+
+<div class="compact-table wide-table" markdown>
+
+${table(grammar, [
+  { title: "Rule/type", value: (row) => `\`${row.ruleName}\`` },
+  { title: "Entry", value: (row) => (row.entry ? "yes" : "no") },
+  { title: "Returns", value: (row) => row.returns ?? "" },
+  { title: "Source", value: (row) => `\`${compactSource(row.sourcePath)}\`` },
+])}
+
+</div>`,
 );

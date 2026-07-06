@@ -4,115 +4,135 @@ Generated inventory of validator methods discovered from the pinned upstream `sy
 
 Inventory context: upstream package `0.9.1` at revision `a0b3ddbf783063dd7291aac0b51d4282decc789e`. Evidence target: TypeScript source. Compiled JS/d.ts artifacts are checked for presence after `pnpm run build:upstream`, but are not primary evidence in this first inventory version.
 
-| Check | Language | Decorators | Source |
-| --- | --- | --- | --- |
-| `validateAcceptActionUsageParameters` | sysml | `ast.AcceptActionUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateActionUsageTyping` | sysml | `ast.ActionUsage, [ast.StateUsage, ast.CalculationUsage, ast.FlowConnectionUsage]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateActorMembershipOwningType` | sysml | `ast.ActorMembership` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAllocationUsageTyping` | sysml | `ast.AllocationUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAllTypings` | sysml | `ast.AttributeUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAllTypings` | sysml | `ast.OccurrenceUsage, [ast.ItemUsage, ast.PortUsage, ast.Step]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAllTypings` | sysml | `ast.ItemUsage, [ast.PartUsage, ast.PortUsage, ast.MetadataUsage]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAllTypings` | sysml | `ast.PartUsage, [ast.ConnectionUsage]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAllTypings` | sysml | `ast.PortUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAllTypings` | sysml | `ast.ConnectionUsage, [         ast.FlowConnectionUsage,         ast.InterfaceUsage,         ast.AllocationUsage,     ]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAllTypings` | sysml | `ast.FlowConnectionUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAllTypings` | sysml | `ast.InterfaceUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAllTypings` | sysml | `ast.AllocationUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAllTypings` | sysml | `ast.ActionUsage, [ast.StateUsage, ast.CalculationUsage, ast.FlowConnectionUsage]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAllTypings` | sysml | `ast.StateUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAnalysisCaseUsageTyping` | sysml | `ast.AnalysisCaseUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAssertConstraintUsageReference` | sysml | `ast.AssertConstraintUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAssignmentActionUsageReferent` | sysml | `ast.AssignmentActionUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAssocStructSpecialization` | sysml | `ast.AssociationStructure`, `ast.Interaction` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAtLeastTyping` | sysml | `ast.PartUsage, [ast.ConnectionUsage]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateAttributeUsageTyping` | sysml | `ast.AttributeUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateCalculationUsageTyping` | sysml | `ast.CalculationUsage, [ast.CaseUsage]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateCaseDefinitionOnlyOneSubject` | sysml | `ast.CaseDefinition`, `ast.CaseUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateCaseOnlyOneObjective` | sysml | `ast.CaseDefinition`, `ast.CaseUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateCaseSubjectParameterPosition` | sysml | `ast.CaseDefinition`, `ast.CaseUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateCaseUsageTyping` | sysml | `ast.CaseUsage, [         ast.AnalysisCaseUsage,         ast.VerificationCaseUsage,         ast.UseCaseUsage,     ]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateClassSpecialization` | sysml | `ast.Class, [ast.AssociationStructure, ast.Interaction]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateConjugatedPortDefinitionOriginalPortDefinition` | sysml | `ast.ConjugatedPortDefinition` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateConnectionUsageTyping` | sysml | `ast.ConnectionUsage, [         ast.FlowConnectionUsage,         ast.InterfaceUsage,         ast.AllocationUsage,     ]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateConstraintUsageTyping` | sysml | `ast.ConstraintUsage, [ast.RequirementUsage]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateControlNodeOwningType` | sysml | `ast.ControlNode` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateDatatypeSpecialization` | sysml | `ast.DataType` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateEnumerationUsageTyping` | sysml | `ast.EnumerationUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateEventOccurrenceUsageReference` | sysml | `ast.EventOccurrenceUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateExactlyOneTyping` | sysml | `ast.EnumerationUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateExactlyOneTyping` | sysml | `ast.CalculationUsage, [ast.CaseUsage]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateExactlyOneTyping` | sysml | `ast.ConstraintUsage, [ast.RequirementUsage]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateExactlyOneTyping` | sysml | `ast.RequirementUsage, [ast.ViewpointUsage]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateExactlyOneTyping` | sysml | `ast.CaseUsage, [         ast.AnalysisCaseUsage,         ast.VerificationCaseUsage,         ast.UseCaseUsage,     ]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateExactlyOneTyping` | sysml | `ast.AnalysisCaseUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateExactlyOneTyping` | sysml | `ast.VerificationCaseUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateExactlyOneTyping` | sysml | `ast.UseCaseUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateExactlyOneTyping` | sysml | `ast.RenderingUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateExactlyOneTyping` | sysml | `ast.ViewpointUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateExactlyOneTyping` | sysml | `ast.ViewUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateExactlyOneTyping` | sysml | `ast.MetadataUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateExhibitStateUsageReference` | sysml | `ast.ExhibitStateUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateExposeNoExplicitVisibility` | sysml | `ast.Expose` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateExposeOwningNamespace` | sysml | `ast.Expose` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateFlowConnectionEnd` | sysml | `ast.FlowConnectionDefinition` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateFlowConnectionUsageTyping` | sysml | `ast.FlowConnectionUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateIncludeUseCaseUsageReference` | sysml | `ast.IncludeUseCaseUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateInterfaceEnds` | sysml | `ast.InterfaceDefinition`, `ast.InterfaceUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateInterfaceUsageTyping` | sysml | `ast.InterfaceUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateItemUsageTyping` | sysml | `ast.ItemUsage, [ast.PartUsage, ast.PortUsage, ast.MetadataUsage]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateMetadataUsageTyping` | sysml | `ast.MetadataUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateObjectiveMembershipIsComposite` | sysml | `ast.ObjectiveMembership` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateObjectiveMembershipOwningType` | sysml | `ast.ObjectiveMembership` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateOccurrenceDefinitionLifeClass` | sysml | `ast.OccurrenceDefinition` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateOccurrenceUsageIndividual` | sysml | `ast.OccurrenceUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateOccurrenceUsageTyping` | sysml | `ast.OccurrenceUsage, [ast.ItemUsage, ast.PortUsage, ast.Step]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateOperatorExpressionQuantity` | sysml | `ast.OperatorExpression, [         ast.CollectExpression,         ast.SelectExpression,         ast.FeatureChainExpression,     ]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validatePartUsageTyping` | sysml | `ast.PartUsage, [ast.ConnectionUsage]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validatePerformActionUsageReference` | sysml | `ast.PerformActionUsage, [ast.ExhibitStateUsage, ast.IncludeUseCaseUsage]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validatePortDefinitionConjugatedPortDefinition` | sysml | `ast.PortDefinition, [ast.ConjugatedPortDefinition]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validatePortOwnedUsagesNotComposite` | sysml | `ast.PortDefinition`, `ast.PortUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validatePortUsageTyping` | sysml | `ast.PortUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateRenderingUsageTyping` | sysml | `ast.RenderingUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateRequirementConstraintMembershipIsComposite` | sysml | `ast.RequirementConstraintMembership` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateRequirementMembershipOwningType` | sysml | `ast.RequirementConstraintMembership`, `ast.StakeholderMembership` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateRequirementOnlyOneSubject` | sysml | `ast.RequirementDefinition`, `ast.RequirementUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateRequirementSubjectParameterPosition` | sysml | `ast.RequirementDefinition`, `ast.RequirementUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateRequirementUsageTyping` | sysml | `ast.RequirementUsage, [ast.ViewpointUsage]` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateRequirementVerificationMembershipOwningType` | sysml | `ast.RequirementVerificationMembership` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSatisfyRequirementUsageReference` | sysml | `ast.SatisfyRequirementUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSendActionParameters` | sysml | `ast.SendActionUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSendActionReceiver` | sysml | `ast.SendActionUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateStateParallelSubactions` | sysml | `ast.SuccessionAsUsage`, `ast.TransitionUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateStateSubactionKind` | sysml | `ast.StateDefinition`, `ast.StateUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateStateSubactionMembershipOwningType` | sysml | `ast.StateSubactionMembership` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateStateUsageTyping` | sysml | `ast.StateUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSubjectMembershipOwningType` | sysml | `ast.SubjectMembership` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSysML` | sysml | `ast.Definition` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSysML` | sysml | `ast.Definition` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSysML` | sysml | `ast.PortDefinition` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSysML` | sysml | `ast.InterfaceDefinition` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSysML` | sysml | `ast.SuccessionAsUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSysML` | sysml | `ast.StateDefinition` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSysML` | sysml | `ast.RequirementConstraintMembership` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSysML` | sysml | `ast.RequirementDefinition` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSysML` | sysml | `ast.RequirementDefinition` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSysML` | sysml | `ast.CaseDefinition` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSysML` | sysml | `ast.CaseDefinition` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSysML` | sysml | `ast.CaseDefinition` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSysML` | sysml | `ast.ViewDefinition` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateSysML` | sysml | `ast.AssociationStructure` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateTransitionFeatureMembership` | sysml | `ast.TransitionFeatureMembership` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateTransitionFeatureMembershipOwningType` | sysml | `ast.TransitionFeatureMembership` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateTransitionUsageParameters` | sysml | `ast.TransitionUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateTransitionUsageSuccession` | sysml | `ast.TransitionUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateTriggerInvocationExpression` | sysml | `ast.TriggerInvocationExpression` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateUseCaseUsageTyping` | sysml | `ast.UseCaseUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateVariantMembershipOwningNamespace` | sysml | `ast.VariantMembership` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateVariationMembership` | sysml | `ast.Definition`, `ast.Usage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateVariationSpecialization` | sysml | `ast.Definition`, `ast.Usage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateVerificationCaseUsageTyping` | sysml | `ast.VerificationCaseUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateViewDefinitionOnlyOneViewRendering` | sysml | `ast.ViewDefinition`, `ast.ViewUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateViewpointUsageTyping` | sysml | `ast.ViewpointUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateViewRenderingMembershipOwningType` | sysml | `ast.ViewRenderingMembership` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
-| `validateViewUsageTyping` | sysml | `ast.ViewUsage` | `packages/syside-languageserver/src/services/validation/sysml-validator.ts` |
+!!! warning "Static evidence"
+    Rows are discovered from upstream TypeScript source. They show validator methods and decorators in the pinned submodule; they do not prove temporal model-checking capability or dynamic reachability from every service request.
+
+## Summary
+
+| Metric | Value |
+| --- | --- |
+| Rows | 110 |
+| Unique check names | 76 |
+| Languages | `sysml`: 110 |
+| Source files | `sysml-validator.ts`: 110 |
+
+## Complete discovered table
+
+The table focuses on check names and decorators for readability. The summary lists compact source filenames, and the committed JSON data under `docs/_data/upstream/semantic-checks.json` retains full source paths and generator metadata.
+
+<div class="compact-table wide-table" markdown>
+
+| Check | Lang | Decorators |
+| --- | --- | --- |
+| `validateAcceptActionUsageParameters` | sysml | `AcceptActionUsage` |
+| `validateActionUsageTyping` | sysml | `ActionUsage, excluding StateUsage, CalculationUsage, FlowConnectionUsage` |
+| `validateActorMembershipOwningType` | sysml | `ActorMembership` |
+| `validateAllocationUsageTyping` | sysml | `AllocationUsage` |
+| `validateAllTypings` | sysml | `AttributeUsage` |
+| `validateAllTypings` | sysml | `OccurrenceUsage, excluding ItemUsage, PortUsage, Step` |
+| `validateAllTypings` | sysml | `ItemUsage, excluding PartUsage, PortUsage, MetadataUsage` |
+| `validateAllTypings` | sysml | `PartUsage, excluding ConnectionUsage` |
+| `validateAllTypings` | sysml | `PortUsage` |
+| `validateAllTypings` | sysml | `ConnectionUsage, excluding FlowConnectionUsage, InterfaceUsage, AllocationUsage,` |
+| `validateAllTypings` | sysml | `FlowConnectionUsage` |
+| `validateAllTypings` | sysml | `InterfaceUsage` |
+| `validateAllTypings` | sysml | `AllocationUsage` |
+| `validateAllTypings` | sysml | `ActionUsage, excluding StateUsage, CalculationUsage, FlowConnectionUsage` |
+| `validateAllTypings` | sysml | `StateUsage` |
+| `validateAnalysisCaseUsageTyping` | sysml | `AnalysisCaseUsage` |
+| `validateAssertConstraintUsageReference` | sysml | `AssertConstraintUsage` |
+| `validateAssignmentActionUsageReferent` | sysml | `AssignmentActionUsage` |
+| `validateAssocStructSpecialization` | sysml | `AssociationStructure`, `Interaction` |
+| `validateAtLeastTyping` | sysml | `PartUsage, excluding ConnectionUsage` |
+| `validateAttributeUsageTyping` | sysml | `AttributeUsage` |
+| `validateCalculationUsageTyping` | sysml | `CalculationUsage, excluding CaseUsage` |
+| `validateCaseDefinitionOnlyOneSubject` | sysml | `CaseDefinition`, `CaseUsage` |
+| `validateCaseOnlyOneObjective` | sysml | `CaseDefinition`, `CaseUsage` |
+| `validateCaseSubjectParameterPosition` | sysml | `CaseDefinition`, `CaseUsage` |
+| `validateCaseUsageTyping` | sysml | `CaseUsage, excluding AnalysisCaseUsage, VerificationCaseUsage, UseCaseUsage,` |
+| `validateClassSpecialization` | sysml | `Class, excluding AssociationStructure, Interaction` |
+| `validateConjugatedPortDefinitionOriginalPortDefinition` | sysml | `ConjugatedPortDefinition` |
+| `validateConnectionUsageTyping` | sysml | `ConnectionUsage, excluding FlowConnectionUsage, InterfaceUsage, AllocationUsage,` |
+| `validateConstraintUsageTyping` | sysml | `ConstraintUsage, excluding RequirementUsage` |
+| `validateControlNodeOwningType` | sysml | `ControlNode` |
+| `validateDatatypeSpecialization` | sysml | `DataType` |
+| `validateEnumerationUsageTyping` | sysml | `EnumerationUsage` |
+| `validateEventOccurrenceUsageReference` | sysml | `EventOccurrenceUsage` |
+| `validateExactlyOneTyping` | sysml | `EnumerationUsage` |
+| `validateExactlyOneTyping` | sysml | `CalculationUsage, excluding CaseUsage` |
+| `validateExactlyOneTyping` | sysml | `ConstraintUsage, excluding RequirementUsage` |
+| `validateExactlyOneTyping` | sysml | `RequirementUsage, excluding ViewpointUsage` |
+| `validateExactlyOneTyping` | sysml | `CaseUsage, excluding AnalysisCaseUsage, VerificationCaseUsage, UseCaseUsage,` |
+| `validateExactlyOneTyping` | sysml | `AnalysisCaseUsage` |
+| `validateExactlyOneTyping` | sysml | `VerificationCaseUsage` |
+| `validateExactlyOneTyping` | sysml | `UseCaseUsage` |
+| `validateExactlyOneTyping` | sysml | `RenderingUsage` |
+| `validateExactlyOneTyping` | sysml | `ViewpointUsage` |
+| `validateExactlyOneTyping` | sysml | `ViewUsage` |
+| `validateExactlyOneTyping` | sysml | `MetadataUsage` |
+| `validateExhibitStateUsageReference` | sysml | `ExhibitStateUsage` |
+| `validateExposeNoExplicitVisibility` | sysml | `Expose` |
+| `validateExposeOwningNamespace` | sysml | `Expose` |
+| `validateFlowConnectionEnd` | sysml | `FlowConnectionDefinition` |
+| `validateFlowConnectionUsageTyping` | sysml | `FlowConnectionUsage` |
+| `validateIncludeUseCaseUsageReference` | sysml | `IncludeUseCaseUsage` |
+| `validateInterfaceEnds` | sysml | `InterfaceDefinition`, `InterfaceUsage` |
+| `validateInterfaceUsageTyping` | sysml | `InterfaceUsage` |
+| `validateItemUsageTyping` | sysml | `ItemUsage, excluding PartUsage, PortUsage, MetadataUsage` |
+| `validateMetadataUsageTyping` | sysml | `MetadataUsage` |
+| `validateObjectiveMembershipIsComposite` | sysml | `ObjectiveMembership` |
+| `validateObjectiveMembershipOwningType` | sysml | `ObjectiveMembership` |
+| `validateOccurrenceDefinitionLifeClass` | sysml | `OccurrenceDefinition` |
+| `validateOccurrenceUsageIndividual` | sysml | `OccurrenceUsage` |
+| `validateOccurrenceUsageTyping` | sysml | `OccurrenceUsage, excluding ItemUsage, PortUsage, Step` |
+| `validateOperatorExpressionQuantity` | sysml | `OperatorExpression, excluding CollectExpression, SelectExpression, FeatureChainExpression,` |
+| `validatePartUsageTyping` | sysml | `PartUsage, excluding ConnectionUsage` |
+| `validatePerformActionUsageReference` | sysml | `PerformActionUsage, excluding ExhibitStateUsage, IncludeUseCaseUsage` |
+| `validatePortDefinitionConjugatedPortDefinition` | sysml | `PortDefinition, excluding ConjugatedPortDefinition` |
+| `validatePortOwnedUsagesNotComposite` | sysml | `PortDefinition`, `PortUsage` |
+| `validatePortUsageTyping` | sysml | `PortUsage` |
+| `validateRenderingUsageTyping` | sysml | `RenderingUsage` |
+| `validateRequirementConstraintMembershipIsComposite` | sysml | `RequirementConstraintMembership` |
+| `validateRequirementMembershipOwningType` | sysml | `RequirementConstraintMembership`, `StakeholderMembership` |
+| `validateRequirementOnlyOneSubject` | sysml | `RequirementDefinition`, `RequirementUsage` |
+| `validateRequirementSubjectParameterPosition` | sysml | `RequirementDefinition`, `RequirementUsage` |
+| `validateRequirementUsageTyping` | sysml | `RequirementUsage, excluding ViewpointUsage` |
+| `validateRequirementVerificationMembershipOwningType` | sysml | `RequirementVerificationMembership` |
+| `validateSatisfyRequirementUsageReference` | sysml | `SatisfyRequirementUsage` |
+| `validateSendActionParameters` | sysml | `SendActionUsage` |
+| `validateSendActionReceiver` | sysml | `SendActionUsage` |
+| `validateStateParallelSubactions` | sysml | `SuccessionAsUsage`, `TransitionUsage` |
+| `validateStateSubactionKind` | sysml | `StateDefinition`, `StateUsage` |
+| `validateStateSubactionMembershipOwningType` | sysml | `StateSubactionMembership` |
+| `validateStateUsageTyping` | sysml | `StateUsage` |
+| `validateSubjectMembershipOwningType` | sysml | `SubjectMembership` |
+| `validateSysML` | sysml | `Definition` |
+| `validateSysML` | sysml | `Definition` |
+| `validateSysML` | sysml | `PortDefinition` |
+| `validateSysML` | sysml | `InterfaceDefinition` |
+| `validateSysML` | sysml | `SuccessionAsUsage` |
+| `validateSysML` | sysml | `StateDefinition` |
+| `validateSysML` | sysml | `RequirementConstraintMembership` |
+| `validateSysML` | sysml | `RequirementDefinition` |
+| `validateSysML` | sysml | `RequirementDefinition` |
+| `validateSysML` | sysml | `CaseDefinition` |
+| `validateSysML` | sysml | `CaseDefinition` |
+| `validateSysML` | sysml | `CaseDefinition` |
+| `validateSysML` | sysml | `ViewDefinition` |
+| `validateSysML` | sysml | `AssociationStructure` |
+| `validateTransitionFeatureMembership` | sysml | `TransitionFeatureMembership` |
+| `validateTransitionFeatureMembershipOwningType` | sysml | `TransitionFeatureMembership` |
+| `validateTransitionUsageParameters` | sysml | `TransitionUsage` |
+| `validateTransitionUsageSuccession` | sysml | `TransitionUsage` |
+| `validateTriggerInvocationExpression` | sysml | `TriggerInvocationExpression` |
+| `validateUseCaseUsageTyping` | sysml | `UseCaseUsage` |
+| `validateVariantMembershipOwningNamespace` | sysml | `VariantMembership` |
+| `validateVariationMembership` | sysml | `Definition`, `Usage` |
+| `validateVariationSpecialization` | sysml | `Definition`, `Usage` |
+| `validateVerificationCaseUsageTyping` | sysml | `VerificationCaseUsage` |
+| `validateViewDefinitionOnlyOneViewRendering` | sysml | `ViewDefinition`, `ViewUsage` |
+| `validateViewpointUsageTyping` | sysml | `ViewpointUsage` |
+| `validateViewRenderingMembershipOwningType` | sysml | `ViewRenderingMembership` |
+| `validateViewUsageTyping` | sysml | `ViewUsage` |
+
+</div>

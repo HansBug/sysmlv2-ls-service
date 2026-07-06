@@ -20,9 +20,17 @@ theme:
 
 markdown_extensions:
   - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
   - pymdownx.details
   - pymdownx.superfences
   - pymdownx.snippets
+
+extra_css:
+  - assets/stylesheets/site.css
 
 plugins:
   - search

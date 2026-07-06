@@ -13,22 +13,44 @@ const rows = Object.entries(spec.paths).flatMap(([path, operations]) =>
     path,
     operationId: operation.operationId ?? "",
     summary: operation.summary ?? "",
+    responses: Object.keys(operation.responses ?? {}).join(", "),
   })),
 );
 
 const endpointTable = rows
   .map(
     (row) =>
-      `| \`${row.method}\` | \`${row.path}\` | \`${row.operationId}\` | ${row.summary} |`,
+      `| \`${row.method}\` | \`${row.path}\` | \`${row.operationId}\` | ${row.summary} | ${row.responses} |`,
   )
   .join("\n");
 
-const schemas = Object.keys(spec.components.schemas)
-  .sort()
-  .map((name) => `- \`${name}\``)
+const schemas = Object.entries(spec.components.schemas)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([name, schema]) => {
+    const required = Array.isArray(schema.required)
+      ? schema.required.map((item) => `\`${item}\``).join(", ")
+      : "";
+    const propertyCount = schema.properties
+      ? Object.keys(schema.properties).length
+      : 0;
+    return `| \`${name}\` | ${schema.type ?? "object"} | ${propertyCount} | ${required || "n/a"} |`;
+  })
   .join("\n");
 
-const markdown = `# OpenAPI reference\n\nThe canonical OpenAPI document is \`${specPath}\`. This generated page summarizes the service-owned HTTP contract; run \`pnpm run openapi:check\` to lint the spec and detect drift against the implementation.\n\n## Endpoints\n\n| Method | Path | Operation | Summary |\n| --- | --- | --- | --- |\n${endpointTable}\n\n## Schemas\n\n${schemas}\n`;
+const markdown = `## Generated endpoint summary
+
+Generated from \`${specPath}\`. Regenerate this section with \`pnpm run docs:generate:openapi\` after changing the OpenAPI document.
+
+| Method | Path | Operation | Summary | Responses |
+| --- | --- | --- | --- | --- |
+${endpointTable}
+
+## Generated schema index
+
+| Schema | Type | Properties | Required fields |
+| --- | --- | --- | --- |
+${schemas}
+`;
 
 mkdirSync(dirname(outputPath), { recursive: true });
 writeFileSync(outputPath, markdown);
