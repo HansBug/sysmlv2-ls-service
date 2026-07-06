@@ -154,6 +154,15 @@ Skip semantic checks while keeping lexer/parser diagnostics:
 ```bash
 curl -sS -X POST http://127.0.0.1:3000/v1/validate \
   -H 'content-type: application/json' \
-  --data '{"validationChecks":"none","files":[{"uri":"memory:///demo.sysml","text":"package Demo { part def Vehicle; }"}]}' \
-  | jq '.meta, .diagnostics'
+  --data @- <<'JSON' | jq '.meta, .diagnostics'
+{
+  "validationChecks": "none",
+  "files": [
+    {
+      "uri": "memory:///demo.sysml",
+      "text": "package Demo { part def Vehicle; }"
+    }
+  ]
+}
+JSON
 ```

@@ -33,7 +33,7 @@ The table focuses on check names and decorators for readability. The summary lis
 | `validateAllTypings` | sysml | `ItemUsage, excluding PartUsage, PortUsage, MetadataUsage` |
 | `validateAllTypings` | sysml | `PartUsage, excluding ConnectionUsage` |
 | `validateAllTypings` | sysml | `PortUsage` |
-| `validateAllTypings` | sysml | `ConnectionUsage, excluding FlowConnectionUsage, InterfaceUsage, AllocationUsage,` |
+| `validateAllTypings` | sysml | `ConnectionUsage, excluding FlowConnectionUsage, InterfaceUsage, AllocationUsage` |
 | `validateAllTypings` | sysml | `FlowConnectionUsage` |
 | `validateAllTypings` | sysml | `InterfaceUsage` |
 | `validateAllTypings` | sysml | `AllocationUsage` |
@@ -49,10 +49,10 @@ The table focuses on check names and decorators for readability. The summary lis
 | `validateCaseDefinitionOnlyOneSubject` | sysml | `CaseDefinition`, `CaseUsage` |
 | `validateCaseOnlyOneObjective` | sysml | `CaseDefinition`, `CaseUsage` |
 | `validateCaseSubjectParameterPosition` | sysml | `CaseDefinition`, `CaseUsage` |
-| `validateCaseUsageTyping` | sysml | `CaseUsage, excluding AnalysisCaseUsage, VerificationCaseUsage, UseCaseUsage,` |
+| `validateCaseUsageTyping` | sysml | `CaseUsage, excluding AnalysisCaseUsage, VerificationCaseUsage, UseCaseUsage` |
 | `validateClassSpecialization` | sysml | `Class, excluding AssociationStructure, Interaction` |
 | `validateConjugatedPortDefinitionOriginalPortDefinition` | sysml | `ConjugatedPortDefinition` |
-| `validateConnectionUsageTyping` | sysml | `ConnectionUsage, excluding FlowConnectionUsage, InterfaceUsage, AllocationUsage,` |
+| `validateConnectionUsageTyping` | sysml | `ConnectionUsage, excluding FlowConnectionUsage, InterfaceUsage, AllocationUsage` |
 | `validateConstraintUsageTyping` | sysml | `ConstraintUsage, excluding RequirementUsage` |
 | `validateControlNodeOwningType` | sysml | `ControlNode` |
 | `validateDatatypeSpecialization` | sysml | `DataType` |
@@ -62,7 +62,7 @@ The table focuses on check names and decorators for readability. The summary lis
 | `validateExactlyOneTyping` | sysml | `CalculationUsage, excluding CaseUsage` |
 | `validateExactlyOneTyping` | sysml | `ConstraintUsage, excluding RequirementUsage` |
 | `validateExactlyOneTyping` | sysml | `RequirementUsage, excluding ViewpointUsage` |
-| `validateExactlyOneTyping` | sysml | `CaseUsage, excluding AnalysisCaseUsage, VerificationCaseUsage, UseCaseUsage,` |
+| `validateExactlyOneTyping` | sysml | `CaseUsage, excluding AnalysisCaseUsage, VerificationCaseUsage, UseCaseUsage` |
 | `validateExactlyOneTyping` | sysml | `AnalysisCaseUsage` |
 | `validateExactlyOneTyping` | sysml | `VerificationCaseUsage` |
 | `validateExactlyOneTyping` | sysml | `UseCaseUsage` |
@@ -85,7 +85,7 @@ The table focuses on check names and decorators for readability. The summary lis
 | `validateOccurrenceDefinitionLifeClass` | sysml | `OccurrenceDefinition` |
 | `validateOccurrenceUsageIndividual` | sysml | `OccurrenceUsage` |
 | `validateOccurrenceUsageTyping` | sysml | `OccurrenceUsage, excluding ItemUsage, PortUsage, Step` |
-| `validateOperatorExpressionQuantity` | sysml | `OperatorExpression, excluding CollectExpression, SelectExpression, FeatureChainExpression,` |
+| `validateOperatorExpressionQuantity` | sysml | `OperatorExpression, excluding CollectExpression, SelectExpression, FeatureChainExpression` |
 | `validatePartUsageTyping` | sysml | `PartUsage, excluding ConnectionUsage` |
 | `validatePerformActionUsageReference` | sysml | `PerformActionUsage, excluding ExhibitStateUsage, IncludeUseCaseUsage` |
 | `validatePortDefinitionConjugatedPortDefinition` | sysml | `PortDefinition, excluding ConjugatedPortDefinition` |

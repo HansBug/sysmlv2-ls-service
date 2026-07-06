@@ -294,6 +294,7 @@ function compactDecorator(value) {
     .replace(/\s+/g, " ")
     .replace(/\[\s*/g, "excluding ")
     .replace(/\s*\]/g, "")
+    .replace(/,\s*$/u, "")
     .trim();
 }
 

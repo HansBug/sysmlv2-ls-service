@@ -68,7 +68,8 @@ docker run --rm -p 3000:3000 \
 | `validationTimeoutMs` | Around adapter validation promise.  | HTTP `503 validation_timeout` |
 
 !!! warning "Operational resource controls still matter"
-Setting a service-owned limit to `0`, `none`, or `unlimited` disables only that guard. It does not make the Node.js process, the upstream validator, container memory, CPU, reverse proxies, or the operating system unbounded.
+
+    Setting a service-owned limit to `0`, `none`, or `unlimited` disables only that guard. It does not make the Node.js process, the upstream validator, container memory, CPU, reverse proxies, or the operating system unbounded.
 
 ## Client-side limit preflight
 

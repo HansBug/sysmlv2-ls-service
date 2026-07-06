@@ -26,11 +26,14 @@ docker run --rm -p 3000:3000 sysmlv2-ls-service:local
 For release-equivalent provenance metadata, stamp the image with build args:
 
 ```bash
+UPSTREAM_SYSML_2LS_VERSION="$(
+  node -p 'require("./upstream/sysml-2ls/packages/syside-languageserver/package.json").version'
+)"
 docker build -t sysmlv2-ls-service:local \
   --build-arg SERVICE_VERSION="$(cat VERSION)" \
   --build-arg SERVICE_REVISION="$(git rev-parse HEAD)" \
   --build-arg SOURCE_REPOSITORY=https://github.com/HansBug/sysmlv2-ls-service \
-  --build-arg UPSTREAM_SYSML_2LS_VERSION="$(node -p 'require("./upstream/sysml-2ls/packages/syside-languageserver/package.json").version')" \
+  --build-arg UPSTREAM_SYSML_2LS_VERSION="$UPSTREAM_SYSML_2LS_VERSION" \
   --build-arg UPSTREAM_SYSML_2LS_REVISION="$(git -C upstream/sysml-2ls rev-parse HEAD)" \
   --build-arg UPSTREAM_SYSML_2LS_REPOSITORY=https://github.com/sensmetry/sysml-2ls \
   --build-arg BUILD_DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
@@ -75,7 +78,8 @@ docker run --rm -p 3000:3000 \
 ```
 
 !!! warning "Disabling limits is not infinite capacity"
-A disabled service limit is reported as JSON `null` from `/v1/capabilities`, but Node.js, Fastify/Node parsers, container memory, the upstream validator, and the operating system still impose real limits. Disable guards only for trusted workloads with external resource controls.
+
+    A disabled service limit is reported as JSON `null` from `/v1/capabilities`, but Node.js, Fastify/Node parsers, container memory, the upstream validator, and the operating system still impose real limits. Disable guards only for trusted workloads with external resource controls.
 
 ## Port and process notes
 

@@ -5,25 +5,42 @@
 This site is versioned on Read the Docs. It covers this repository's service code, public HTTP contract, Docker behavior, Python client, CLI, generated TypeScript/Python references, and upstream-derived inventories. It deliberately does **not** publish the upstream `sysml-2ls` source tree.
 
 !!! warning "Scope"
-The service is a language-validation scaffold, not a formal model checker. State-machine diagnostics surfaced by upstream `sysml-2ls` are structural SysML checks; they do not prove temporal properties such as reachability, liveness, or deadlock freedom.
+
+    The service is a language-validation scaffold, not a formal model checker. State-machine diagnostics surfaced by upstream `sysml-2ls` are structural SysML checks; they do not prove temporal properties such as reachability, liveness, or deadlock freedom.
 
 <div class="doc-card-grid" markdown>
+
+<div markdown>
 
 ### New service user
 
 Start with the [Quickstart](getting-started/quickstart.md), then use the [HTTP API](service/http-api.md) page for endpoint shapes and error behavior.
 
+</div>
+
+<div markdown>
+
 ### Docker operator
 
 Use the [Docker guide](getting-started/docker.md) for published images, local image builds, smoke checks, and environment-variable limits.
+
+</div>
+
+<div markdown>
 
 ### Python caller
 
 Install `sysmlv2slclient` from [Python install](clients/python/install.md), then choose the [class client API](clients/python/client-api.md) or [CLI](clients/python/cli.md).
 
+</div>
+
+<div markdown>
+
 ### Repository maintainer
 
 Read [Local development](getting-started/local-dev.md), [Architecture](architecture/adapter-boundary.md), and [ADR 0001](adr/0001-docs-system.md) before changing contracts or docs generation.
+
+</div>
 
 </div>
 

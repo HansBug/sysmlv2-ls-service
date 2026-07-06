@@ -1,7 +1,8 @@
 # Upstream limitations
 
 !!! info "Inventory context"
-This page is checked against upstream `sysml-2ls` package `0.9.1` at revision `a0b3ddbf783063dd7291aac0b51d4282decc789e`.
+
+    This page is checked against upstream `sysml-2ls` package `0.9.1` at revision `a0b3ddbf783063dd7291aac0b51d4282decc789e`.
 
 The upstream core provides syntax, linking, and semantic validation through Langium/Chevrotain. It is not a temporal model checker, and this service does not add formal verification on top of it.
 

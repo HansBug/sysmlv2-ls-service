@@ -38,7 +38,8 @@ sysmlv2sl -h
 | Tests           | `pytest`, `coverage`, and `ruff` are available through the `test` extra. |
 
 !!! warning "Python 3.7 dependency risk"
-Python 3.7 can force dependency resolution to older `requests` lines because newer `requests` releases require newer Python versions. The repository documents this compatibility tradeoff; callers who force old dependency versions accept the associated security and maintenance risk.
+
+    Python 3.7 can force dependency resolution to older `requests` lines because newer `requests` releases require newer Python versions. The repository documents this compatibility tradeoff; callers who force old dependency versions accept the associated security and maintenance risk.
 
 ## Development checks
 
