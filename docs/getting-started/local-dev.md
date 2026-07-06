@@ -61,7 +61,7 @@ Install docs dependencies and the Python client before generating the site:
 
 ```bash
 python -m pip install -r docs/requirements.txt
-python -m pip install -e clients/python
+python -m pip install --no-build-isolation -e clients/python
 pnpm run docs:check:base
 pnpm run docs:check:full
 ```

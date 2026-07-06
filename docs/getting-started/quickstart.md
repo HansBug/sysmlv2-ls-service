@@ -13,7 +13,21 @@ pnpm run build:upstream
 
 `build:upstream` generates and builds the pinned `sysml-2ls` packages used by the adapter. If upstream artifacts are missing, the service and upstream inventory generation cannot run reliably.
 
-## 2. Run the service checks
+## 2. Install documentation/client helpers
+
+The service checks themselves are Node-based, but the full documentation gate
+also regenerates Python CLI help and builds the MkDocs site. Install those
+Python-side helpers before running `docs:check` in a clean checkout:
+
+```bash
+python -m pip install -r docs/requirements.txt
+python -m pip install --no-build-isolation -e clients/python
+```
+
+Use `clients/python[test]` instead of `clients/python` when you also want to run
+the Python client unit tests locally.
+
+## 3. Run the service checks
 
 ```bash
 pnpm run version:check
@@ -25,7 +39,7 @@ pnpm run audit
 
 `pnpm run ci` includes version consistency, TypeScript type checking, ESLint, JSDoc/TSDoc checks, coverage, build, and a service smoke start. `docs:check` is the full documentation gate and can take longer because it regenerates upstream inventory.
 
-## 3. Start the development server
+## 4. Start the development server
 
 ```bash
 pnpm run dev
@@ -33,7 +47,7 @@ pnpm run dev
 
 The default service root is `http://127.0.0.1:3000`. Keep this terminal open for the curl and Python examples below.
 
-## 4. Validate one in-memory SysML file
+## 5. Validate one in-memory SysML file
 
 ```bash
 curl -sS -X POST http://127.0.0.1:3000/v1/validate \
@@ -67,7 +81,7 @@ Expected shape:
 
 `elapsedMs` varies by machine. Any `diagnostics` entry with severity `error`, or any lexer/parser error, makes `ok` false.
 
-## 5. Exercise multi-file behavior
+## 6. Exercise multi-file behavior
 
 The service resolves imports only among files submitted in the same request. This example sends two memory documents as one request-local workspace:
 
@@ -92,7 +106,7 @@ JSON
 
 Submit the same second file without `library.sysml` and it should produce a `linking-error` for the missing import or type.
 
-## 6. Use the Python client and CLI
+## 7. Use the Python client and CLI
 
 ```bash
 python -m pip install -e "clients/python[test]"

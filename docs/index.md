@@ -55,6 +55,6 @@ corepack enable
 pnpm install --frozen-lockfile
 pnpm run build:upstream
 python -m pip install -r docs/requirements.txt
-python -m pip install -e clients/python
+python -m pip install --no-build-isolation -e clients/python
 pnpm run docs:check:full
 ```
