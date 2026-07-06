@@ -7,10 +7,13 @@
  */
 
 import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
+const scriptDirectory = dirname(fileURLToPath(import.meta.url));
+const repositoryRoot = resolve(scriptDirectory, "..", "..");
 const htmlPath = join(
-  process.cwd(),
+  repositoryRoot,
   "site",
   "reference",
   "python",
@@ -29,6 +32,13 @@ const forbiddenMarkers = [
   ":mod:",
   ":meth:",
   ":attr:",
+  ":exc:",
+  ":data:",
+  ":obj:",
+  ":ref:",
+  ":doc:",
+  ":term:",
+  ":py:",
   "Example::",
   "+----------------",
   "Module roadmap",
@@ -38,7 +48,7 @@ const requiredMarkers = [
   '<span class="doc-section-title">Parameters',
   '<span class="doc-section-title">Returns',
   '<span class="doc-section-title">Raises',
-  "sysmlv2slclient.client.SysMLV2LSClient",
+  "SysMLV2LSClient",
   "collect_directory_files",
 ];
 

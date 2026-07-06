@@ -27,7 +27,7 @@ docs build is broken.
 
 ## Client class
 
-::: sysmlv2slclient.client.SysMLV2LSClient
+::: sysmlv2slclient.SysMLV2LSClient
 
 ### Client examples
 

@@ -11,7 +11,40 @@ from typing import Any, Dict
 
 
 _SPHINX_ROLE_RE = re.compile(
-    r":(?:class|func|meth|mod|attr|exc|data|obj):<code>(?P<target>[^<]+)</code>"
+    r":(?:py:)?(?:class|func|meth|mod|attr|exc|data|obj|ref|doc|term):"
+    r"<code>(?P<target>[^<]+)</code>"
+)
+
+_PYTHON_REFERENCE_PATH = "reference/python/index.md"
+_PYTHON_REFERENCE_HTML = Path("reference") / "python" / "index.html"
+_FORBIDDEN_PYTHON_REFERENCE_MARKERS = (
+    ":param",
+    ":type",
+    ":return",
+    ":rtype",
+    ":raises",
+    ":class:",
+    ":func:",
+    ":mod:",
+    ":meth:",
+    ":attr:",
+    ":exc:",
+    ":data:",
+    ":obj:",
+    ":ref:",
+    ":doc:",
+    ":term:",
+    ":py:",
+    "Example::",
+    "+----------------",
+    "Module roadmap",
+)
+_REQUIRED_PYTHON_REFERENCE_MARKERS = (
+    '<span class="doc-section-title">Parameters',
+    '<span class="doc-section-title">Returns',
+    '<span class="doc-section-title">Raises',
+    "SysMLV2LSClient",
+    "collect_directory_files",
 )
 
 
@@ -73,6 +106,28 @@ def _normalize_python_reference_rest(content: str) -> str:
 def on_page_content(html: str, page: Any, config: Dict[str, Any], files: Any) -> str:
     """Post-process generated Python API HTML so Sphinx/reST docstrings render cleanly."""
 
-    if getattr(page, "url", "") == "reference/python/":
+    if getattr(getattr(page, "file", None), "src_path", "") == _PYTHON_REFERENCE_PATH:
         return _normalize_python_reference_rest(html)
     return html
+
+
+def _assert_python_reference_rendered(site_dir: Path) -> None:
+    """Fail the build if the final Python reference leaks raw reST markers."""
+
+    html_path = site_dir / _PYTHON_REFERENCE_HTML
+    content = html_path.read_text(encoding="utf-8")
+    leaked = [marker for marker in _FORBIDDEN_PYTHON_REFERENCE_MARKERS if marker in content]
+    missing = [marker for marker in _REQUIRED_PYTHON_REFERENCE_MARKERS if marker not in content]
+    if leaked or missing:
+        details = []
+        if leaked:
+            details.append("leaked raw reST markers: " + ", ".join(leaked))
+        if missing:
+            details.append("missing rendered API markers: " + ", ".join(missing))
+        raise RuntimeError("Python reference rendering check failed: " + "; ".join(details))
+
+
+def on_post_build(config: Dict[str, Any]) -> None:
+    """Run RTD-compatible final HTML checks after MkDocs writes the site."""
+
+    _assert_python_reference_rendered(Path(config["site_dir"]))

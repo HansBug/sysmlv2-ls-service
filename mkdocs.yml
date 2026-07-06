@@ -5,6 +5,7 @@ repo_name: HansBug/sysmlv2-ls-service
 strict: true
 docs_dir: docs
 site_dir: site
+use_directory_urls: true
 
 exclude_docs: |
   _data/**
@@ -44,7 +45,7 @@ plugins:
             members_order: source
             show_source: false
             show_root_heading: true
-            show_root_full_path: true
+            show_root_full_path: false
             show_signature_annotations: true
             filters:
               - "!^_"
