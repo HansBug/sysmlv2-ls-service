@@ -39,8 +39,9 @@
     "docs:generated:check:base": "node scripts/docs/check-generated-docs.mjs --scope base",
     "docs:generated:check:full": "node scripts/docs/check-generated-docs.mjs --scope full",
     "docs:secrets:check": "node scripts/docs/check-secrets.mjs",
-    "docs:check:base": "pnpm run openapi:check && pnpm run docs:generate:base && pnpm run docs:generated:check:base && pnpm run docs:secrets:check && pnpm run docs:build",
-    "docs:check:full": "pnpm run openapi:check && pnpm run docs:generate:full && pnpm run docs:generated:check:full && pnpm run docs:secrets:check && pnpm run docs:build"
+    "docs:check:base": "pnpm run openapi:check && pnpm run docs:generate:base && pnpm run docs:generated:check:base && pnpm run docs:secrets:check && pnpm run docs:build && pnpm run docs:python-reference:check",
+    "docs:check:full": "pnpm run openapi:check && pnpm run docs:generate:full && pnpm run docs:generated:check:full && pnpm run docs:secrets:check && pnpm run docs:build && pnpm run docs:python-reference:check",
+    "docs:python-reference:check": "node scripts/docs/check-python-reference-rendering.mjs"
   },
   "dependencies": {
     "@fastify/cors": "^11.2.0",

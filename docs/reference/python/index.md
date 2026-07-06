@@ -1,6 +1,10 @@
 # Python reference
 
-This page is a browser-friendly reference for the installable `sysmlv2slclient` package. The source package still carries full reStructuredText docstrings and those docstrings are checked by `python scripts/check-python-docs.py`; this page keeps the rendered site compact and readable.
+This page renders the installable `sysmlv2slclient` package directly from the
+client source docstrings. The Python client intentionally uses Sphinx/reStructuredText
+field lists, so the MkDocs build config enables the `mkdocstrings` Python
+handler's `sphinx` parser. If this page ever shows raw field-list markers, the
+docs build is broken.
 
 ## Package roadmap
 
@@ -21,40 +25,9 @@ This page is a browser-friendly reference for the installable `sysmlv2slclient` 
 | `sysmlv2slclient.__version__`             | Python client package version.                      |
 | `sysmlv2slclient.__service_api_version__` | Service API version targeted by the client package. |
 
-## `SysMLV2LSClient`
+## Client class
 
-```python
-SysMLV2LSClient(
-    base_url,
-    timeout=30.0,
-    user_agent=None,
-    session=None,
-    enforce_client_limits=True,
-    limits="auto",
-)
-```
-
-| Constructor argument    | Type                                   | Description                                                                                                                 |
-| ----------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `base_url`              | `str`                                  | Service root URL with scheme and host. Query strings and fragments are rejected. Reverse-proxy path prefixes are preserved. |
-| `timeout`               | `float`                                | HTTP timeout passed to `requests`.                                                                                          |
-| `user_agent`            | `str or None`                          | Optional User-Agent. Defaults to `sysmlv2slclient/<version>`.                                                               |
-| `session`               | `requests.Session or None`             | Optional session-compatible object for pooling or tests.                                                                    |
-| `enforce_client_limits` | `bool`                                 | Enables client-side preflight against known service limits.                                                                 |
-| `limits`                | `"auto", None, ServiceLimits, or dict` | `"auto"` fetches `/v1/capabilities`; `None` skips known client-side limit checks.                                           |
-
-### Endpoint methods
-
-| Method                 | Signature                                                                                                                                                                                                                                      | Return type            | Notes                                                               |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------- |
-| `health`               | `health()`                                                                                                                                                                                                                                     | `HealthResponse`       | Calls `GET /healthz`.                                               |
-| `capabilities`         | `capabilities()`                                                                                                                                                                                                                               | `CapabilitiesResponse` | Calls `GET /v1/capabilities` and refreshes cached automatic limits. |
-| `refresh_capabilities` | `refresh_capabilities()`                                                                                                                                                                                                                       | `CapabilitiesResponse` | Explicit alias for refreshing capabilities.                         |
-| `version`              | `version()`                                                                                                                                                                                                                                    | `VersionResponse`      | Calls `GET /v1/version`.                                            |
-| `validate`             | `validate(files, standard_library="none", validation_checks="all")`                                                                                                                                                                            | `ValidateResult`       | Low-level validation from `SysMLFile` objects or equivalent dicts.  |
-| `validate_files`       | `validate_files(files, standard_library="none", validation_checks="all")`                                                                                                                                                                      | `ValidateResult`       | Readable alias for explicit multi-file DTOs.                        |
-| `validate_text`        | `validate_text(text, uri=None, path=None, language=None, standard_library="none", validation_checks="all")`                                                                                                                                    | `ValidateResult`       | Single in-memory text document.                                     |
-| `validate_directory`   | `validate_directory(path, include=("**/*.sysml",), exclude=None, uri_scheme="memory", relative_uris=True, language=None, encoding="utf-8", encoding_errors="strict", follow_symlinks=False, standard_library="none", validation_checks="all")` | `ValidateResult`       | Collects files under a root and validates them together.            |
+::: sysmlv2slclient.client.SysMLV2LSClient
 
 ### Client examples
 
@@ -85,7 +58,11 @@ workspace = client.validate_directory(
 )
 ```
 
-## Request model
+## Request and response DTOs
+
+DTO details stay hand-written so the reference remains compact while the core
+client and helper APIs above and below are rendered from Sphinx/reStructuredText
+docstrings.
 
 ### `SysMLFile`
 
@@ -106,8 +83,6 @@ Methods:
 | --------------------------- | ---------------------------------------------------------- |
 | `SysMLFile.from_dict(data)` | Parse a request file DTO from a dictionary.                |
 | `to_dict()`                 | Convert to the JSON shape accepted by `POST /v1/validate`. |
-
-## Validation response model
 
 ### `ValidateResult`
 
@@ -150,7 +125,7 @@ Methods:
 
 All DTO classes provide `from_dict(...)` and `to_dict()` helpers where relevant.
 
-## Metadata response models
+### Metadata response models
 
 | Class                  | Fields                                                                                     | Endpoint                     |
 | ---------------------- | ------------------------------------------------------------------------------------------ | ---------------------------- |
@@ -168,43 +143,22 @@ All DTO classes provide `from_dict(...)` and `to_dict()` helpers where relevant.
 
 ## Directory helper
 
-```python
-collect_directory_files(
-    path,
-    include=("**/*.sysml",),
-    exclude=None,
-    uri_scheme="memory",
-    relative_uris=True,
-    language=None,
-    encoding="utf-8",
-    encoding_errors="strict",
-    follow_symlinks=False,
-)
-```
+::: sysmlv2slclient.directory.collect_directory_files
 
-| Option                         | Behavior                                                                          |
-| ------------------------------ | --------------------------------------------------------------------------------- |
-| `path`                         | Directory root. All collected files must remain inside this root.                 |
-| `include`                      | Relative glob pattern(s) or callable. Default includes recursive `.sysml` files.  |
-| `exclude`                      | Relative glob pattern(s) or callable to skip files.                               |
-| `uri_scheme`                   | `"memory"` for generated `memory:///` URIs or `"file"` for absolute file paths.   |
-| `relative_uris`                | In memory mode, use root-relative URIs when true.                                 |
-| `language`                     | Optional explicit language for all collected files.                               |
-| `encoding` / `encoding_errors` | File decoding controls.                                                           |
-| `follow_symlinks`              | Follow only symlinks that remain inside the root; loops and escapes are rejected. |
+## Exceptions
 
-## Exception hierarchy
-
-| Exception                   | Meaning                                                                                                        |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `SysMLClientError`          | Base class for SDK failures.                                                                                   |
-| `SysMLConnectionError`      | Network, DNS, timeout, refused connection, or transport error from `requests`.                                 |
-| `SysMLServiceError`         | HTTP error response from the service. Carries status code, error code, message, optional issues, and raw body. |
-| `SysMLResponseError`        | Response JSON or DTO shape is malformed.                                                                       |
-| `SysMLDiagnosticsError`     | Raised by `ValidateResult.raise_for_diagnostics()`.                                                            |
-| `SysMLDirectoryError`       | Directory collection, glob, symlink, or decoding failure.                                                      |
-| `SysMLValidationLimitError` | Client-side request preflight exceeded known service limits.                                                   |
+| Exception                   | Meaning                                                                                         |
+| --------------------------- | ----------------------------------------------------------------------------------------------- |
+| `SysMLClientError`          | Base class for SDK failures.                                                                    |
+| `SysMLConnectionError`      | Network, DNS, timeout, refused connection, or local transport error from `requests`.            |
+| `SysMLServiceError`         | HTTP service error with status code, stable error code, message, optional issues, and raw body. |
+| `SysMLResponseError`        | Response JSON or DTO shape is malformed.                                                        |
+| `SysMLDiagnosticsError`     | Raised by `ValidateResult.raise_for_diagnostics()` when validation is not `ok`.                 |
+| `SysMLDirectoryError`       | Directory collection, glob, symlink, URI, or decoding failure.                                  |
+| `SysMLValidationLimitError` | Client-side service-limit preflight failure.                                                    |
 
 ## CLI reference
 
-The Click CLI exposes the same main operations. See the generated [CLI reference](../../generated/cli/index.md) for current `sysmlv2sl --help` output and subcommand help.
+The Click CLI exposes the same main operations. See the generated
+[CLI reference](../../generated/cli/index.md) for current `sysmlv2sl --help`
+output and subcommand help.

@@ -40,8 +40,11 @@ plugins:
           paths:
             - clients/python/src
           options:
+            docstring_style: sphinx
+            members_order: source
             show_source: false
             show_root_heading: true
+            show_root_full_path: true
             show_signature_annotations: true
             filters:
               - "!^_"

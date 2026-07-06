@@ -14,6 +14,12 @@
   overflow-wrap: anywhere;
 }
 
+.md-typeset .doc-contents table td:first-child code {
+  overflow-wrap: normal;
+  white-space: nowrap;
+  word-break: normal;
+}
+
 .md-typeset .compact-table table {
   font-size: 0.72rem;
 }
