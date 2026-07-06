@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "docs-version-stamp/v1",
+  "service": {
+    "name": "sysmlv2-ls-service",
+    "version": "0.1.0",
+    "sourceRepository": "https://github.com/HansBug/sysmlv2-ls-service"
+  },
+  "repository": {
+    "revision": "resolved-at-build-time",
+    "sourceDate": "resolved-at-build-time",
+    "metadataPolicy": "Committed docs keep deterministic placeholders; scripts/docs/mkdocs_hooks/version_stamp.py resolves the actual repository revision and source date when MkDocs builds the site."
+  },
+  "upstream": {
+    "sysml2ls": {
+      "packageName": "syside-languageserver",
+      "version": "0.9.1",
+      "revision": "a0b3ddbf783063dd7291aac0b51d4282decc789e",
+      "repository": "https://github.com/sensmetry/sysml-2ls"
+    }
+  },
+  "toolchain": {
+    "generatedBy": "scripts/docs/generate-version-stamp.mjs",
+    "authoritativeGenerator": "GitHub Actions docs job",
+    "requiredNodeVersion": "20.19",
+    "requiredPnpmVersion": "9.15.4",
+    "requiredPythonVersion": "3.12",
+    "runtimePolicy": "GitHub Actions generates Node-derived docs with the pinned toolchain; Read the Docs builds MkDocs from committed artifacts.",
+    "rtdBehavior": "Read the Docs consumes committed generated artifacts only."
+  }
+}

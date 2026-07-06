@@ -37,6 +37,8 @@ other.
 .
 ├── src/                     # TypeScript API service and sysml-2ls adapter
 ├── tests/                   # Vitest unit/integration tests
+├── docs/                    # MkDocs source and generated documentation pages
+├── openapi/service.v1.yaml  # OpenAPI description with drift tests
 ├── examples/python/         # Python stdlib client example
 ├── upstream/sysml-2ls       # Git submodule pinned to upstream sysml-2ls
 ├── Dockerfile
@@ -124,6 +126,26 @@ curl -fsS http://localhost:3000/v1/version | jq
 
 The image runs as the `node` user and the build stage prunes development
 dependencies before copying runtime files.
+
+
+## Documentation Site
+
+The versioned documentation site is built with MkDocs Material and deployed on
+Read the Docs. GitHub Actions owns generated artifacts such as OpenAPI Markdown,
+TypeDoc output, CLI help, and upstream-derived inventory; Read the Docs consumes
+committed artifacts and runs MkDocs only.
+
+Local documentation checks:
+
+```bash
+python -m pip install -r docs/requirements.txt
+python -m pip install -e clients/python
+pnpm run build:upstream
+pnpm run docs:check:full
+```
+
+`pnpm run comments:check` is the JS/TS JSDoc/TSDoc checker. `pnpm run
+docs:check` is the full documentation-site gate.
 
 ## Version Metadata
 

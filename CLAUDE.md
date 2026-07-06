@@ -62,7 +62,9 @@ pnpm install --frozen-lockfile
 pnpm run build:upstream
 pnpm run version:check
 pnpm run format:check
-pnpm run docs:check
+pnpm run comments:check
+pnpm run docs:check:base
+pnpm run docs:check:full
 pnpm run ci
 pnpm run audit
 pnpm run dev
@@ -115,23 +117,99 @@ JavaScript/TypeScript rules:
 - Core modules need a module-level JSDoc block explaining ownership and
   boundaries, especially contracts, routes, limits, diagnostics, URI handling,
   validator adapter, and version metadata.
-- `pnpm run docs:check` scans `src/`, `tests/`, and `scripts/`; it requires
+- `pnpm run comments:check` scans `src/`, `tests/`, and `scripts/`; it requires
   module-level JSDoc for `src/` modules, requires JSDoc before exported
   declarations in all three roots, and rejects empty `/** */` placeholder
-  comments.
+  comments. `docs:check` is reserved for the versioned documentation site gate,
+  not for comment-only checks.
 - JS/TS formatting, linting, and documentation checks use:
 
 ```bash
 pnpm run format
 pnpm run format:check
 pnpm run lint
-pnpm run docs:check
+pnpm run comments:check
 ```
 
 Before claiming a code change ready, run the appropriate language checks plus
 the normal test and audit gates. Do not weaken doc/comment check scripts to
 avoid writing documentation; update the docs or the explicit allowlist only when
 the public surface genuinely changes.
+
+## Versioned Documentation Site Discipline
+
+The repository documentation site is built with MkDocs Material and deployed on
+Read the Docs. GitHub Pages is not the primary documentation target.
+
+Documentation source boundaries:
+
+- Include service-owned `src/`, `clients/`, HTTP API, CLI, Docker, CI,
+  architecture, release workflow, and generated references.
+- Do not publish the `upstream/sysml-2ls` source tree or upstream docs tree. Only
+  publish generated, traceable upstream-derived inventory under
+  `docs/reference/upstream/` and JSON data under `docs/_data/upstream/`.
+- `scripts/docs/` owns documentation generators and checks. Keep generated
+  Markdown deterministic and committed so Read the Docs can consume it.
+
+Build ownership:
+
+- GitHub Actions `docs` job is the authoritative place for Node-derived docs
+  generation: TypeDoc, OpenAPI Markdown, CLI help, and upstream inventory. It
+  must run with Node.js 20.19, pnpm 9.15.4, and Python 3.12.
+- Documentation JavaScript tooling currently lives in the root `package.json`
+  and shares the root `pnpm-lock.yaml`, `node_modules`, CI install, and
+  `pnpm audit` scope with service devDependencies. If docs tooling begins to
+  create noisy or risky dependency churn, split it into an explicit workspace
+  package instead of silently bypassing audit.
+- Read the Docs must only install the Python docs requirements, install the
+  Python client in editable mode for mkdocstrings imports, and run MkDocs. RTD
+  must not run `pnpm install`, `pnpm run build:upstream`, TypeDoc, OpenAPI
+  generation, CLI help generation, or upstream inventory generation.
+- `.readthedocs.yaml` must keep `mkdocs.fail_on_warning: true`; `mkdocs.yml`
+  must keep strict builds enabled.
+
+Documentation commands:
+
+```bash
+python -m pip install -r docs/requirements.txt
+python -m pip install -e clients/python
+pnpm run docs:generate:base
+pnpm run docs:generate:full
+pnpm run openapi:check
+pnpm run docs:check:base
+pnpm run docs:check:full
+pnpm run docs:check
+```
+
+Gate semantics:
+
+- `comments:check` is the JS/TS JSDoc/TSDoc comment checker.
+- `docs:check:base` covers the MkDocs site, OpenAPI drift gate, generated
+  version stamp, CLI help, OpenAPI Markdown, TypeDoc Markdown, and docs secret
+  scan. It does not include upstream inventory.
+- `docs:check:full` includes everything in the base gate plus upstream-derived
+  inventory. It must run only after `pnpm run build:upstream` has produced the
+  upstream compiled artifacts.
+- `docs:check` is the final alias for `docs:check:full`.
+- `docs:secrets:check` is a self-contained regex guard scoped to documentation
+  paths. It is not a full replacement for GitHub secret scanning or gitleaks; if
+  a task requires higher-assurance secret detection, wire in gitleaks while
+  keeping the same documentation path coverage.
+- Do not fake a passing docs gate with empty scripts or unconditional skips. If
+  a public behavior or API changes, update docs, generated artifacts, and tests
+  in the same change.
+
+Read the Docs release checks:
+
+- Ensure tag builds are enabled so `v$(cat VERSION)` produces a versioned docs
+  build.
+- After publishing a release tag, wait for RTD builds and verify `/en/latest/`,
+  `/en/stable/`, and `/en/vX.Y.Z/` open and show correct service/upstream
+  version metadata.
+- Prerelease versions must not become `stable`; hide or deactivate prerelease
+  versions manually if RTD automatic versioning does not enforce this.
+- Record RTD verification evidence in the PR, issue, or release notes, never in
+  secrets-bearing repository files.
 
 ## API Contract
 
@@ -335,7 +413,9 @@ For normal code changes, run:
 
 ```bash
 pnpm run format:check
-pnpm run docs:check
+pnpm run comments:check
+pnpm run docs:check:base
+pnpm run docs:check:full
 pnpm run ci
 pnpm run audit
 ```

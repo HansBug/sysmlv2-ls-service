@@ -31,7 +31,15 @@ import { validateSysML } from "./sysml-validator.js";
 import { makeDocumentUriKey } from "./uri.js";
 import { getVersionInfo } from "./version.js";
 
-type ValidateFunction = (request: ValidateRequest) => Promise<ValidateResponse>;
+/**
+ * Validator callback used by the Fastify route and by tests or embedders.
+ *
+ * @param request - Parsed validate request DTO.
+ * @returns Validation response DTO.
+ */
+export type ValidateFunction = (
+  request: ValidateRequest,
+) => Promise<ValidateResponse>;
 
 /**
  * Application construction options.

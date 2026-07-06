@@ -1,0 +1,351 @@
+openapi: 3.1.0
+info:
+  title: sysmlv2-ls-service API
+  version: 0.1.0
+  description: HTTP API for the SysML v2 / KerML validation microservice.
+  license:
+    name: Unspecified
+security: []
+servers:
+  - url: http://127.0.0.1:3000
+paths:
+  /healthz:
+    get:
+      operationId: getHealth
+      summary: Check service liveness.
+      responses:
+        "200":
+          description: Service liveness metadata.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+  /v1/capabilities:
+    get:
+      operationId: getCapabilities
+      summary: Show supported language-service capabilities and effective limits.
+      responses:
+        "200":
+          description: Capabilities and effective service-owned limits.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CapabilitiesResponse"
+  /v1/version:
+    get:
+      operationId: getVersion
+      summary: Show service, upstream, and build version metadata.
+      responses:
+        "200":
+          description: Version metadata.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VersionResponse"
+  /v1/validate:
+    post:
+      operationId: validateSysML
+      summary: Validate one request-local SysML/KerML workspace.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ValidateRequest"
+            examples:
+              simple:
+                summary: Single SysML document.
+                value:
+                  files:
+                    - uri: memory:///demo.sysml
+                      text: package Demo { part def Vehicle; }
+      responses:
+        "200":
+          description: Validation diagnostics and per-file summaries.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidateResponse"
+        "400":
+          description: Request schema validation failure.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "413":
+          description: HTTP payload too large.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "503":
+          description: Validation timeout.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    SysMLFileInput:
+      type: object
+      additionalProperties: false
+      required:
+        - text
+      properties:
+        uri:
+          type: string
+          minLength: 1
+          description: Request-local document URI.
+        path:
+          type: string
+          minLength: 1
+          description: Request-local file path converted to a document URI.
+        language:
+          type: string
+          enum: [sysml, kerml]
+        text:
+          type: string
+    ValidateRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - files
+      properties:
+        files:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/SysMLFileInput"
+        standardLibrary:
+          type: string
+          enum: [none]
+          default: none
+        validationChecks:
+          type: string
+          enum: [all, none]
+          default: all
+    SourcePosition:
+      type: object
+      additionalProperties: false
+      required: [line, character]
+      properties:
+        line:
+          type: integer
+          minimum: 0
+        character:
+          type: integer
+          minimum: 0
+    SourceRange:
+      type: object
+      additionalProperties: false
+      required: [start, end]
+      properties:
+        start:
+          $ref: "#/components/schemas/SourcePosition"
+        end:
+          $ref: "#/components/schemas/SourcePosition"
+    ServiceDiagnostic:
+      type: object
+      additionalProperties: false
+      required: [severity, source, message, uri, range]
+      properties:
+        severity:
+          type: string
+          enum: [error, warning, information, hint]
+        source:
+          type: string
+        code:
+          oneOf:
+            - type: string
+            - type: number
+        message:
+          type: string
+        uri:
+          type: string
+        range:
+          $ref: "#/components/schemas/SourceRange"
+    FileValidationSummary:
+      type: object
+      additionalProperties: false
+      required: [uri, language, parserErrors, lexerErrors, diagnostics]
+      properties:
+        uri:
+          type: string
+        language:
+          type: string
+          enum: [sysml, kerml]
+        parserErrors:
+          type: integer
+          minimum: 0
+        lexerErrors:
+          type: integer
+          minimum: 0
+        diagnostics:
+          type: integer
+          minimum: 0
+    ValidateMeta:
+      type: object
+      additionalProperties: false
+      required: [standardLibrary, validationChecks, elapsedMs]
+      properties:
+        standardLibrary:
+          type: string
+          enum: [none]
+        validationChecks:
+          type: string
+          enum: [all, none]
+        elapsedMs:
+          type: number
+          minimum: 0
+    ValidateResponse:
+      type: object
+      additionalProperties: false
+      required: [ok, diagnostics, files, meta]
+      properties:
+        ok:
+          type: boolean
+        diagnostics:
+          type: array
+          items:
+            $ref: "#/components/schemas/ServiceDiagnostic"
+        files:
+          type: array
+          items:
+            $ref: "#/components/schemas/FileValidationSummary"
+        meta:
+          $ref: "#/components/schemas/ValidateMeta"
+    HealthResponse:
+      type: object
+      additionalProperties: false
+      required: [ok, service, version]
+      properties:
+        ok:
+          type: boolean
+          const: true
+        service:
+          type: string
+        version:
+          type: string
+    VersionResponse:
+      type: object
+      additionalProperties: false
+      required: [service, upstream, build]
+      properties:
+        service:
+          type: object
+          additionalProperties: false
+          required: [name, version, revision, sourceRepository]
+          properties:
+            name:
+              type: string
+            version:
+              type: string
+            revision:
+              type: string
+            sourceRepository:
+              type: string
+        upstream:
+          type: object
+          additionalProperties: false
+          required: [sysml2ls]
+          properties:
+            sysml2ls:
+              type: object
+              additionalProperties: false
+              required: [version, revision, packageName, repository]
+              properties:
+                version:
+                  type: string
+                revision:
+                  type: string
+                packageName:
+                  type: string
+                repository:
+                  type: string
+        build:
+          type: object
+          additionalProperties: false
+          required: [date, nodeVersion]
+          properties:
+            date:
+              type: string
+            nodeVersion:
+              type: string
+    ValidateLimits:
+      type: object
+      additionalProperties: false
+      required:
+        [maxFiles, maxFileTextBytes, maxTotalTextBytes, validationTimeoutMs]
+      properties:
+        maxFiles:
+          type: [integer, "null"]
+          minimum: 1
+        maxFileTextBytes:
+          type: [integer, "null"]
+          minimum: 1
+        maxTotalTextBytes:
+          type: [integer, "null"]
+          minimum: 1
+        validationTimeoutMs:
+          type: [integer, "null"]
+          minimum: 1
+    HttpLimits:
+      type: object
+      additionalProperties: false
+      required: [bodyLimitBytes]
+      properties:
+        bodyLimitBytes:
+          type: [integer, "null"]
+          minimum: 1
+    CapabilitiesResponse:
+      type: object
+      additionalProperties: false
+      required: [languages, validationChecks, standardLibrary, limits]
+      properties:
+        languages:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required: [id, extensions]
+            properties:
+              id:
+                type: string
+                enum: [sysml, kerml]
+              extensions:
+                type: array
+                items:
+                  type: string
+        validationChecks:
+          type: array
+          items:
+            type: string
+            enum: [all, none]
+        standardLibrary:
+          type: array
+          items:
+            type: string
+            enum: [none]
+        limits:
+          type: object
+          additionalProperties: false
+          required: [validate, http]
+          properties:
+            validate:
+              $ref: "#/components/schemas/ValidateLimits"
+            http:
+              $ref: "#/components/schemas/HttpLimits"
+    ErrorResponse:
+      type: object
+      additionalProperties: true
+      required: [error, message]
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        issues:
+          type: array
+          items:
+            type: object
+            additionalProperties: true

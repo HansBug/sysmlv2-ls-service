@@ -1,0 +1,91 @@
+site_name: sysmlv2-ls-service
+site_description: Versioned documentation for the SysML v2 language-service wrapper and clients.
+repo_url: https://github.com/HansBug/sysmlv2-ls-service
+repo_name: HansBug/sysmlv2-ls-service
+strict: true
+docs_dir: docs
+site_dir: site
+use_directory_urls: true
+
+exclude_docs: |
+  _data/**
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - navigation.tracking
+    - search.highlight
+    - search.suggest
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.snippets
+
+extra_css:
+  - assets/stylesheets/site.css
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths:
+            - clients/python/src
+          options:
+            docstring_style: sphinx
+            members_order: source
+            show_source: false
+            show_root_heading: true
+            show_root_full_path: false
+            show_signature_annotations: true
+            filters:
+              - "!^_"
+
+hooks:
+  - scripts/docs/mkdocs_hooks/version_stamp.py
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Quickstart: getting-started/quickstart.md
+      - Docker: getting-started/docker.md
+      - Local development: getting-started/local-dev.md
+  - Service:
+      - Overview: service/overview.md
+      - HTTP API: service/http-api.md
+      - Request limits: service/request-limits.md
+      - Diagnostics: service/diagnostics.md
+      - Versioning: service/versioning.md
+  - Clients:
+      - Overview: clients/index.md
+      - Python install: clients/python/install.md
+      - Python API: clients/python/client-api.md
+      - Python CLI: clients/python/cli.md
+      - Python errors: clients/python/errors.md
+      - Python examples: clients/python/examples.md
+  - Reference:
+      - OpenAPI: reference/openapi.md
+      - TypeScript: reference/typescript/index.md
+      - Python: reference/python/index.md
+      - Upstream inventory: reference/upstream/index.md
+      - Upstream diagnostics: reference/upstream/diagnostics-inventory.md
+      - Upstream semantic checks: reference/upstream/semantic-checks.md
+      - Upstream grammar surface: reference/upstream/grammar-surface.md
+      - Upstream import resolution: reference/upstream/import-resolution.md
+      - Upstream limitations: reference/upstream/limitations.md
+  - Architecture:
+      - Adapter boundary: architecture/adapter-boundary.md
+      - Request workspace: architecture/request-workspace.md
+      - DTO contracts: architecture/dto-contracts.md
+      - Request limits: architecture/request-limits.md
+  - ADR:
+      - Docs system: adr/0001-docs-system.md

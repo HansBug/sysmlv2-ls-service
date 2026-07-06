@@ -1,0 +1,7 @@
+mkdocs>=1.6,<2
+mkdocs-material>=9.5,<10
+mkdocstrings[python]>=0.25,<1
+# Keep build backends pinned because Read the Docs installs the Python client
+# with --no-build-isolation before running MkDocs.
+setuptools>=61,<68
+wheel<0.42
