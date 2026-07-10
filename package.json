@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@fastify/cors": "^11.2.0",
-    "fastify": "^5.2.0",
+    "fastify": "^5.10.0",
     "langium": "~1.2.0",
     "syside-base": "workspace:*",
     "syside-languageserver": "workspace:*",
