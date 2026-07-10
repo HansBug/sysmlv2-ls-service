@@ -32,7 +32,7 @@ jobs:
                     sysmlv2sl --version'
 
       - name: Upload Python 3.7 coverage to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: clients/python/coverage-py37.xml
@@ -89,7 +89,7 @@ jobs:
           PY
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: clients/python/coverage-py${{ matrix.python-version }}.xml
